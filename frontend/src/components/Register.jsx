@@ -3,7 +3,23 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "@fontsource/poppins/300.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/700.css";
 const Register = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -32,58 +48,66 @@ const Register = () => {
 
     return (
         <div>
-            <div className="d-flex justify-content-center align-items-center text-center vh-100" style= {{backgroundImage : "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))"}}>
-                <div className="bg-white p-3 rounded" style={{width : '40%'}}>
-                    <h2 className='mb-3 text-primary'>Register</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="exampleInputEmail1" className="form-label">
-                                <strong >Name</strong>
-                            </label>
-                            <input 
-                                type="text"
-                                placeholder="Enter Name"
-                                className="form-control" 
-                                id="exampleInputname" 
-                                onChange={(event) => setName(event.target.value)}
-                                required
-                            /> 
-                        </div>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="exampleInputEmail1" className="form-label">
-                                <strong>Email Id</strong>
-                            </label>
-                            <input 
-                                type="email" 
-                                placeholder="Enter Email"
-                                className="form-control" 
-                                id="exampleInputEmail1" 
-                                onChange={(event) => setEmail(event.target.value)}
-                                required
-                            /> 
-                        </div>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="exampleInputPassword1" className="form-label">
-                                <strong>Password</strong>
-                            </label>
-                            <input 
-                                type="password" 
-                                placeholder="Enter Password"
-                                className="form-control" 
-                                id="exampleInputPassword1" 
-                                onChange={(event) => setPassword(event.target.value)}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Register</button>
-                    </form>
-
-                    <p className='container my-2'>Already have an account ?</p>
-                    <Link to='/login' className="btn btn-secondary">Login</Link>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default Register
+      <Grid
+        container
+        component="main"
+        sx={{ height: "109vh", overflowY: 'hidden' ,fontFamily: "Poppins, sans-serif" }}
+      >
+        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              paddingTop: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
+            <Typography
+              component="h1"
+              sx={{ fontWeight: "bold", fontSize: 64, position: "relative" }}
+              variant="h5"
+            >
+              Sign Up
+              <Box
+                component="span"
+                sx={{
+                  position: "absolute",
+                  left: 0,
+                  bottom: -4,
+                  height: 6,
+                  width: "100%",
+                  background:
+                    "linear-gradient(120deg, #D52728, #33C0FF, #5733FF, #030947)",
+                  borderRadius: "5px",
+                }}
+              />
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 5 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                
