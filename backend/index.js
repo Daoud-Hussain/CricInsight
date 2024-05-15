@@ -10,23 +10,22 @@ app.use(cors());
 
 mongoose.connect('mongodb://127.0.0.1:27017/cricinsight');
 
-app.post('/register', (req, res)=>{
-    // To post / insert data into database
+app.post('/register', (req, res) => {
+    const { email, password, firstName, lastName } = req.body;
+    const name = `${firstName} ${lastName}`;
 
-    const {email, password} = req.body;
-    FormDataModel.findOne({email: email})
-    .then(user => {
-        if(user){
-            res.json("Already registered")
-        }
-        else{
-            FormDataModel.create(req.body)
-            .then(log_reg_form => res.json(log_reg_form))
-            .catch(err => res.json(err))
-        }
-    })
-    
-})
+    FormDataModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                res.json("Already registered");
+            } else {
+                FormDataModel.create({ email, password, name })
+                    .then(log_reg_form => res.json(log_reg_form))
+                    .catch(err => res.json(err));
+            }
+        });
+});
+
 
 app.post('/login', (req, res)=>{
     // To find record from the database
