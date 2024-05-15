@@ -148,7 +148,7 @@ const Login = () => {
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link
-                    href="/"
+                    href="/register"
                     variant="body2"
                     sx={{
                       textTransform: "none",
