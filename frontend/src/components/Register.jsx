@@ -1,27 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import Link from "@mui/material/Link";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "@fontsource/poppins/300.css";
-import "@fontsource/poppins/400.css";
-import "@fontsource/poppins/500.css";
-import "@fontsource/poppins/700.css";
+
 const Register = () => {
-    const [name, setName] = useState();
+    const [fname, setFirstName] = useState();
+    const [lname, setLastName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const navigate = useNavigate();
@@ -29,7 +21,7 @@ const Register = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post( 'http://localhost:3001/register', {name, email, password})
+        axios.post( 'http://localhost:3001/register', {fname, lname, email, password})
         .then(result => {
             console.log(result);
             if(result.data === "Already registered"){
@@ -100,7 +92,9 @@ const Register = () => {
                     id="firstName"
                     label="First Name"
                     autoFocus
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={(event) => {
+                        setFirstName(event.target.value);
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -110,4 +104,95 @@ const Register = () => {
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                
+                    autoComplete="family-name"
+                    onChange={(event) => {
+                        setLastName(event.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={(event) => {
+                        setEmail(event.target.value);
+                    }}                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    onChange={(event) => {
+                        setPassword(event.target.value);
+                    }}                    
+                    autoComplete="new-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="confirm-password"
+                    label="Confirm Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  background: "#030947",
+                  borderRadius: 5,
+                  textTransform: "none",
+                  fontWeight: "bold",
+                }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="center">
+                <Grid item>
+                  <Link href="/login" variant="body2" sx={{textTransform: 'none', color: '#000000',textDecoration: 'none'}}>
+                    Already have an account? <span style={{ color: '#D52728' }}>Sign in</span>
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={6}
+          sx={{
+            background: "linear-gradient(90deg, #1F1F1F, #12152E, #030947)",
+            backgroundSize: "cover",
+            paddingTop: 8,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <img src="./assets/logo.png" alt="Logo" />
+        </Grid>
+      </Grid>
+    </div>
+    )
+}
+
+export default Register

@@ -141,4 +141,15 @@ export default function Login() {
                       textDecoration: "none",
                     }}
                   >
-             
+                    Don't have an account?{" "}
+                    <span style={{ color: "#D52728" }}>Sign Up</span>
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
