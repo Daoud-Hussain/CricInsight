@@ -11,9 +11,9 @@ function App() {
     <div style={{marginTop : '-3.5rem'}}>
       <BrowserRouter >
         <Routes>
-          <Route path="/" element ={<RegisterUser/>} />
-          <Route path="/r" element ={<Register/>} />
-          <Route path="/login" element ={<LoginUser/>} />
+          <Route path="/" element ={<Register/>} />
+          <Route path="/register" element ={<Register/>} />
+          <Route path="/login" element ={<Login/>} />
           <Route path="/home" element ={<Home/>} />
         </Routes>
       </BrowserRouter>
@@ -21,4 +21,4 @@ function App() {
   )
 }
 
-export defau
+export default App

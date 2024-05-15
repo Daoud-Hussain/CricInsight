@@ -172,4 +172,5 @@ export default function Register() {
         </Grid>
       </Grid>
     </div>
-  );
+  );
+}
