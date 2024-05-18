@@ -1,7 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -10,33 +10,37 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        axios.post( 'http://localhost:3001/login', {email, password})
-        .then(result => {
-            console.log(result);
-            if(result.data === "Success"){
-                console.log("Login Success");
-                alert('Login successful!')
-                navigate('/dashboard');
-            }
-            else{
-                alert('Incorrect credentials! Please try again.');
-            }
-        })
-        .catch(err => console.log(err));
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
+    axios
+      .post("http://localhost:3001/login", { email, password })
+      .then((result) => {
+        if (result.data === "Success") {
+          toast.success("Login successfully!", {});
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 4000);
+        } else {
+          toast.error("Incorrect credentials! Please try again.");
+        }
+      })
+      .catch((err) => {
+        toast.error("An error occurred. Please try again.");
+      });
+  };
 
-    return (
-        <div>
+  return (
+    <div>
+      <ToastContainer />
       <Grid
         container
         component="main"
@@ -107,9 +111,7 @@ const Login = () => {
               onSubmit={handleSubmit}
               sx={{ mt: 5 }}
             >
-                
               <TextField
-              
                 required
                 fullWidth
                 id="email"
@@ -166,7 +168,7 @@ const Login = () => {
         </Grid>
       </Grid>
     </div>
-    )
-}
+  );
+};
 
-export default Login
+export default Login;
