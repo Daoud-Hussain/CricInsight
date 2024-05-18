@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -166,6 +166,7 @@ const Login = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
+                endIcon={<KeyboardDoubleArrowRightIcon />}
                 sx={{
                   mt: 3,
                   mb: 2,
