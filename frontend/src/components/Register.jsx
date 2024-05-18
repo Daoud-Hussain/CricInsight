@@ -15,6 +15,8 @@ import validator from "validator";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -150,7 +152,7 @@ const Register = () => {
                   left: 0,
                   bottom: -4,
                   height: 6,
-                  width: "80%",
+                  width: "100%",
                   background:
                     "linear-gradient(120deg, #D52728, #33C0FF, #5733FF, #030947)",
                   borderRadius: "5px",
@@ -284,17 +286,19 @@ const Register = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
+                endIcon={<KeyboardDoubleArrowRightIcon />}
                 sx={{
                   mt: 3,
                   mb: 2,
                   background: "#030947",
                   borderRadius: 5,
-                  textTransform: "none",
                   fontWeight: "bold",
+                  textTransform: 'none'
                 }}
               >
                 Sign Up
               </Button>
+              
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link

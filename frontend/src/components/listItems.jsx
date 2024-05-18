@@ -15,13 +15,12 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import LogoutIcon from '@mui/icons-material/Logout';
-
-
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 export const mainListItems = (
   <React.Fragment>
     <ListItemButton>
       <ListItemIcon>
-        <AddAPhotoIcon />
+        <UploadFileIcon />
       </ListItemIcon>
       <ListItemText primary="Upload Videos" />
     </ListItemButton>
