@@ -18,6 +18,7 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import getLPTheme from './getLPTheme';
+import HomeSection from './HomeSection'; // Import HomeText component
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -80,7 +81,7 @@ export default function LandingPage() {
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-      
+      <HomeSection imageSrc="./assets/home-image.png" /> {/* Add HomeText component here */}
       {/* <ToggleCustomTheme
         showCustomTheme={showCustomTheme}
         toggleCustomTheme={toggleCustomTheme}
