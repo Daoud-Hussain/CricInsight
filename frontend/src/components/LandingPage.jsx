@@ -64,14 +64,9 @@ ToggleCustomTheme.propTypes = {
 };
 
 export default function LandingPage() {
-  const [mode, setMode] = React.useState('light');
   const [showCustomTheme, setShowCustomTheme] = React.useState(false); // Changed from true to false
-  const LPtheme = createTheme(getLPTheme(mode));
-  const defaultTheme = createTheme({ palette: { mode } });
-
-  const toggleColorMode = () => {
-    setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+  const LPtheme = createTheme(getLPTheme('light'));
+  const defaultTheme = createTheme({ palette: { mode: 'light' } });
 
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
@@ -80,7 +75,7 @@ export default function LandingPage() {
   return (
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
       <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+      <AppAppBar />
       <HomeSection imageSrc="./assets/home-image.png" /> {/* Add HomeText component here */}
       {/* <ToggleCustomTheme
         showCustomTheme={showCustomTheme}

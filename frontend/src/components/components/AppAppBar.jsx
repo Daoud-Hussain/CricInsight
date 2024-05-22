@@ -61,10 +61,7 @@ function AppAppBar({ mode, toggleColorMode }) {
               justifyContent: 'space-between',
               flexShrink: 0,
               borderRadius: '999px',
-              bgcolor:
-                theme.palette.mode === 'light'
-                  ? 'rgba(255, 255, 255, 0.4)'
-                  : 'rgba(0, 0, 0, 0.4)',
+              bgcolor: 'black',
               backdropFilter: 'blur(24px)',
               maxHeight: 40,
               border: '1px solid',
@@ -75,64 +72,68 @@ function AppAppBar({ mode, toggleColorMode }) {
                   : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
             })}
           >
+            {/* <Box sx={{ flexGrow: 1 }} /> This Box pushes the nav links to the center */}
             <Box
               sx={{
-                flexGrow: 1,
                 display: 'flex',
                 alignItems: 'center',
-                ml: '-5px',
-                px: 0,
               }}
             >
               <img
                 src={
-                  '../../public/logo.png'
+                  '/logo.png'
                 }
                 style={logoStyle}
                 alt="Logo"
               />
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <MenuItem
-                  onClick={() => scrollToSection('features')}
-                  sx={{ py: '6px', px: '12px'}}
-                >
-                  <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600'}}>
-                    About
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('testimonials')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600'}}>
-                    How to Use
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('highlights')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600'}}>
-                    Services
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('pricing')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600'}}>
-                    Reviews
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('faq')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary"sx={{ fontWeight: '600'}}>
-                    Contact
-                  </Typography>
-                </MenuItem>
-              </Box>
+            </Box>
+            <Box
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                justifyContent: 'center', // Center the nav links
+                flexGrow: 1,
+              }}
+            >
+              <MenuItem
+                onClick={() => scrollToSection('features')}
+                sx={{ py: '6px', px: '12px'}}
+              >
+                <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600', color: 'white'}}>
+                  About
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => scrollToSection('testimonials')}
+                sx={{ py: '6px', px: '12px' }}
+              >
+                <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600' , color: 'white'}}>
+                  How to Use
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => scrollToSection('highlights')}
+                sx={{ py: '6px', px: '12px' }}
+              >
+                <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600' , color: 'white'}}>
+                  Services
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => scrollToSection('pricing')}
+                sx={{ py: '6px', px: '12px' }}
+              >
+                <Typography variant="body2" color="text.primary" sx={{ fontWeight: '600' , color: 'white'}}>
+                  Reviews
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => scrollToSection('faq')}
+                sx={{ py: '6px', px: '12px' }}
+              >
+                <Typography variant="body2" color="text.primary"sx={{ fontWeight: '600' , color: 'white'}}>
+                  Contact
+                </Typography>
+              </MenuItem>
             </Box>
             <Box
               sx={{
@@ -141,30 +142,16 @@ function AppAppBar({ mode, toggleColorMode }) {
                 alignItems: 'center',
               }}
             >
-              {/* <Button
-                color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                href="/material-ui/getting-started/templates/sign-in/"
-                target="_blank"
-              >
-                Sign in
-              </Button> */}
               <Button
                 color="primary"
                 variant="contained"
                 size="small"
                 component="a"
-                href="/material-ui/getting-started/templates/sign-up/"
-                target="_blank"
-                
-                sx={{ fontWeight: '600', textTransform: 'none'}}
+                href="/login"
+                sx={{ fontWeight: '600', backgroundColor: '#030947', textTransform: 'none', borderRadius: 15}}
               >
-                Sign up
+                Login
               </Button>
-              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button
@@ -191,46 +178,34 @@ function AppAppBar({ mode, toggleColorMode }) {
                       flexDirection: 'column',
                       alignItems: 'end',
                       flexGrow: 1,
+                      backgroundColor: 'black'
                     }}
                   >
-                    <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
+                    {/* <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} /> */}
                   </Box>
                   <MenuItem onClick={() => scrollToSection('features')}>
-                    Features
+                    About
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('testimonials')}>
-                    Testimonials
+                    How to Use
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('highlights')}>
-                    Highlights
+                    Services
                   </MenuItem>
                   <MenuItem onClick={() => scrollToSection('pricing')}>
-                    Pricing
+                    Reviews
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                  <MenuItem onClick={() => scrollToSection('faq')}>Contact</MenuItem>
                   <Divider />
                   <MenuItem>
                     <Button
                       color="primary"
                       variant="contained"
                       component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
-                      target="_blank"
+                      href="/login"
                       sx={{ width: '100%' }}
                     >
-                      Sign up
-                    </Button>
-                  </MenuItem>
-                  <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-in/"
-                      target="_blank"
-                      sx={{ width: '100%' }}
-                    >
-                      Sign in
+                      Login
                     </Button>
                   </MenuItem>
                 </Box>
