@@ -12,18 +12,18 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import GoogleIcon from "/google-icon.svg";
+import FacebookIcon from "/facebook-icon.svg";
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,7 +35,7 @@ const Login = () => {
           toast.success("Login successfully!", {});
           setTimeout(() => {
             navigate("/dashboard");
-          }, 4000);
+          }, 2000);
         } else {
           toast.error("Incorrect credentials! Please try again.");
         }
@@ -43,6 +43,14 @@ const Login = () => {
       .catch((err) => {
         toast.error("An error occurred. Please try again.");
       });
+  };
+
+  const handleGoogleLogin = () => {
+    // Implement Google login functionality here
+  };
+
+  const handleFacebookLogin = () => {
+    // Implement Facebook login functionality here
   };
 
   return (
@@ -116,7 +124,7 @@ const Login = () => {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 5 }}
+              sx={{ mt: 5}}
             >
               <TextField
                 required
@@ -124,51 +132,42 @@ const Login = () => {
                 id="email"
                 label="Email Address"
                 name="email"
+                focused
                 autoComplete="email"
                 onChange={(event) => setEmail(event.target.value)}
                 sx={{ my: 2 }}
               />
-              {/* <TextField
+              <TextField
                 required
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 onChange={(event) => setPassword(event.target.value)}
                 autoComplete="new-password"
-              /> */}
-
-                  <TextField
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    onChange={(event) => setPassword(event.target.value)}
-                    autoComplete="new-password"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => setShowPassword(!showPassword)}
-                            onMouseDown={(event) => event.preventDefault()}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        onMouseDown={(event) => event.preventDefault()}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 endIcon={<KeyboardDoubleArrowRightIcon />}
                 sx={{
-                  mt: 3,
+                  mt: 2,
                   mb: 2,
                   background: "#030947",
                   borderRadius: 5,
@@ -178,7 +177,7 @@ const Login = () => {
               >
                 Login
               </Button>
-              <Grid container justifyContent="center">
+              <Grid container justifyContent="space-between" sx={{mb: 2}}>
                 <Grid item>
                   <Link
                     href="/register"
@@ -187,14 +186,87 @@ const Login = () => {
                       textTransform: "none",
                       color: "#000000",
                       textDecoration: "none",
+                      ml: 4
                     }}
                   >
                     Don't have an account?{" "}
                     <span style={{ color: "#D52728" }}>Sign Up</span>
                   </Link>
                 </Grid>
+                <Grid item>
+                  <Link
+                    href="/forgot-password"
+                    variant="body2"
+                    sx={{
+                      textTransform: "none",
+                      color: "#000000",
+                      textDecoration: "none",
+                      mr: 4,
+                      fontWeight: 500
+                    }}
+                  >
+                    Forget Password?
+                  </Link>
+                </Grid>
               </Grid>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 2,
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  startIcon={
+                    <img
+                      src={GoogleIcon}
+                      alt="Google logo"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  }
+                  onClick={handleGoogleLogin}
+                  sx={{
+                    textTransform: "none",
+                    color: "rgba(0, 0, 0)",
+                    backgroundColor: "#fff",
+                    borderColor: "rgba(0, 0, 0, 0.23)",
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5",
+                      borderColor: "rgba(0, 0, 0, 0.23)",
+                    },
+                  }}
+                >
+                  Continue with Google
+                </Button>
+                <Button
+                  variant="outlined"
+                  startIcon={
+                    <img
+                      src={FacebookIcon}
+                      alt="Facebook logo"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  }
+                  onClick={handleFacebookLogin}
+                  sx={{
+                    textTransform: "none",
+                    color: "rgba(0, 0, 0)",
+                    backgroundColor: "#fff",
+                    borderColor: "rgba(0, 0, 0, 0.23)",
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5",
+                      borderColor: "rgba(0, 0, 0, 0.23)",
+                    },
+                  }}
+                >
+                  Continue with Facebook
+                </Button>
+              </Box>
+              
             </Box>
+            
+            
           </Box>
         </Grid>
       </Grid>

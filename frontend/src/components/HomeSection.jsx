@@ -20,21 +20,32 @@ function HomeSection({ imageSrc }) {
       <Box
         sx={{
           flex: 1,
-          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: { xs: "center", md: "flex-start" },
           textAlign: { xs: "center", md: "left" },
+          gap: 1,
+
         }}
       >
         <Typography
           variant="h4"
           gutterBottom
           sx={{
-            fontSize: "60px",
-            paddingLeft: 10,
+            fontSize: {
+              xs: "1.5rem",
+              sm: "60px",
+            },
+            paddingLeft: {
+              xs: 0,
+              md: 10,
+            },
             fontWeight: 100,
             color: "white",
+            margin: 0,
           }}
         >
-          Take your game to next level with{" "}
+          Take your game to the next level with{" "}
           <Box component="span" sx={{ fontWeight: "bold" }}>
             CricInsight{" "}
           </Box>
@@ -45,7 +56,11 @@ function HomeSection({ imageSrc }) {
             display: "flex",
             justifyContent: { xs: "center", md: "flex-start" },
             gap: 1,
-            paddingLeft: 10,
+            paddingTop: '10px',
+            paddingLeft: {
+              xs: 0,
+              md: 10,
+            },
           }}
         >
           <Button
@@ -53,6 +68,8 @@ function HomeSection({ imageSrc }) {
             sx={{
               backgroundColor: "#030947",
               color: "#fff",
+              textTransform: 'none', 
+              borderRadius: '25px'
             }}
           >
             Get Started
@@ -63,6 +80,9 @@ function HomeSection({ imageSrc }) {
               backgroundColor: "#000",
               color: "#fff",
               borderColor: "#030947",
+              textTransform: 'none',
+              borderRadius: '25px'
+
             }}
           >
             Contact Us
@@ -73,15 +93,10 @@ function HomeSection({ imageSrc }) {
         sx={{
           flex: 1,
           display: "flex",
-          justifyContent: { xs: "center", md: "center" },
+          justifyContent: "center",
           alignItems: "center",
           marginTop: { xs: 2, md: 0 },
-          backgroundColor: "black",
-          margin: "auto",
-          height: "100%",
 
-          // width: '80%',
-          // height: 'auto'
         }}
       >
         <img
