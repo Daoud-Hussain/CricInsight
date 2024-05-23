@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import PropTypes from "prop-types";
+import Link from "@mui/material/Link";
+
 
 function HomeSection({ imageSrc }) {
   return (
@@ -63,17 +65,19 @@ function HomeSection({ imageSrc }) {
             },
           }}
         >
+          <Link href="/login">
           <Button
             variant="contained"
             sx={{
               backgroundColor: "#030947",
               color: "#fff",
               textTransform: 'none', 
-              borderRadius: '25px'
+              borderRadius: '25px',
             }}
           >
             Get Started
           </Button>
+          </Link>
           <Button
             variant="outlined"
             sx={{

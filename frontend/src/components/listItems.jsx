@@ -24,9 +24,9 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Upload Videos" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AutoGraphIcon />
+    <ListItemButton sx={{backgroundColor: '#030947', color: 'white'}}>
+      <ListItemIcon >
+        <AutoGraphIcon  sx={{color: 'white'}}/>
       </ListItemIcon>
       <ListItemText primary="Visualization" />
     </ListItemButton>
