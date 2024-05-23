@@ -21,8 +21,7 @@ import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
 import { Link } from "@mui/material";
-
-
+import Visualization from './Visualization'; // Import the new component
 
 const drawerWidth = 240;
 
@@ -229,8 +228,12 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}></Grid>
+          <Container maxWidth="lg">
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Visualization /> {/* Add Visualization component here */}
+              </Grid>
+            </Grid>
           </Container>
         </Box>
       </Box>
