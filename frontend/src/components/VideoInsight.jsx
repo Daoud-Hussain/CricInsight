@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Box, IconButton } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -10,13 +10,13 @@ import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import ContentCutIcon from "@mui/icons-material/ContentCut";
 import AddIcon from "@mui/icons-material/Add";
-// import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const VideoInsight = () => {
   const [videoSrc, setVideoSrc] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
@@ -65,7 +65,6 @@ const VideoInsight = () => {
     }
   };
 
-  // Dummy handlers for new buttons
   const handleUndo = () => {
     console.log("Undo clicked");
   };
@@ -78,8 +77,8 @@ const VideoInsight = () => {
     console.log("Cut clicked");
   };
 
-  const handleCopy = () => {
-    console.log("Copy clicked");
+  const handleAdd = () => {
+    console.log("Add clicked");
   };
 
   const handlePaste = () => {
@@ -90,6 +89,35 @@ const VideoInsight = () => {
     console.log("Delete clicked");
   };
 
+  useEffect(() => {
+    const drawFrames = () => {
+      if (canvasRef.current && videoRef.current) {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+        const frameCount = 14;
+        const interval = videoRef.current.duration / frameCount;
+
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+
+        for (let i = 0; i < frameCount; i++) {
+          setTimeout(() => {
+            videoRef.current.currentTime = i * interval;
+            videoRef.current.onseeked = () => {
+              context.drawImage(videoRef.current, (i * canvas.width) / frameCount, 0, canvas.width / frameCount, canvas.height);
+            };
+          }, i * 200); // Adjust timeout as needed
+        }
+      }
+    };
+
+    if (videoSrc) {
+      videoRef.current.onloadedmetadata = () => {
+        drawFrames();
+      };
+    }
+  }, [videoSrc]);
+
   return (
     <Box
       display="flex"
@@ -97,7 +125,7 @@ const VideoInsight = () => {
       alignItems="center"
       justifyContent="center"
       height="100%"
-      sx={{ backgroundColor: "#f5f5f5", pAddIconing: 3 }}
+      sx={{ backgroundColor: "#f5f5f5", padding: 3 }}
     >
       <Box display="flex" justifyContent="flex-end" width="100%" mb={2}>
         <input
@@ -138,11 +166,11 @@ const VideoInsight = () => {
           <FastForwardIcon />
         </IconButton>
         <IconButton onClick={handleFullscreen}>
-          <FullscreenIcon /> 
+          <FullscreenIcon />
         </IconButton>
       </Box>
-      <Box display="flex" width= "100%" justifyContent="flex-start" borderTop={1}px solid alignItems="center" mt={2}>
-        <IconButton onClick={handleUndo}> 
+      <Box display="flex" justifyContent="flex-start" borderTop={1}px solid width="100%" alignItems="center" mt={2}>
+        <IconButton onClick={handleUndo}>
           <UndoIcon />
         </IconButton>
         <IconButton onClick={handleRedo}>
@@ -151,12 +179,16 @@ const VideoInsight = () => {
         <IconButton onClick={handleCut}>
           <ContentCutIcon />
         </IconButton>
-        <IconButton onClick={handlePaste}>
+        <IconButton onClick={handleAdd}>
           <AddIcon />
         </IconButton>
+        
         <IconButton onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
+      </Box>
+      <Box display="flex" justifyContent="center" alignItems="center" mt={2} width="100%">
+        <canvas ref={canvasRef} style={{ width: "100%", height: "100px", border: "1px solid #ccc" }} />
       </Box>
     </Box>
   );
