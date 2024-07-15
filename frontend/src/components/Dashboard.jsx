@@ -195,7 +195,7 @@ export default function Dashboard() {
                 margin: "0 auto",
               }}
               alt="Logo"
-              src="./public/logo.png"
+              src="./logo.png"
             />
             <Typography
               component="h1"
