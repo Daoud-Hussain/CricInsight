@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Box, IconButton, Typography } from "@mui/material";
-import { useDropzone } from "react-dropzone";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -12,6 +11,7 @@ import RedoIcon from "@mui/icons-material/Redo";
 import ContentCutIcon from "@mui/icons-material/ContentCut";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDropzone } from "react-dropzone";
 
 const VideoInsight = () => {
   const [videoSrc, setVideoSrc] = useState("");
@@ -21,18 +21,21 @@ const VideoInsight = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
+  const handleVideoUpload = (file) => {
     if (file) {
       const url = URL.createObjectURL(file);
       setVideoSrc(url);
       setIsPlaying(false); // Reset playing state when a new video is uploaded
     }
-  }, []);
+  };
+
+  const onDrop = (acceptedFiles) => {
+    handleVideoUpload(acceptedFiles[0]);
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
     accept: "video/*",
+    onDrop,
   });
 
   const handlePlayPause = () => {
@@ -77,19 +80,19 @@ const VideoInsight = () => {
     console.log("Undo clicked");
   };
 
-  const handleRedo = () => {
+  const handleRedo = () => () => {
     console.log("Redo clicked");
   };
 
-  const handleCut = () => {
+  const handleCut = () => () => {
     console.log("Cut clicked");
   };
 
-  const handleAdd = () => {
+  const handleAdd = () => () => {
     console.log("Add clicked");
   };
 
-  const handleDelete = () => {
+  const handleDelete = () => () => {
     console.log("Delete clicked");
   };
 
@@ -148,7 +151,7 @@ const VideoInsight = () => {
           style={{ display: "none" }}
           id="video-upload"
           type="file"
-          onChange={(e) => onDrop(e.target.files)}
+          onChange={(e) => handleVideoUpload(e.target.files[0])}
         />
         <label htmlFor="video-upload">
           <Button
@@ -191,15 +194,7 @@ const VideoInsight = () => {
         alignItems="center"
         mt={2}
       >
-        <Box
-          display="flex"
-          justifyContent="flex-start"
-          borderTop={1}
-          px
-          solid
-          width="100%"
-          alignItems="center"
-        >
+        <Box display="flex" justifyContent="flex-start" borderTop={1}px solid width="100%" alignItems="center">
           <IconButton onClick={handleUndo}>
             <UndoIcon />
           </IconButton>
@@ -223,7 +218,6 @@ const VideoInsight = () => {
         </Box>
       </Box>
       <Box
-        {...getRootProps()}
         display="flex"
         justifyContent="center"
         alignItems="center"
@@ -232,11 +226,14 @@ const VideoInsight = () => {
         height="100px"
         border="1px solid #ccc"
         position="relative"
-        sx={{ cursor: "pointer" }}
+        {...getRootProps()}
       >
         <input {...getInputProps()} />
         {videoSrc ? (
-          <canvas ref={canvasRef} style={{ width: "100%", height: "100px" }} />
+          <canvas
+            ref={canvasRef}
+            style={{ width: "100%", height: "100px" }}
+          />
         ) : (
           <Typography
             variant="h6"
@@ -249,8 +246,8 @@ const VideoInsight = () => {
             }}
           >
             {isDragActive
-              ? "Drop the video here..."
-              : "Drag and Drop media here to analyze videos"}
+              ? "Drop the video here ..."
+              : "Drag and drop a video file here, or click to select one"}
           </Typography>
         )}
       </Box>
