@@ -6,6 +6,7 @@
     "@mui/material": "^5.15.18",
     "@mui/x-charts": "^7.4.0",
     "nodemailer": "^6.9.13",
+    "react-dropzone": "^14.2.3",
     "react-toastify": "^10.0.5",
     "validator": "^13.12.0"
   }
