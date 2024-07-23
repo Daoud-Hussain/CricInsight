@@ -17,8 +17,9 @@ import ShareIcon from "@mui/icons-material/Share";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { mainListItems, secondaryListItems } from "./listItems";
-import Visualization from './Visualization';
-import VideoInsight from './VideoInsight';
+import Visualization from "./Visualization";
+import VideoInsight from "./VideoInsight";
+import PaymentGateway from "./PaymentGateway";
 
 const drawerWidth = 240;
 
@@ -113,7 +114,7 @@ const darkTheme = createTheme({
 export default function Dashboard() {
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  const [selectedComponent, setSelectedComponent] = useState('VideoInsight');
+  const [selectedComponent, setSelectedComponent] = useState("VideoInsight");
 
   const theme = darkMode ? darkTheme : lightTheme;
 
@@ -131,7 +132,13 @@ export default function Dashboard() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex", backgroundColor: theme.palette.background.default, marginTop: 7 }}>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: theme.palette.background.default,
+          marginTop: 7,
+        }}
+      >
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
@@ -160,7 +167,11 @@ export default function Dashboard() {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: "Poppins, sans-serif", }}
+              sx={{
+                flexGrow: 1,
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+              }}
             >
               Overview
             </Typography>
@@ -169,14 +180,13 @@ export default function Dashboard() {
             </IconButton>
             <IconButton onClick={toggleTheme}>
               {darkMode ? (
-                <LightModeIcon sx={{ color: theme.palette.text.primary, mx: 1 }} />
+                <LightModeIcon sx={{ color: theme.palette.text.primary }} />
               ) : (
-                <DarkModeIcon sx={{ color: theme.palette.text.primary, mx: 1 }} />
+                <DarkModeIcon sx={{ color: theme.palette.text.primary }} />
               )}
             </IconButton>
           </Toolbar>
         </AppBar>
-
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -187,37 +197,17 @@ export default function Dashboard() {
               backgroundColor: theme.palette.background.default,
             }}
           >
-            <Box
-              component="img"
-              sx={{
-                height: 40,
-                objectFit: "cover",
-                margin: "0 auto",
-              }}
-              alt="Logo"
-              src="./logo.png"
-            />
-            <Typography
-              component="h1"
-              variant="h6"
-              color={theme.palette.text.primary}
-              noWrap
-              sx={{ fontWeight: "bold" }}
-            >
-              CricInsight
-            </Typography>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon sx={{ color: theme.palette.text.primary }} />
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav" sx={{ flexGrow: 1 }}>
+          <List>
             {mainListItems(handleMenuClick, selectedComponent)}
           </List>
           <Divider />
           <List>{secondaryListItems}</List>
         </Drawer>
-
         <Box
           component="main"
           sx={{
@@ -225,15 +215,15 @@ export default function Dashboard() {
             height: "100vh",
             overflow: "auto",
             backgroundColor: theme.palette.background.default,
-            paddingTop: 3,
-            paddingBottom: 3,
+            padding: "24px",
           }}
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                {selectedComponent === 'Visualization' && <Visualization />}
-                {selectedComponent === 'VideoInsight' && <VideoInsight />}
+                {selectedComponent === "VideoInsight" && <VideoInsight />}
+                {selectedComponent === "Visualization" && <Visualization />}
+                {selectedComponent === "PaymentGateway" && <PaymentGateway />}
               </Grid>
             </Grid>
           </Container>
