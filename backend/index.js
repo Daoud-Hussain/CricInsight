@@ -28,12 +28,10 @@ app.post('/register', (req, res) => {
 
 
 app.post('/login', (req, res)=>{
-    // To find record from the database
     const {email, password} = req.body;
     FormDataModel.findOne({email: email})
     .then(user => {
         if(user){
-            // If user found then these 2 cases
             if(user.password === password) {
                 res.json("Success");
             }
@@ -41,14 +39,12 @@ app.post('/login', (req, res)=>{
                 res.json("Wrong password");
             }
         }
-        // If user not found then 
         else{
             res.json("No records found! ");
         }
     })
 })
 
-// Backend: 
 
 app.get('/user', (req, res) => {
     const email = req.query.email;
@@ -67,6 +63,23 @@ app.get('/user', (req, res) => {
   });
   
 
+app.post('/updateUser', (req, res) => {
+    const { email, firstName, lastName, password } = req.body;
+    const name = `${firstName} ${lastName}`;
+    
+    FormDataModel.findOneAndUpdate({ email: email }, { name: name, password: password }, { new: true })
+      .then(updatedUser => {
+        if (updatedUser) {
+          res.json(updatedUser);
+        } else {
+          res.status(404).json("User not found");
+        }
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
+  });
+  
 
 app.listen(3001, () => {
     console.log("Server listining on http://127.0.0.1:3001");
