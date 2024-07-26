@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { TextField, Button, Grid, Typography, Container, Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
   typography: {
@@ -46,6 +48,20 @@ const ProfileEdit = () => {
     }));
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:3001/updateUser", profileData)
+      .then((response) => {
+        console.log("Profile updated successfully:", response.data);
+        toast.success("Profile updated successfully!", {});
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+        toast.error("Error updating profile:");
+      });
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="md">
@@ -60,7 +76,8 @@ const ProfileEdit = () => {
           <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600">
             Edit profile
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
+          <ToastContainer />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
