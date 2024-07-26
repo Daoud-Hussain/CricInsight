@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Avatar, Grid, Typography, Container, Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 const theme = createTheme({
   typography: {
@@ -14,6 +15,28 @@ const theme = createTheme({
 });
 
 const ProfileEdit = () => {
+  const [formData, setFormData] = useState({
+    firstName: "Daoud",
+    lastName: "Hussain",
+    email: "daoudhussain@gmail.com",
+    password: "Sbdf$rfErr@5",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put("http://127.0.0.1:3001/edit-profile", formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("There was an error updating the profile!", error);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="md">
@@ -28,7 +51,7 @@ const ProfileEdit = () => {
           <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600">
             Edit profile
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSave}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -39,7 +62,9 @@ const ProfileEdit = () => {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  placeholder="Mehrab"
+                  placeholder="Daoud"
+                  value={formData.firstName}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -50,7 +75,9 @@ const ProfileEdit = () => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
-                  placeholder="Bozorgi"
+                  placeholder="Hussain"
+                  value={formData.lastName}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -61,7 +88,10 @@ const ProfileEdit = () => {
                   label="Email"
                   name="email"
                   autoComplete="email"
-                  placeholder="Mehrabbozorgi.business@gmail.com"
+                  placeholder="daoudhussain@gmail.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled
                 />
               </Grid>
               <Grid item xs={12}>
@@ -73,11 +103,10 @@ const ProfileEdit = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  placeholder="33062 Zboncak isle"
+                  placeholder="Sbdf$rfErr@5"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
-              </Grid>
-              <Grid item xs={12} display="flex" justifyContent="flex-end">
-               
               </Grid>
             </Grid>
             <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
@@ -89,7 +118,7 @@ const ProfileEdit = () => {
                   Save
                 </Button>
               </Box>
-              <Button type="submit" variant="contained" color="primary" sx={{background: '#D52728'}}>
+              <Button type="button" variant="contained" sx={{ backgroundColor: 'red' }}>
                 Delete
               </Button>
             </Box>
@@ -98,6 +127,6 @@ const ProfileEdit = () => {
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default ProfileEdit;
