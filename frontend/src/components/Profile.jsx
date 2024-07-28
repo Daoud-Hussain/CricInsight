@@ -5,7 +5,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const theme = createTheme({
   typography: {
@@ -27,6 +29,7 @@ const ProfileEdit = () => {
   });
 
 const navigate = useNavigate();
+const [showPassword, setShowPassword] = useState(false);
 
 
   useEffect(() => {
@@ -95,7 +98,7 @@ const navigate = useNavigate();
           }}
         >
           <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600">
-            Edit profile
+            Edit Profile
           </Typography>
           <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
             <ToastContainer />
@@ -142,11 +145,25 @@ const navigate = useNavigate();
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
                   id="password"
                   autoComplete="new-password"
                   value={profileData.password}
                   onChange={handleChange}
+                  type={showPassword ? "text" : "password"}
+
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          onMouseDown={(event) => event.preventDefault()}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Grid>
               <Grid item xs={12} display="flex" justifyContent="flex-end">
