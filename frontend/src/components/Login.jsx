@@ -16,24 +16,27 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import CircularProgressWithLabel  from "@mui/material/CircularProgress";
 import GoogleIcon from "/google-icon.svg";
 import FacebookIcon from "/facebook-icon.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+    setLoading(true); 
+
     axios
       .post("http://localhost:3001/login", { email, password })
       .then((result) => {
+        setLoading(false); 
         if (result.data === "Success") {
           toast.success("Login successfully!", {});
-          // Store email in local storage
           localStorage.setItem("userEmail", email);
           setTimeout(() => {
             navigate("/dashboard");
@@ -43,10 +46,10 @@ const Login = () => {
         }
       })
       .catch((err) => {
+        setLoading(false); 
         toast.error("An error occurred. Please try again.");
       });
   };
-  
 
   const handleGoogleLogin = () => {
     // Implement Google login functionality here
@@ -163,12 +166,18 @@ const Login = () => {
                   ),
                 }}
               />
-            
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                endIcon={<KeyboardDoubleArrowRightIcon />}
+                endIcon={
+                  loading ? (
+                    <CircularProgressWithLabel  size={18} sx={{ color: "#fff" }} />
+                  ) : (
+                    <KeyboardDoubleArrowRightIcon />
+                  )
+                }
+                disabled={loading}
                 sx={{
                   mt: 2,
                   mb: 2,
@@ -178,9 +187,9 @@ const Login = () => {
                   fontWeight: "bold",
                 }}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </Button>
-              <Grid container justifyContent="space-between" sx={{mb: 2}}>
+              <Grid container justifyContent="space-between" sx={{ mb: 2 }}>
                 <Grid item>
                   <Link
                     href="/register"
@@ -266,10 +275,7 @@ const Login = () => {
                   Continue with Facebook
                 </Button>
               </Box>
-              
             </Box>
-            
-            
           </Box>
         </Grid>
       </Grid>
