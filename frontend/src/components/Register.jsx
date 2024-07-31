@@ -16,6 +16,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import CircularProgressWithLabel from "@mui/material/CircularProgress";
 
 
 const Register = () => {
@@ -27,6 +28,7 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleFieldChange = (field, value) => {
@@ -92,6 +94,8 @@ const Register = () => {
       return;
     }
 
+    setLoading(true);
+
     axios
       .post("http://localhost:3001/register", {
         firstName,
@@ -100,6 +104,7 @@ const Register = () => {
         password,
       })
       .then((result) => {
+        setLoading(false);
         if (result.data === "Already registered") {
           toast.warning("E-mail already registered! Please Login to proceed.");
         } else {
@@ -111,9 +116,12 @@ const Register = () => {
         setErrors({});
       })
       .catch((err) => {
+        setLoading(false);
         toast.error("An error occurred. Please try again.");
       });
   };
+
+
 
   return (
     <div>
@@ -286,7 +294,14 @@ const Register = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                endIcon={<KeyboardDoubleArrowRightIcon />}
+                endIcon={
+                  loading ? (
+                    <CircularProgressWithLabel size={18} color="inherit" />
+                  ) : (
+                    <KeyboardDoubleArrowRightIcon />
+                  )
+                }
+                disabled={loading}
                 sx={{
                   mt: 3,
                   mb: 2,
@@ -296,7 +311,7 @@ const Register = () => {
                   textTransform: 'none'
                 }}
               >
-                Sign Up
+                {loading ? "Registering..." : "Sign Up"}
               </Button>
               
               <Grid container justifyContent="center">
@@ -311,7 +326,7 @@ const Register = () => {
                     }}
                   >
                     Already have an account?{" "}
-                    <span style={{ color: "#D52728" }}>Sign in</span>
+                    <span style={{ color: "#D52728" }}>Login</span>
                   </Link>
                 </Grid>
               </Grid>
