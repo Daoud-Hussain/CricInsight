@@ -46,7 +46,7 @@ export default function Experience() {
         alignItems: 'center',
         height: '100vh',
         textAlign: 'center',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#fff',
         padding: 2,
       }}
     >

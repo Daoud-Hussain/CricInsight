@@ -11,6 +11,7 @@ import AppAppBar from './AppAppBar';
 import getLPTheme from './getLPTheme';
 import HomeSection from './HomeSection';
 import Experience from './Experience';
+import HowToUseSection from './HowToUse';
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -67,6 +68,7 @@ export default function LandingPage() {
       <AppAppBar />
       <HomeSection imageSrc="./assets/home-image.png" /> 
       <Experience />
+      <HowToUseSection />
     </ThemeProvider>
   );
 }
