@@ -7,9 +7,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-import AppAppBar from './components/AppAppBar';
+import AppAppBar from './AppAppBar';
 import getLPTheme from './getLPTheme';
-import HomeSection from './HomeSection'; // Import HomeText component
+import HomeSection from './HomeSection';
 import Experience from './Experience';
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
@@ -56,23 +56,16 @@ ToggleCustomTheme.propTypes = {
 };
 
 export default function LandingPage() {
-  const [showCustomTheme, setShowCustomTheme] = React.useState(false); // Changed from true to false
+  const [showCustomTheme, setShowCustomTheme] = React.useState(false); 
   const LPtheme = createTheme(getLPTheme('light'));
   const defaultTheme = createTheme({ palette: { mode: 'light' } });
 
-  const toggleCustomTheme = () => {
-    setShowCustomTheme((prev) => !prev);
-  };
 
   return (
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar />
-      <HomeSection imageSrc="./assets/home-image.png" /> {/* Add HomeText component here */}
-      {/* <ToggleCustomTheme
-        showCustomTheme={showCustomTheme}
-        toggleCustomTheme={toggleCustomTheme}
-      /> */}
+      <HomeSection imageSrc="./assets/home-image.png" /> 
       <Experience />
     </ThemeProvider>
   );

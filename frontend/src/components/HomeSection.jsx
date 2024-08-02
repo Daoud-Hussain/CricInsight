@@ -71,11 +71,8 @@ function HomeSection({ imageSrc }) {
               margin: 0,
             }}
           >
-            Take your game to the next level with{" "}
-            <Box component="span" sx={{ fontWeight: "bold" }}>
-              CricInsight{" "}
-            </Box>
-            .
+              Take your game to the next level with <Box sx={{fontWeight: '600'}}>CricInsight. </Box> 
+
           </Typography>
         </animated.div>
         <animated.div style={buttonAnimation}>

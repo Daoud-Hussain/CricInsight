@@ -34,7 +34,7 @@ export default function Experience() {
 
   const cardAnimation = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateX(0px)' : 'translateX(30px)',
+    transform: inView ? 'translateY(0px)' : 'translateY(40px)',
     config: { duration: 500 },
   });
 
