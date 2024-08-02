@@ -1,0 +1,255 @@
+import * as React from "react";
+import { Box, Grid, Typography, Paper } from "@mui/material";
+
+function HowToUseSection() {
+  return (
+    <Box sx={{ padding: 10, backgroundColor: "#F4F4F4" }}>
+      <Grid container spacing={4}>
+        {/* Step 1 */}
+        <Paper background= "red">
+          <Grid item xs={12} sm={6} md={4}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 2,
+                background: "red",
+              }}
+            >
+              How to Use?
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 4,
+                color: "#4a4a4a",
+              }}
+            >
+              Discover CricInsight for in-depth cricket analysis. Whether you're
+              a player, coach, or team manager, it provides insights to enhance
+              your cricket experience.
+            </Typography>
+          </Grid>
+        </Paper>
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: 8,
+              borderRadius: 2,
+              backgroundColor: "#ffffff",
+              height: "100%",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              01
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              Signup / Login
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                color: "#4a4a4a",
+              }}
+            >
+              Create an account first on the CricInsight platform or log in if
+              you already have an account.
+            </Typography>
+          </Paper>
+        </Grid>
+        {/* Step 2 */}
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: 3,
+              borderRadius: 2,
+              backgroundColor: "#030947",
+              color: "#ffffff",
+              height: "100%",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              02
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              Upload Videos
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+              }}
+            >
+              Upload your cricket match videos for analysis. You can trim videos
+              and merge multiple videos as well.
+            </Typography>
+          </Paper>
+        </Grid>
+        {/* Step 3 */}
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: 3,
+              borderRadius: 2,
+              backgroundColor: "#ffffff",
+              height: "100%",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              03
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              Data Analytics
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                color: "#4a4a4a",
+              }}
+            >
+              Analyze your game and get highlights of your gameplay and get a
+              overview of all the shots you play.
+            </Typography>
+          </Paper>
+        </Grid>
+        {/* Step 4 */}
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: 3,
+              borderRadius: 2,
+              backgroundColor: "#ffffff",
+              height: "100%",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              04
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              Area Calculation
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                color: "#4a4a4a",
+              }}
+            >
+              Calculates the percentage distribution of shots across different
+              fielding areas for insightful analysis.
+            </Typography>
+          </Paper>
+        </Grid>
+        {/* Step 5 */}
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              padding: 3,
+              borderRadius: 2,
+              backgroundColor: "#ffffff",
+              height: "100%",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              05
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              Adaptive Learning
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                color: "#4a4a4a",
+              }}
+            >
+              Get tailored solutions to enhance cricket skills based on
+              identified technical flaws from your gameplay.
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+
+export default HowToUseSection;
