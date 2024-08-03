@@ -6,8 +6,7 @@ function HowToUseSection() {
     <Box sx={{ padding: 10, backgroundColor: "#F4F4F4" }}>
       <Grid container spacing={4}>
         {/* Step 1 */}
-        {/* <Grid item xs={12} sm={6} md={4} >
-          <Paper elevation={0} sx={{py: 7, px: 5, backgroundColor: "#F4F4F4"}} >
+        <Grid md=>
             
             <Typography
               variant="h3"
@@ -31,8 +30,8 @@ function HowToUseSection() {
               a player, coach, or team manager, it provides insights to enhance
               your cricket experience.
             </Typography>
-          </Paper>
-        </Grid> */}
+      
+        </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Paper
             elevation={3}
