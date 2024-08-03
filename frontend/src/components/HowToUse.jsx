@@ -6,15 +6,15 @@ function HowToUseSection() {
     <Box sx={{ padding: 10, backgroundColor: "#F4F4F4" }}>
       <Grid container spacing={4}>
         {/* Step 1 */}
-        <Paper background= "red">
-          <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4} >
+          <Paper elevation={0} sx={{py: 7, px: 5, backgroundColor: "#F4F4F4"}} >
+            
             <Typography
-              variant="h4"
+              variant="h3"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
                 marginBottom: 2,
-                background: "red",
               }}
             >
               How to Use?
@@ -31,30 +31,34 @@ function HowToUseSection() {
               a player, coach, or team manager, it provides insights to enhance
               your cricket experience.
             </Typography>
-          </Grid>
-        </Paper>
+          </Paper>
+        </Grid> */}
         <Grid item xs={12} sm={6} md={4}>
           <Paper
             elevation={3}
             sx={{
-              padding: 8,
+              py: 7,
+              px: 5,
               borderRadius: 2,
-              backgroundColor: "#ffffff",
+              // backgroundColor: "#ffffff",
+              backgroundColor: "#030947",
+              color: "#ffffff",
               height: "100%",
             }}
           >
             <Typography
-              variant="h6"
+              variant="h2"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
                 marginBottom: 1,
+                color: '#fff'
               }}
             >
               01
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
@@ -67,7 +71,7 @@ function HowToUseSection() {
               variant="body2"
               sx={{
                 fontFamily: "Poppins, sans-serif",
-                color: "#4a4a4a",
+                color: "#fff",
               }}
             >
               Create an account first on the CricInsight platform or log in if
@@ -80,25 +84,26 @@ function HowToUseSection() {
           <Paper
             elevation={3}
             sx={{
-              padding: 3,
+              py: 7,
+              px: 5,
               borderRadius: 2,
-              backgroundColor: "#030947",
-              color: "#ffffff",
               height: "100%",
             }}
           >
             <Typography
-              variant="h6"
+              variant="h2"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
                 marginBottom: 1,
+                color: "#030947",
+
               }}
             >
               02
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
@@ -111,6 +116,7 @@ function HowToUseSection() {
               variant="body2"
               sx={{
                 fontFamily: "Poppins, sans-serif",
+                color: "#4a4a4a"
               }}
             >
               Upload your cricket match videos for analysis. You can trim videos
@@ -123,24 +129,27 @@ function HowToUseSection() {
           <Paper
             elevation={3}
             sx={{
-              padding: 3,
+              py: 7,
+              px: 5,
               borderRadius: 2,
-              backgroundColor: "#ffffff",
+              backgroundColor: "#030947",
+              color: "#ffffff",
               height: "100%",
             }}
           >
             <Typography
-              variant="h6"
+              variant="h2"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
                 marginBottom: 1,
+                color: '#fff'
               }}
             >
               03
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
@@ -153,7 +162,7 @@ function HowToUseSection() {
               variant="body2"
               sx={{
                 fontFamily: "Poppins, sans-serif",
-                color: "#4a4a4a",
+                color: "#fff",
               }}
             >
               Analyze your game and get highlights of your gameplay and get a
@@ -166,24 +175,26 @@ function HowToUseSection() {
           <Paper
             elevation={3}
             sx={{
-              padding: 3,
+              py: 7,
+              px: 5,
               borderRadius: 2,
               backgroundColor: "#ffffff",
               height: "100%",
             }}
           >
             <Typography
-              variant="h6"
+              variant="h2"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
                 marginBottom: 1,
+                color: '#030947'
               }}
             >
               04
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
@@ -209,24 +220,27 @@ function HowToUseSection() {
           <Paper
             elevation={3}
             sx={{
-              padding: 3,
+              py: 7,
+              px: 5,
               borderRadius: 2,
-              backgroundColor: "#ffffff",
+              backgroundColor: "#030947",
+              color: "#ffffff",
               height: "100%",
             }}
           >
             <Typography
-              variant="h6"
+              variant="h2"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
                 marginBottom: 1,
+                color: '#fff'
               }}
             >
               05
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="h5"
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Poppins, sans-serif",
@@ -234,6 +248,51 @@ function HowToUseSection() {
               }}
             >
               Adaptive Learning
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                color: "#fff",
+              }}
+            >
+              Get tailored solutions to enhance cricket skills based on
+              identified technical flaws from your gameplay.
+            </Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              py: 7,
+              px: 5,
+              borderRadius: 2,
+              backgroundColor: "#fff",
+              height: "100%",
+            }}
+          >
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+                color: "#030947",
+              }}
+            >
+              06
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Poppins, sans-serif",
+                marginBottom: 1,
+              }}
+            >
+              AI Assistant
             </Typography>
             <Typography
               variant="body2"
