@@ -308,10 +308,22 @@ const Register = () => {
                   background: "#030947",
                   borderRadius: 5,
                   fontWeight: "bold",
-                  textTransform: 'none'
+                  textTransform: 'none',
+                  "&:hover": {
+                    backgroundColor: "#030947",
+                    color: "#fff",
+                  },
+                  "&:active": {
+                    backgroundColor: "#030947",
+                    color: "#fff",
+                  },
+                  "&:disabled": {
+                    backgroundColor: "#030947",
+                    color: "#fff",
+                  },
                 }}
               >
-                {loading ? "Registering..." : "Sign Up"}
+                {loading ? "Signing Up" : "Sign Up"}
               </Button>
               
               <Grid container justifyContent="center">

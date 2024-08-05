@@ -16,25 +16,25 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import CircularProgressWithLabel  from "@mui/material/CircularProgress";
+import CircularProgressWithLabel from "@mui/material/CircularProgress";
 import GoogleIcon from "/google-icon.svg";
 import FacebookIcon from "/facebook-icon.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
     axios
       .post("http://localhost:3001/login", { email, password })
       .then((result) => {
-        setLoading(false); 
+        setLoading(false);
         if (result.data === "Success") {
           toast.success("Login successfully!", {});
           localStorage.setItem("userEmail", email);
@@ -46,7 +46,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        setLoading(false); 
+        setLoading(false);
         toast.error("An error occurred. Please try again.");
       });
   };
@@ -130,7 +130,7 @@ const Login = () => {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 5}}
+              sx={{ mt: 5 }}
             >
               <TextField
                 required
@@ -172,7 +172,10 @@ const Login = () => {
                 variant="contained"
                 endIcon={
                   loading ? (
-                    <CircularProgressWithLabel  size={18} sx={{ color: "#fff" }} />
+                    <CircularProgressWithLabel
+                      size={18}
+                      sx={{ color: "#fff" }}
+                    />
                   ) : (
                     <KeyboardDoubleArrowRightIcon />
                   )
@@ -185,10 +188,23 @@ const Login = () => {
                   borderRadius: 5,
                   textTransform: "none",
                   fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "#030947",
+                    color: "#fff",
+                  },
+                  "&:active": {
+                    backgroundColor: "#030947",
+                    color: "#fff",
+                  },
+                  "&:disabled": {
+                    backgroundColor: "#030947",
+                    color: "#fff",
+                  },
                 }}
               >
-                {loading ? "Logging in..." : "Login"}
+                {loading ? "Logging in" : "Login"}
               </Button>
+
               <Grid container justifyContent="space-between" sx={{ mb: 2 }}>
                 <Grid item>
                   <Link
@@ -198,7 +214,7 @@ const Login = () => {
                       textTransform: "none",
                       color: "#000000",
                       textDecoration: "none",
-                      ml: 4
+                      ml: 4,
                     }}
                   >
                     Don't have an account?{" "}
@@ -214,7 +230,7 @@ const Login = () => {
                       color: "#000000",
                       textDecoration: "none",
                       mr: 4,
-                      fontWeight: 500
+                      fontWeight: 500,
                     }}
                   >
                     Forget Password?
