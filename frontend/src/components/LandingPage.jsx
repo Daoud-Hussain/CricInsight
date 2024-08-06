@@ -12,6 +12,7 @@ import getLPTheme from './getLPTheme';
 import HomeSection from './HomeSection';
 import Experience from './Experience';
 import HowToUseSection from './HowToUse';
+import WhyCricInsight from './WhyCricInsight';
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -69,6 +70,7 @@ export default function LandingPage() {
       <HomeSection imageSrc="./assets/home-image.png" /> 
       <Experience />
       <HowToUseSection />
+      <WhyCricInsight />
     </ThemeProvider>
   );
 }
