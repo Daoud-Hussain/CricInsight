@@ -169,10 +169,44 @@ const VideoInsight = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="center"
+      // justifyContent="center"
       height="100%"
-      sx={{ backgroundColor: "#f5f5f5", padding: 3 }}
+      sx={{ padding: 3 }}
     >
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        width="100%"
+        alignItems="center"
+        mt={2}
+      >
+        <Box
+          display="flex"
+          justifyContent="flex-start"
+          width="100%"
+          alignItems="center"
+        >
+          <Typography variant="h5" align="center" sx={{  fontWeight: 'bold' }}>
+        Upload Videos
+      </Typography>
+
+          
+        </Box>
+        <label htmlFor="video-upload">
+          <Button
+            sx={{  background: '#d3d3d3', color: 'black'}}
+            // variant="contained"
+            color="primary"
+            padding= "2"
+            component="span"
+            endIcon={videoSrc ? <DownloadDoneIcon /> : < UploadIcon/>}
+            // disabled={videoSrc !== ""}
+          >
+            {videoSrc ? "Done" : "Upload"}
+          </Button>
+        </label>
+      </Box>
+
       <Box display="flex" justifyContent="flex-end" width="100%" mb={2}>
         <input
           accept="video/*"
@@ -186,8 +220,8 @@ const VideoInsight = () => {
       <Box
         component="video"
         ref={videoRef}
-        width="80%"
-        height="auto"
+        width= "100%"
+        height="50%"
         bgcolor="#d3d3d3"
         controls
         src={videoSrc}
@@ -238,19 +272,6 @@ const VideoInsight = () => {
 
           
         </Box>
-        <label htmlFor="video-upload">
-          <Button
-            sx={{justifySelf: 'flex-end',marginTop: 1, marginRight: 12, background: '#d3d3d3', color: 'black'}}
-            // variant="contained"
-            color="primary"
-            padding= "2"
-            component="span"
-            endIcon={videoSrc ? <DownloadDoneIcon /> : < UploadIcon/>}
-            // disabled={videoSrc !== ""}
-          >
-            {videoSrc ? "Done" : "Upload"}
-          </Button>
-        </label>
       </Box>
       <Box
         display="flex"

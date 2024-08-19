@@ -54,7 +54,7 @@ const plans = [
 
 const PaymentGateway = () => {
   return (
-    <Box sx={{ padding: 4, backgroundColor: '#F5F7FA', minHeight: '100vh' }}>
+    <Box sx={{ padding: 4, minHeight: '100vh' }}>
       <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', paddingRight: "80px",paddingLeft: "80px",marginBottom: 3 }}>
         Identify technique flaws and get tailored improvement plans.
       </Typography>
