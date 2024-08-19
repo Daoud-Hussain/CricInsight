@@ -32,7 +32,7 @@ const renderCustomizedLabel = (props) => {
 const Visualization = () => {
   return (
     <Box sx={{ px: '20px', py: '35px', borderRadius: '8px', fontFamily: "Poppins, sans-serif" }}>
-      <Typography variant="h5" align="center" sx={{ marginBottom: '20px', color: '#34495e', fontWeight: 'bold' }}>
+      <Typography variant="h5" align="center" sx={{ marginBottom: '20px', fontWeight: 'bold' }}>
         Shots Visualization
       </Typography>
 

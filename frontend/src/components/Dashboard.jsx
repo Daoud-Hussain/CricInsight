@@ -23,7 +23,6 @@ import PaymentGateway from "./PaymentGateway";
 import PlayingAreas from "./PlayingAreas";
 import Profile from "./Profile";
 
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -34,6 +33,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  boxShadow: "none", 
+  borderBottom: `1px solid #ccc`, 
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -118,7 +119,6 @@ export default function Dashboard() {
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState("VideoInsight");
-  const [userName, setUserName] = useState("");
 
   const theme = darkMode ? darkTheme : lightTheme;
 
@@ -133,21 +133,6 @@ export default function Dashboard() {
   const handleMenuClick = (component) => {
     setSelectedComponent(component);
   };
-
-  // useEffect(() => {
-  //   const userEmail = localStorage.getItem("userEmail");
-  //   if (userEmail) {
-  //     axios
-  //       .get(`http://localhost:3001/user?email=${userEmail}`)
-  //       .then((response) => {
-  //         const { name } = response.data;
-  //         setUserName(name);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching user data", error);
-  //       });
-  //   }
-  // }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -164,7 +149,7 @@ export default function Dashboard() {
             sx={{
               pr: "24px",
               backgroundColor: theme.palette.background.default,
-              boxShadow: "none",
+              boxShadow: "none", // Remove shadow here
               color: theme.palette.text.primary,
             }}
           >
@@ -176,6 +161,7 @@ export default function Dashboard() {
               sx={{
                 marginRight: "36px",
                 color: theme.palette.text.primary,
+                boxShadow: "none", // Remove shadow here
                 ...(open && { display: "none" }),
               }}
             >
@@ -192,13 +178,12 @@ export default function Dashboard() {
                 fontFamily: "Poppins, sans-serif",
               }}
             >
-              {/* {`Welcome ${userName}`} */}
               Overview
             </Typography>
-            <IconButton>
+            <IconButton sx={{ boxShadow: "none" }}> {/* Remove shadow here */}
               <ShareIcon sx={{ color: theme.palette.text.primary, mx: 1 }} />
             </IconButton>
-            <IconButton onClick={toggleTheme}>
+            <IconButton onClick={toggleTheme} sx={{ boxShadow: "none" }}> {/* Remove shadow here */}
               {darkMode ? (
                 <LightModeIcon
                   sx={{ color: theme.palette.text.primary, mx: 1 }}
