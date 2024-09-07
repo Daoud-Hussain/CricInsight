@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Box, IconButton, Typography } from "@mui/material";
-import UploadIcon from '@mui/icons-material/Upload';
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import FastRewindIcon from "@mui/icons-material/FastRewind";
@@ -12,7 +11,7 @@ import ContentCutIcon from "@mui/icons-material/ContentCut";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDropzone } from "react-dropzone";
-import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
+import CustomButton from "./CustomButton";
 
 const VideoInsight = () => {
   const [videoSrc, setVideoSrc] = useState("");
@@ -26,7 +25,7 @@ const VideoInsight = () => {
     if (file) {
       const url = URL.createObjectURL(file);
       setVideoSrc(url);
-      setIsPlaying(false); 
+      setIsPlaying(false);
     }
   };
 
@@ -103,7 +102,7 @@ const VideoInsight = () => {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
         const frameCount = Math.floor(videoRef.current.duration / 0.5);
-        const interval = 0.5; 
+        const interval = 0.5;
 
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -118,18 +117,10 @@ const VideoInsight = () => {
               context.drawImage(
                 videoRef.current,
                 (currentFrame * canvas.width) / frameCount,
-                30, 
+                30,
                 canvas.width / frameCount,
                 canvas.height - 30
               );
-
-              // Draw vertical line
-              // context.beginPath();
-              // context.moveTo((currentFrame * canvas.width) / frameCount, 0);
-              // context.lineTo((currentFrame * canvas.width) / frameCount, canvas.height);
-              // context.strokeStyle = currentFrame % 2 === 0 ? 'black' : 'grey'; // Black line for every second, grey for every half-second
-              // context.lineWidth = 1;
-              // context.stroke();
 
               // Draw time indicator for each second
               if (currentFrame % 2 === 0) {
@@ -148,7 +139,7 @@ const VideoInsight = () => {
           }
         };
 
-        drawFrame(); 
+        drawFrame();
       }
     };
 
@@ -169,7 +160,6 @@ const VideoInsight = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      // justifyContent="center"
       height="100%"
       sx={{ padding: 3 }}
     >
@@ -186,41 +176,30 @@ const VideoInsight = () => {
           width="100%"
           alignItems="center"
         >
-          <Typography variant="h5" align="center" sx={{  fontWeight: 'bold' }}>
-        Upload Videos
-      </Typography>
-
-          
+          <Typography variant="h5" align="center" sx={{ fontWeight: "bold" }}>
+            Upload Videos
+          </Typography>
         </Box>
-        <label htmlFor="video-upload">
-          <Button
-            sx={{  background: '#d3d3d3', color: 'black'}}
-            // variant="contained"
-            color="primary"
-            padding= "2"
-            component="span"
-            endIcon={videoSrc ? <DownloadDoneIcon /> : < UploadIcon/>}
-            // disabled={videoSrc !== ""}
-          >
-            {videoSrc ? "Done" : "Upload"}
-          </Button>
-        </label>
+        <Box display="flex" justifyContent="flex-end" width="100%">
+          <input
+            accept="video/*"
+            style={{ display: "none" }}
+            id="video-upload"
+            type="file"
+            onChange={(e) => handleVideoUpload(e.target.files[0])}
+          />
+          <CustomButton
+            title={videoSrc ? "Done" : "Upload"}
+            onClick={() => document.getElementById("video-upload").click()}
+          />
+        </Box>
       </Box>
 
-      <Box display="flex" justifyContent="flex-end" width="100%" mb={2}>
-        <input
-          accept="video/*"
-          style={{ display: "none" }}
-          id="video-upload"
-          type="file"
-          onChange={(e) => handleVideoUpload(e.target.files[0])}
-        />
-        
-      </Box>
       <Box
+        mt={2}
         component="video"
         ref={videoRef}
-        width= "100%"
+        width="100%"
         height="50%"
         bgcolor="#d3d3d3"
         controls
@@ -269,8 +248,6 @@ const VideoInsight = () => {
           <IconButton onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
-
-          
         </Box>
       </Box>
       <Box
