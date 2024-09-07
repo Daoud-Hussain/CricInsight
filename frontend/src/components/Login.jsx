@@ -105,7 +105,7 @@ const Login = () => {
                 fontWeight: "bold",
                 fontSize: 64,
                 position: "relative",
-                paddingLeft: 6,
+                paddingLeft: 2,
                 alignSelf: "flex-start",
               }}
               variant="h5"
@@ -122,7 +122,7 @@ const Login = () => {
                   background:
                     "linear-gradient(120deg, #D52728, #33C0FF, #5733FF, #030947)",
                   borderRadius: "5px",
-                  marginLeft: 6,
+                  marginLeft: 3,
                 }}
               />
             </Typography>
