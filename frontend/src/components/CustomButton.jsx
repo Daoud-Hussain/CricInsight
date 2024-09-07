@@ -33,7 +33,7 @@ const CustomButton = ({ title = "Upload", onClick, sx }) => {
           right: "-12px",
           backgroundColor: hover ? "rgba(63,81,181,0.2)" : "#fff",
           borderRadius: "50%",
-          border: "1px solid #030947",
+          border: `1px solid ${hover ? 'white' : '#030947'}`,
         }}
       >
         <IconButton

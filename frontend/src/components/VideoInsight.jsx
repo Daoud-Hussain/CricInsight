@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import FastRewindIcon from "@mui/icons-material/FastRewind";
@@ -18,11 +18,15 @@ const VideoInsight = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoDuration, setVideoDuration] = useState(0);
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
+  const [loading, setLoading] = useState(false); // State for loader visibility
+  const [blurred, setBlurred] = useState(false); // State for blur effect
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
   const handleVideoUpload = (file) => {
     if (file) {
+      setLoading(true); // Show loader and blur
+      setBlurred(true);
       const url = URL.createObjectURL(file);
       setVideoSrc(url);
       setIsPlaying(false);
@@ -36,6 +40,7 @@ const VideoInsight = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "video/*",
     onDrop,
+    noClick: true, // Prevent file input dialog on click
   });
 
   const handlePlayPause = () => {
@@ -136,6 +141,10 @@ const VideoInsight = () => {
               currentFrame++;
               drawFrame();
             };
+          } else {
+            // All frames are drawn
+            setLoading(false); // Hide loader and remove blur
+            setBlurred(false);
           }
         };
 
@@ -163,109 +172,126 @@ const VideoInsight = () => {
       height="100%"
       sx={{ padding: 3 }}
     >
+      {/* Main content with blur effect */}
       <Box
         display="flex"
-        justifyContent="space-between"
-        width="100%"
+        flexDirection="column"
         alignItems="center"
-        mt={2}
+        width="100%"
+        sx={{ filter: blurred ? "blur(4px)" : "none" }} // Apply blur to main content
       >
         <Box
           display="flex"
-          justifyContent="flex-start"
+          justifyContent="space-between"
           width="100%"
           alignItems="center"
+          mt={1}
         >
-          <Typography variant="h5" align="center" sx={{ fontWeight: "bold" }}>
-            Upload Videos
-          </Typography>
+          <Box
+            display="flex"
+            justifyContent="flex-start"
+            width="100%"
+            alignItems="center"
+          >
+            <Typography variant="h5" align="center" sx={{ fontWeight: "bold" }}>
+              Upload Videos
+            </Typography>
+          </Box>
+          <Box display="flex" justifyContent="flex-end" width="100%">
+            <input
+              accept="video/*"
+              style={{ display: "none" }}
+              id="video-upload"
+              type="file"
+              onChange={(e) => handleVideoUpload(e.target.files[0])}
+            />
+            <CustomButton
+              title={videoSrc ? "Done" : "Upload"}
+              onClick={() => document.getElementById("video-upload").click()}
+            />
+          </Box>
         </Box>
-        <Box display="flex" justifyContent="flex-end" width="100%">
-          <input
-            accept="video/*"
-            style={{ display: "none" }}
-            id="video-upload"
-            type="file"
-            onChange={(e) => handleVideoUpload(e.target.files[0])}
-          />
-          <CustomButton
-            title={videoSrc ? "Done" : "Upload"}
-            onClick={() => document.getElementById("video-upload").click()}
-          />
-        </Box>
-      </Box>
 
-      <Box
-        mt={2}
-        component="video"
-        ref={videoRef}
-        width="100%"
-        height="50%"
-        bgcolor="#d3d3d3"
-        controls
-        src={videoSrc}
-      />
-      <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
-        <IconButton onClick={handleRewind}>
-          <FastRewindIcon />
-        </IconButton>
-        <IconButton onClick={handlePlayPause}>
-          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-        </IconButton>
-        <IconButton onClick={handleFastForward}>
-          <FastForwardIcon />
-        </IconButton>
-        <IconButton onClick={handleFullscreen}>
-          <FullscreenIcon />
-        </IconButton>
-      </Box>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        width="100%"
-        alignItems="center"
-        mt={2}
-        borderTop="1px solid #ccc"
-      >
         <Box
-          display="flex"
-          justifyContent="flex-start"
+          mt={3}
+          component="video"
+          ref={videoRef}
           width="100%"
-          alignItems="center"
-        >
-          <IconButton onClick={handleUndo}>
-            <UndoIcon />
+          height="50%"
+          bgcolor="#d3d3d3"
+          controls
+          src={videoSrc}
+        />
+        <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+          <IconButton onClick={handleRewind}>
+            <FastRewindIcon />
           </IconButton>
-          <IconButton onClick={handleRedo}>
-            <RedoIcon />
+          <IconButton onClick={handlePlayPause}>
+            {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
           </IconButton>
-          <IconButton onClick={handleCut}>
-            <ContentCutIcon />
+          <IconButton onClick={handleFastForward}>
+            <FastForwardIcon />
           </IconButton>
-          <IconButton onClick={handleAdd}>
-            <AddIcon />
-          </IconButton>
-          <IconButton onClick={handleDelete}>
-            <DeleteIcon />
+          <IconButton onClick={handleFullscreen}>
+            <FullscreenIcon />
           </IconButton>
         </Box>
-      </Box>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        mt={2}
-        width="100%"
-        height="100px"
-        borderTop="1px solid #ccc"
-        position="relative"
-        {...getRootProps()}
-      >
-        <input {...getInputProps()} />
-        {videoSrc ? (
-          <canvas ref={canvasRef} style={{ width: "100%", height: "100px" }} />
-        ) : (
-          <Typography
+
+        {/* Video Editor code starts here */}
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          width="100%"
+          alignItems="center"
+          mt={2}
+          borderTop="1px solid #ccc"
+        >
+          <Box
+            display="flex"
+            justifyContent="flex-start"
+            width="100%"
+            alignItems="center"
+          >
+            <IconButton onClick={handleUndo}>
+              <UndoIcon />
+            </IconButton>
+            <IconButton onClick={handleRedo}>
+              <RedoIcon />
+            </IconButton>
+            <IconButton onClick={handleCut}>
+              <ContentCutIcon />
+            </IconButton>
+            <IconButton onClick={handleAdd}>
+              <AddIcon />
+            </IconButton>
+            <IconButton onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        </Box>
+
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mt={2}
+          width="100%"
+          height="100px"
+          borderTop="1px solid #ccc"
+          position="relative"
+          {...getRootProps()}
+          sx={{
+            // border: isDragActive ? '2px dashed #000' : '2px dashed #ccc',
+            borderRadius: 1,
+            backgroundColor: isDragActive ? '#f0f0f0' : '#fff',
+            cursor: 'pointer'
+          }}
+        >
+          <input {...getInputProps()} />
+          {videoSrc ? (
+            <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
+          ) : (
+            <Typography
             variant="h6"
             color="textSecondary"
             style={{
@@ -279,8 +305,29 @@ const VideoInsight = () => {
               ? "Drop the video here ..."
               : "Drag and drop a video file here, or click to select one"}
           </Typography>
-        )}
+          )}
+        </Box>
       </Box>
+
+      {/* Loader */}
+      {loading && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            zIndex: 1000,
+          }}
+        >
+          <Typography variant="h6" sx={{ filter: "none" }}>Uploading Video ...</Typography>
+        </Box>
+      )}
     </Box>
   );
 };
