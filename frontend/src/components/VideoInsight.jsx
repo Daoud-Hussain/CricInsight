@@ -15,11 +15,6 @@ import CustomButton from "./CustomButton";
 import Lottie from 'react-lottie';
 import loaderAnimation from './Loader.json'; 
 
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg'; // Import FFmpeg
-
-const ffmpeg = createFFmpeg({ log: true }); // Initialize FFmpeg
-
-
 const VideoInsight = () => {
   const [videoSrc, setVideoSrc] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
@@ -29,15 +24,6 @@ const VideoInsight = () => {
   const [blurred, setBlurred] = useState(false); 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-
-  const [outputVideo, setOutputVideo] = useState(null); // To store processed video
-
-  useEffect(() => {
-    if (!ffmpeg.isLoaded()) {
-      ffmpeg.load(); // Load FFmpeg
-    }
-  }, []);
-
 
   const handleVideoUpload = (file) => {
     if (file) {
@@ -97,28 +83,6 @@ const VideoInsight = () => {
     }
   };
 
-  const handleCut = async () => {
-    setLoading(true);
-    const inputFileName = 'input.mp4';
-    const outputFileName = 'output.mp4';
-
-    // Fetch the video file and pass it to FFmpeg
-    ffmpeg.FS('writeFile', inputFileName, await fetchFile(videoSrc));
-
-    // Perform cutting using FFmpeg (e.g., cut first 10 seconds)
-    await ffmpeg.run('-i', inputFileName, '-ss', '00:00:00', '-t', '10', '-c', 'copy', outputFileName);
-
-    // Get the output from FFmpeg
-    const data = ffmpeg.FS('readFile', outputFileName);
-
-    // Create a URL for the processed video
-    const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
-    const videoUrl = URL.createObjectURL(videoBlob);
-    setOutputVideo(videoUrl);
-    setLoading(false);
-  };
-
-
   const handleUndo = () => {
     console.log("Undo clicked");
   };
@@ -127,6 +91,9 @@ const VideoInsight = () => {
     console.log("Redo clicked");
   };
 
+  const handleCut = () => {
+    console.log("Cut clicked");
+  };
 
   const handleAdd = () => {
     console.log("Add clicked");
