@@ -12,18 +12,50 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDropzone } from "react-dropzone";
 import CustomButton from "./CustomButton";
-import Lottie from 'react-lottie';
-import loaderAnimation from './Loader.json'; 
+import Lottie from "react-lottie";
+import loaderAnimation from "./Loader.json";
 
 const VideoInsight = () => {
   const [videoSrc, setVideoSrc] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoDuration, setVideoDuration] = useState(0);
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
-  const [loading, setLoading] = useState(false); 
-  const [blurred, setBlurred] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [blurred, setBlurred] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  const [editHistory, setEditHistory] = useState([]); // To store the history of edits
+  const [redoStack, setRedoStack] = useState([]); // To store the redo history  const videoRef = useRef(null);
+
+  const addEditToHistory = (newVideoSrc) => {
+    setEditHistory((prevHistory) => [...prevHistory, newVideoSrc]);
+    setRedoStack([]); // Clear the redo stack after a new edit
+  };
+
+  const handleUndo = () => {
+    if (editHistory.length > 0) {
+      const lastEdit = editHistory.pop(); // Remove the last edit from history
+      setRedoStack((prev) => [videoSrc, ...prev]); // Push current videoSrc to redo stack
+      setVideoSrc(lastEdit); // Revert to the last edit
+    }
+  };
+
+  const handleRedo = () => {
+    if (redoStack.length > 0) {
+      const lastRedo = redoStack.shift(); // Take the last undo from the redo stack
+      setEditHistory((prev) => [...prev, videoSrc]); // Push current videoSrc to history
+      setVideoSrc(lastRedo); // Apply the redo
+    }
+  };
+
+  const handleCut = () => {
+    // Perform cut operation using FFmpeg
+    // Assume we have FFmpeg in WebAssembly or Node.js backend for actual processing
+    const updatedVideoSrc = "/path/to/edited/video"; // Update with actual FFmpeg result
+    setVideoSrc(updatedVideoSrc); // Update the video source
+    addEditToHistory(updatedVideoSrc); // Store this operation in history
+  };
 
   const handleVideoUpload = (file) => {
     if (file) {
@@ -42,7 +74,7 @@ const VideoInsight = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "video/*",
     onDrop,
-    noClick: true, 
+    noClick: true,
   });
 
   const handlePlayPause = () => {
@@ -81,18 +113,6 @@ const VideoInsight = () => {
         videoRef.current.msRequestFullscreen();
       }
     }
-  };
-
-  const handleUndo = () => {
-    console.log("Undo clicked");
-  };
-
-  const handleRedo = () => {
-    console.log("Redo clicked");
-  };
-
-  const handleCut = () => {
-    console.log("Cut clicked");
   };
 
   const handleAdd = () => {
@@ -178,7 +198,7 @@ const VideoInsight = () => {
         flexDirection="column"
         alignItems="center"
         width="100%"
-        sx={{ filter: blurred ? "blur(8px)" : "none" }} 
+        sx={{ filter: blurred ? "blur(8px)" : "none" }}
       >
         <Box
           display="flex"
@@ -252,12 +272,16 @@ const VideoInsight = () => {
             width="100%"
             alignItems="center"
           >
-            <IconButton onClick={handleUndo}>
+            <IconButton
+              onClick={handleUndo}
+              disabled={editHistory.length === 0}
+            >
               <UndoIcon />
             </IconButton>
-            <IconButton onClick={handleRedo}>
+            <IconButton onClick={handleRedo} disabled={redoStack.length === 0}>
               <RedoIcon />
             </IconButton>
+
             <IconButton onClick={handleCut}>
               <ContentCutIcon />
             </IconButton>
@@ -283,9 +307,9 @@ const VideoInsight = () => {
           overflow="auto" // Enable scrolling
           sx={{
             borderRadius: 1,
-            backgroundColor: isDragActive ? '#f0f0f0' : '#fff',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap', // Prevent wrapping of content inside the box
+            backgroundColor: isDragActive ? "#f0f0f0" : "#fff",
+            cursor: "pointer",
+            whiteSpace: "nowrap", // Prevent wrapping of content inside the box
           }}
         >
           <input {...getInputProps()} />
@@ -293,19 +317,19 @@ const VideoInsight = () => {
             <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
           ) : (
             <Typography
-            variant="h6"
-            color="textSecondary"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            {isDragActive
-              ? "Drop the video here ..."
-              : "Drag and drop a video file here, or click to select one"}
-          </Typography>
+              variant="h6"
+              color="textSecondary"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              {isDragActive
+                ? "Drop the video here ..."
+                : "Drag and drop a video file here, or click to select one"}
+            </Typography>
           )}
         </Box>
       </Box>
@@ -326,7 +350,7 @@ const VideoInsight = () => {
               animationData: loaderAnimation,
               loop: true,
               autoplay: true,
-              speed: 10 
+              speed: 10,
             }}
             height={100}
             width={100}
