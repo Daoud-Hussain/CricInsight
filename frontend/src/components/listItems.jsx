@@ -105,7 +105,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => (
           }}
         />
       </ListItemIcon>
-      <ListItemText primary="Profile" />
+      <ListItemText primary="Profile Settings" />
     </ListItemButton>
 
     <ListItemButton

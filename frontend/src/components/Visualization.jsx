@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
-import { Box, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Grid, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from 'recharts';
-
-
-// const data = [
-//   { name: 'Cover Drive', value: 14, color: '#F94144' }, 
-//   { name: 'Cut', value: 7, color: '#F8961E' },          
-//   { name: 'Flick', value: 20, color: '#2D9CDB' },       
-//   { name: 'Sweep', value: 11, color: '#030947' },        
-//   { name: 'Pull', value: 18, color: '#90BE6D' },        
-//   { name: 'Others', value: 30, color: '#F3722C' },      
-// ];
-
+import axios from 'axios'; // Use axios for making HTTP requests
 
 const data = [
   { name: 'Cover Drive', value: 14, color: '#0d0a1c' }, 
   { name: 'Cut', value: 30, color: '#332971' },          
   { name: 'Flick', value: 12, color: '#5948c6' },       
-  { name: 'Sweep', value: 24, color: '##6c58f1' },        
+  { name: 'Sweep', value: 24, color: '#6c58f1' },        
   { name: 'Pull', value: 8, color: '#46399c' },        
   { name: 'Others', value: 13, color: '#201a47' },      
 ];
@@ -30,31 +20,56 @@ const dates = [
   { date: 'Jan 10, 2024' },       
 ];
 
-
-const renderCustomizedLabel = (props) => {
-  const { x, y, width, value } = props;
-  const total = data.reduce((sum, entry) => sum + entry.value, 0);
-  const percentage = Math.round((value / total) * 100); 
-  return (
-    <text
-      x={x + width / 2}
-      y={y - 5}
-      fill="#333"
-      textAnchor="middle"
-      fontSize={12}
-      fontWeight="bold"
-    >
-      {`${percentage}%`}
-    </text>
-  );
-};
-
 const Visualization = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
-
+  
+  // Handle category change (Date)
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
+
+  // Function to save the video analysis data
+  const saveVideoAnalysis = async () => {
+    const user = JSON.parse(localStorage.getItem('userEmail')); // Get user data from local storage
+
+    if (!user) {
+      alert('User not logged in');
+      return;
+    }
+
+    const shots = data.map((shot) => ({
+      shotType: shot.name,
+      percentage: (shot.value / data.reduce((sum, entry) => sum + entry.value, 0)) * 100,
+      totalShots: shot.value
+    }));
+
+    const videoAnalysisData = {
+      email: user.email, // assuming email is saved in localStorage
+      date: selectedCategory || new Date(), // use selected date or current date
+      // videos: ['video1_url', 'video2_url'], // Replace with actual video URLs
+      shots
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3001/save-video-analysis', videoAnalysisData);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error(error);
+      alert('Error saving video analysis');
+    }
+  };
+
+  const renderCustomizedLabel = ({ x, y, width, height, value }) => (
+    <text x={x + width / 2} y={y - 10} fill="#000" textAnchor="middle">
+      {value}
+    </text>
+  );
+
+
+  // Automatically save data when the component is mounted
+  useEffect(() => {
+    saveVideoAnalysis();
+  }, []); // Empty dependency array ensures it runs only once when the component is mounted
 
   return (
     <Box sx={{ px: '20px', py: '35px', borderRadius: '8px', fontFamily: "Poppins, sans-serif" }}>
@@ -62,54 +77,51 @@ const Visualization = () => {
         Shots Visualization
       </Typography>
 
+      {/* Rest of your code for visualization */}
       <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: '20px' }}>
-  {/* Shot Categories Buttons */}
-  <Grid item xs={12} md={8} sx={{ textAlign: 'center' }}>
-    <Grid container spacing={2} justifyContent="center">
-      {data.map((shot) => (
-        <Grid item key={shot.name}>
-          <Button
-            variant="outlined"
-            sx={{
-              borderRadius: '20px',
-              borderColor: shot.color,
-              color: shot.color,
-              fontWeight: 'bold',
-              textTransform: 'none',
-              padding: '5px 15px',
-            }}
-          >
-            {shot.name}
-          </Button>
+        <Grid item xs={12} md={8} sx={{ textAlign: 'center' }}>
+          <Grid container spacing={2} justifyContent="center">
+            {data.map((shot) => (
+              <Grid item key={shot.name}>
+                <button
+                  style={{
+                    borderRadius: '20px',
+                    borderColor: shot.color,
+                    color: shot.color,
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    padding: '5px 15px',
+                  }}
+                >
+                  {shot.name}
+                </button>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
-      ))}
-    </Grid>
-  </Grid>
 
-  {/* Dropdown for selecting a category */}
-  <Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
-    <FormControl sx={{ minWidth: 160 }}>
-      <InputLabel id="date-label">Date</InputLabel>
-      <Select
-        sx={{ borderRadius: 20 }}
-        labelId="date-label"
-        id="date"
-        value={selectedCategory}
-        onChange={handleCategoryChange}
-        label="Date"
-      >
-        {dates.map((item) => (
-          <MenuItem key={item.date} value={item.date}>
-            {item.date}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  </Grid>
-</Grid>
+        <Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
+          <FormControl sx={{ minWidth: 220 }}>
+            <InputLabel id="date-label">Date</InputLabel>
+            <Select
+              sx={{ borderRadius: 15, maxHeight: 55 }}
+              labelId="date-label"
+              id="date"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              label="Date"
+            >
+              {dates.map((item) => (
+                <MenuItem key={item.date} value={item.date}>
+                  {item.date}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
 
-
-      {/* Charts */}
+      {/* Charts... */}
       <Grid container spacing={4} sx={{ paddingTop: '20px' }}>
         <Grid item xs={12} md={8}>
           <BarChart width={600} height={400} data={data} borderRadius="20">
