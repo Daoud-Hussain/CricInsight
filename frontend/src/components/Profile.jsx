@@ -26,6 +26,7 @@ const theme = createTheme({
 const ProfileEdit = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile);
+  const [initialProfileData, setInitialProfileData] = useState({});
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
@@ -39,7 +40,9 @@ const ProfileEdit = () => {
         .then((response) => {
           const { email, name, password } = response.data;
           const [firstName, lastName] = name.split(' ');
-          dispatch(setProfileData({ firstName, lastName, email, password }));
+          const fetchedData = { firstName, lastName, email, password };
+          setInitialProfileData(fetchedData); // Store initial profile data
+          dispatch(setProfileData(fetchedData));
         })
         .catch((error) => {
           console.error('Error fetching user data', error);
@@ -55,6 +58,12 @@ const ProfileEdit = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Check if there are any changes
+    if (JSON.stringify(profileData) === JSON.stringify(initialProfileData)) {
+      toast.warn('Edit data before saving');
+      return;
+    }
 
     let validationErrors = {};
 
@@ -90,11 +99,16 @@ const ProfileEdit = () => {
       .then((response) => {
         console.log('Profile updated successfully:', response.data);
         toast.success('Profile updated successfully!', {});
+        setInitialProfileData(profileData); // Update initial data to the latest
       })
       .catch((error) => {
         console.error('Error updating profile:', error);
         toast.error('Error updating profile:');
       });
+  };
+
+  const handleCancel = () => {
+    dispatch(setProfileData(initialProfileData)); // Reset profile data to initial state
   };
 
   const handleDelete = () => {
@@ -217,7 +231,7 @@ const ProfileEdit = () => {
             </Grid>
             <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
               <Box>
-                <Button variant="outlined" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+                <Button variant="outlined" sx={{ mr: 2 }} onClick={handleCancel}>
                   Cancel
                 </Button>
                 <Button type="submit" variant="contained" color="primary">

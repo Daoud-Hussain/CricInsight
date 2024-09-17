@@ -23,6 +23,7 @@ import PaymentGateway from "./PaymentGateway";
 import PlayingAreas from "./PlayingAreas";
 import Profile from "./Profile";
 import AIAssistant from "./AIAssistant";
+import Reviews from "./Reviews";
 
 const drawerWidth = 240;
 
@@ -259,6 +260,7 @@ export default function Dashboard() {
                 {selectedComponent === "PaymentGateway" && <PaymentGateway />}
                 {selectedComponent === "Profile" && <Profile />}
                 {selectedComponent === "AI Assistant" && < AIAssistant/>}
+                {selectedComponent === "Reviews" && < Reviews/>}
               </Grid>
             </Grid>
           </Container>
