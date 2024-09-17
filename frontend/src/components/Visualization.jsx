@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from 'recharts';
-import axios from 'axios'; // Use axios for making HTTP requests
+import axios from 'axios'; 
 
 const data = [
   { name: 'Cover Drive', value: 14, color: '#0d0a1c' }, 
@@ -59,11 +59,28 @@ const Visualization = () => {
     }
   };
 
-  const renderCustomizedLabel = ({ x, y, width, height, value }) => (
-    <text x={x + width / 2} y={y - 10} fill="#000" textAnchor="middle">
-      {value}
-    </text>
-  );
+  // const renderCustomizedLabel = ({ x, y, width, height, value }) => (
+  //   <text x={x + width / 2} y={y - 10} fill="#000" textAnchor="middle">
+  //     {value}
+  //   </text>
+  // );
+  const renderCustomizedLabel = (props) => {
+    const { x, y, width, value } = props;
+    const total = data.reduce((sum, entry) => sum + entry.value, 0);
+    const percentage = Math.round((value / total) * 100); 
+    return (
+      <text
+        x={x + width / 2}
+        y={y - 5}
+        fill="#333"
+        textAnchor="middle"
+        fontSize={12}
+        fontWeight="bold"
+      >
+        {`${percentage}%`}
+      </text>
+    );
+  };
 
 
   // Automatically save data when the component is mounted
@@ -112,7 +129,7 @@ const Visualization = () => {
               label="Date"
             >
               {dates.map((item) => (
-                <MenuItem key={item.date} value={item.date}>
+                <MenuItem key={item.date} value={item.date} >
                   {item.date}
                 </MenuItem>
               ))}
