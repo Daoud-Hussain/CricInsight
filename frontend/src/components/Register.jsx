@@ -136,7 +136,7 @@ const Register = () => {
             sx={{
               my: 8,
               paddingTop: 8,
-              mx: 4,
+              mx: 10,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
@@ -160,10 +160,11 @@ const Register = () => {
                   left: 0,
                   bottom: -4,
                   height: 6,
-                  width: "100%",
+                  width: "95%",
                   background:
                     "linear-gradient(120deg, #D52728, #33C0FF, #5733FF, #030947)",
                   borderRadius: "5px",
+                  marginLeft: '2%'
                 }}
               />
             </Typography>
@@ -338,7 +339,7 @@ const Register = () => {
                     }}
                   >
                     Already have an account?{" "}
-                    <span style={{ color: "#D52728" }}>Login</span>
+                    <span style={{ color: "#D52728", fontWeight: 'bold' }}>Login</span>
                   </Link>
                 </Grid>
               </Grid>
