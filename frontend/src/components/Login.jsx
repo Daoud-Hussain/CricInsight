@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { Divider } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
@@ -93,7 +94,7 @@ const Login = () => {
             sx={{
               my: 8,
               paddingTop: 8,
-              mx: 4,
+              mx: 12,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -105,8 +106,9 @@ const Login = () => {
                 fontWeight: "bold",
                 fontSize: 64,
                 position: "relative",
-                paddingLeft: 2,
+                // paddingLeft: '15%',
                 alignSelf: "flex-start",
+                // background: 'red'
               }}
               variant="h5"
             >
@@ -118,11 +120,11 @@ const Login = () => {
                   left: 0,
                   bottom: -5,
                   height: 6,
-                  width: "80%",
+                  width: "95%",
                   background:
                     "linear-gradient(120deg, #D52728, #33C0FF, #5733FF, #030947)",
                   borderRadius: "5px",
-                  marginLeft: 3,
+                  marginLeft: '3%',
                 }}
               />
             </Typography>
@@ -130,7 +132,7 @@ const Login = () => {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 5 }}
+              sx={{ mt: 5}}
             >
               <TextField
                 required
@@ -166,6 +168,23 @@ const Login = () => {
                   ),
                 }}
               />
+
+              <Grid container justifyContent={"flex-end"} sx={{ mt: 2 }}>
+                <Link
+                  href="/forgot-password"
+                  variant="body2"
+                  sx={{
+                    textTransform: "none",
+                    color: "#000",
+                    textDecoration: "none",
+                    // mr: 4,
+                    fontWeight: 500,
+                  }}
+                >
+                  Forget Password?
+                </Link>
+              </Grid>
+
               <Button
                 type="submit"
                 fullWidth
@@ -205,43 +224,18 @@ const Login = () => {
                 {loading ? "Logging in" : "Login"}
               </Button>
 
-              <Grid container justifyContent="space-between" sx={{ mb: 2 }}>
-                <Grid item>
-                  <Link
-                    href="/register"
-                    variant="body2"
-                    sx={{
-                      textTransform: "none",
-                      color: "#000000",
-                      textDecoration: "none",
-                      ml: 4,
-                    }}
-                  >
-                    Don't have an account?{" "}
-                    <span style={{ color: "#D52728" }}>Sign Up</span>
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link
-                    href="/forgot-password"
-                    variant="body2"
-                    sx={{
-                      textTransform: "none",
-                      color: "#000000",
-                      textDecoration: "none",
-                      mr: 4,
-                      fontWeight: 500,
-                    }}
-                  >
-                    Forget Password?
-                  </Link>
-                </Grid>
-              </Grid>
+              <Divider sx={{px: '2%'}}>
+                <Typography variant="body2" color="textSecondary">
+                  or
+                </Typography>
+              </Divider>
+
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                   gap: 2,
+                  mt:2
                 }}
               >
                 <Button
@@ -291,6 +285,23 @@ const Login = () => {
                   Continue with Facebook
                 </Button>
               </Box>
+              <Grid container justifyContent="center" sx={{ mt: 2 }}>
+                <Grid item>
+                  <Link
+                    href="/register"
+                    variant="body2"
+                    sx={{
+                      textTransform: "none",
+                      color: "#000000",
+                      textDecoration: "none",
+                      ml: 4,
+                    }}
+                  >
+                    Don't have an account?{" "}
+                    <span style={{ color: "#D52728", fontWeight: 'bold' }}>Sign Up</span>
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
         </Grid>

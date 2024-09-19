@@ -10,6 +10,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "@mui/material";
+import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
+
 
 export const mainListItems = (handleMenuClick, selectedComponent) => (
   <React.Fragment>
@@ -105,7 +107,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => (
           }}
         />
       </ListItemIcon>
-      <ListItemText primary="Profile" />
+      <ListItemText primary="Profile Settings" />
     </ListItemButton>
 
     <ListItemButton
@@ -125,6 +127,25 @@ export const mainListItems = (handleMenuClick, selectedComponent) => (
         />
       </ListItemIcon>
       <ListItemText primary="AI Assistant" />
+    </ListItemButton>
+
+    <ListItemButton
+      onClick={() => handleMenuClick("Reviews")}
+      sx={{
+        borderBottom: '1px solid #ccc',
+        backgroundColor:
+          selectedComponent === "Reviews" ? "#030947" : "inherit",
+        color: selectedComponent === "Reviews" ? "white" : "inherit",
+      }}
+    >
+      <ListItemIcon>
+        <RateReviewOutlinedIcon
+          sx={{
+            color: selectedComponent === "Reviews" ? "white" : "inherit",
+          }}
+        />
+      </ListItemIcon>
+      <ListItemText primary="Reviews" />
     </ListItemButton>
 
 
