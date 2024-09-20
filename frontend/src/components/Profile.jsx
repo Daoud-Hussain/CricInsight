@@ -41,7 +41,7 @@ const ProfileEdit = () => {
           const { email, name, password } = response.data;
           const [firstName, lastName] = name.split(' ');
           const fetchedData = { firstName, lastName, email, password };
-          setInitialProfileData(fetchedData); // Store initial profile data
+          setInitialProfileData(fetchedData); 
           dispatch(setProfileData(fetchedData));
         })
         .catch((error) => {
@@ -59,7 +59,6 @@ const ProfileEdit = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Check if there are any changes
     if (JSON.stringify(profileData) === JSON.stringify(initialProfileData)) {
       toast.warn('Edit data before saving');
       return;
@@ -99,7 +98,7 @@ const ProfileEdit = () => {
       .then((response) => {
         console.log('Profile updated successfully:', response.data);
         toast.success('Profile updated successfully!', {});
-        setInitialProfileData(profileData); // Update initial data to the latest
+        setInitialProfileData(profileData); 
       })
       .catch((error) => {
         console.error('Error updating profile:', error);
@@ -108,7 +107,7 @@ const ProfileEdit = () => {
   };
 
   const handleCancel = () => {
-    dispatch(setProfileData(initialProfileData)); // Reset profile data to initial state
+    dispatch(setProfileData(initialProfileData)); 
   };
 
   const handleDelete = () => {
@@ -148,8 +147,6 @@ const ProfileEdit = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            // bgcolor: 'orange',
-            // pr: 40
           }}
         >
           <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600">
@@ -189,6 +186,7 @@ const ProfileEdit = () => {
               <Grid item xs={12}>
                 <TextField
                   required
+                  disabled
                   fullWidth
                   id="email"
                   label="Email"
@@ -229,7 +227,6 @@ const ProfileEdit = () => {
                 />
               </Grid>
               <Grid item xs={12} display="flex" justifyContent="flex-end">
-                {/* Add other buttons or components as needed */}
               </Grid>
             </Grid>
             <Box display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
