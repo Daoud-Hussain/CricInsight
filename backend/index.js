@@ -2,12 +2,10 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const FormDataModel = require('./models/FormData');
-const UserModel = require('./models/FormData'); // Adjust path as needed
+const UserModel = require('./models/FormData'); 
 
 
 const app = express();
-
-// Middleware
 app.use(express.json());
 app.use(cors());
 
@@ -99,42 +97,7 @@ app.delete('/deleteUser', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-
-// app.post('/api/videos', async (req, res) => {
-//   try {
-//     const {  email } = req.body;
-
-//     if (!email) {
-//       return res.status(400).json({ error: 'Missing required fields' });
-//     }
-
-//     const user = await UserModel.findOne({ email });
-//     if (!user) {
-//       return res.status(404).json({ error: 'User not found' });
-//     }
-
-//     const updatedUser = await UserModel.findOneAndUpdate(
-//       { email },
-//       {
-//         $push: {
-//           videoAnalysis: {
-//             // videoId,
-//             // date: new Date(date),
-//             shots: [] // Add if needed
-//           },
-//         },
-//       },
-//       { new: true }
-//     );
-
-//     res.status(201).json(updatedUser);
-//   } catch (err) {
-//     console.error('Error saving video data:', err);
-//     res.status(500).json({ error: 'Internal server error', details: err.message });
-//   }
-// });
-
-// Save shots data
+//save shots data
 app.post('/api/shots', async (req, res) => {
   try {
     const { date, email, shots } = req.body;
@@ -172,6 +135,28 @@ app.post('/api/shots', async (req, res) => {
     res.status(500).json({ error: 'Internal server error', details: err.message });
   }
 });
+
+
+app.get('/api/user/shots', async (req, res) => {
+  const email = req.query.email;
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const dates = user.shotsPlayed.map(shot => ({ date: shot.date }));
+    res.json(dates);
+  } catch (err) {
+    console.error('Error fetching user shots:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
 // Server

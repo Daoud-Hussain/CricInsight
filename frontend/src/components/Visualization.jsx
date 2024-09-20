@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from "recharts";
 import axios from "axios";
 import CustomButton from "./CustomButton";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const data = [
   { name: "Cover Drive", value: 14, color: "#0d0a1c" },
@@ -14,21 +17,30 @@ const data = [
   { name: "Others", value: 13, color: "#201a47" },
 ];
 
-const dates = [
-  { date: "Oct 12, 2024" },
-  { date: "Sept 04, 2024" },
-  { date: "April 24, 2024" },
-  { date: "Feb 14, 2024" },
-  { date: "Jan 10, 2024" },
-];
-
 const Visualization = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [dates, setDates] = useState([]);
   const [shotsData, setShotsData] = useState({
     date: "Sept 02, 2024",
     email: localStorage.getItem("userEmail"),
     shots: [],
   });
+
+  useEffect(() => {
+    const fetchDates = async () => {
+      const email = localStorage.getItem("userEmail");
+      if (!email) return; 
+
+      try {
+        const response = await axios.get(`http://localhost:3001/api/user/shots?email=${email}`);
+        setDates(response.data);
+      } catch (error) {
+        console.error("Error fetching dates:", error);
+      }
+    };
+
+    fetchDates();
+  }, []);
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -40,7 +52,7 @@ const Visualization = () => {
 
       const updatedShots = data.map((shot) => ({
         name: shot.name,
-        percentage: ((shot.value / total) * 100).toFixed(2), 
+        percentage: ((shot.value / total) * 100).toFixed(2),
       }));
 
       const updatedShotsData = {
@@ -48,16 +60,18 @@ const Visualization = () => {
         shots: updatedShots,
       };
 
-      console.log("Sending video data:", updatedShotsData); 
+      console.log("Sending video data:", updatedShotsData);
 
       if (!updatedShotsData.date || !updatedShotsData.email) {
         console.error("Date or email missing");
-        return; 
+        return;
       }
 
       const response = await axios.post("http://localhost:3001/api/shots", updatedShotsData);
       console.log("Shots data saved successfully:", response.data);
+      toast.success("Data Saved Successfully!", {});
     } catch (error) {
+      toast.error("Error saving shots data.");
       console.error("Error saving shots data:", error);
     }
   };
@@ -89,6 +103,7 @@ const Visualization = () => {
         fontFamily: "Poppins, sans-serif",
       }}
     >
+      <ToastContainer />
       <Typography
         variant="h5"
         align="center"
@@ -97,13 +112,7 @@ const Visualization = () => {
         Shots Visualization
       </Typography>
 
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        alignItems="center"
-        sx={{ marginBottom: "20px" }}
-      >
+      <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: "20px" }}>
         <Grid item xs={12} md={8} sx={{ textAlign: "center" }}>
           <Grid container spacing={2} justifyContent="center">
             {data.map((shot) => (
@@ -129,7 +138,10 @@ const Visualization = () => {
           <FormControl sx={{ minWidth: 220 }}>
             <InputLabel id="date-label">Date</InputLabel>
             <Select
-              sx={{ borderRadius: 15, maxHeight: 55 }}
+              sx={{
+                borderRadius: "10px",
+                height: "50px",
+              }}
               labelId="date-label"
               id="date"
               value={selectedCategory}
@@ -149,14 +161,13 @@ const Visualization = () => {
           <Box display="flex" justifyContent="flex-end" width="100%">
             <CustomButton
               title="Save"
-              onClick={saveShotsData} 
-              IconComponent={BookmarkBorderOutlinedIcon} 
+              onClick={saveShotsData}
+              IconComponent={FileDownloadOutlinedIcon}
             />
           </Box>
         </Grid>
       </Grid>
 
-      {/* Charts... */}
       <Grid container spacing={4} sx={{ paddingTop: "20px" }}>
         <Grid item xs={12} md={8}>
           <BarChart width={600} height={400} data={data} borderRadius="20">
