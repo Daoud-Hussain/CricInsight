@@ -21,7 +21,7 @@ const Visualization = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [dates, setDates] = useState([]);
   const [shotsData, setShotsData] = useState({
-    date: "Sept 02, 2024",
+    date: new Date().toISOString(), // Store current date and time in ISO format
     email: localStorage.getItem("userEmail"),
     shots: [],
   });
@@ -29,7 +29,7 @@ const Visualization = () => {
   useEffect(() => {
     const fetchDates = async () => {
       const email = localStorage.getItem("userEmail");
-      if (!email) return; 
+      if (!email) return;
 
       try {
         const response = await axios.get(`http://localhost:3001/api/user/shots?email=${email}`);
@@ -57,10 +57,11 @@ const Visualization = () => {
 
       const updatedShotsData = {
         ...shotsData,
+        date: new Date().toISOString(), // Ensure current time is included when saving data
         shots: updatedShots,
       };
 
-      console.log("Sending video data:", updatedShotsData);
+      console.log("Sending shots data:", updatedShotsData);
 
       if (!updatedShotsData.date || !updatedShotsData.email) {
         console.error("Date or email missing");
@@ -148,14 +149,26 @@ const Visualization = () => {
               onChange={handleCategoryChange}
               label="Date"
             >
-              {dates.map((item) => (
-                <MenuItem key={item.date} value={item.date}>
-                  {item.date}
-                </MenuItem>
-              ))}
+              {dates.slice().reverse().map((item) => { 
+                const formattedDate = new Date(item.date).toLocaleString("en-US", {
+                  month: "short",  
+                  day: "2-digit",  
+                  year: "numeric", 
+                  hour: "2-digit", 
+                  minute: "2-digit",
+                  hour12: true,    
+                });
+
+                return (
+                  <MenuItem key={item.date} value={item.date}>
+                    {formattedDate}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
         </Grid>
+
 
         <Grid item xs={12} md={2}>
           <Box display="flex" justifyContent="flex-end" width="100%">
