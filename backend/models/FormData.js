@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const ShotSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  percentage: { type: Number, required: true }, // Replace 'value' with 'percentage'
-  date: { type: Date, required: true }, // This date can refer to the shot's session date
+  percentage: { type: Number, required: true }, 
+  date: { type: Date, required: true }, 
 });
 
 const UserSchema = new mongoose.Schema({
@@ -12,8 +12,8 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   shotsPlayed: [
     {
-      date: { type: Date, required: true }, // Date of the session when shots were played
-      shots: [ShotSchema], // Array of shots with names and percentages
+      date: { type: Date, required: true }, 
+      shots: [ShotSchema], 
     }
   ],
 });
