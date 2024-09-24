@@ -1,8 +1,10 @@
 import Login from './Login';
 import Register from './Register';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Dashboard from './Dashboard';
+import OldDashboard from './OldDashboard';
 import LandingPage from './LandingPage';
+import Dashboard from './Dashboard';
+
 function App() {
 
   return (
@@ -12,7 +14,8 @@ function App() {
           <Route path="/" element ={<LandingPage/>} />
           <Route path="/register" element ={<Register/>} />
           <Route path="/login" element ={<Login/>} />
-          <Route path="/dashboard" element ={<Dashboard/>} />
+          <Route path="/old-dashboard" element ={<OldDashboard/>} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {/* <Route path="/landing" element ={<LandingPage/>} /> */}
 
         </Routes>
