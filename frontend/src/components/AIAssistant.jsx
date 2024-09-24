@@ -114,7 +114,7 @@ const AIAssistant = () => {
         <img src="./assets/Transparent-logo.png" alt="Logo" height={160} />
       </Box>
 
-      {/* <Grid container spacing={2}>
+      <Grid container spacing={2}>
         {[
           "Tell me about all the shots I play and which shots I need to practise?",
           "Tell me about the playing areas I need to work on?",
@@ -146,7 +146,7 @@ const AIAssistant = () => {
             </Card>
           </Grid>
         ))}
-      </Grid> */}
+      </Grid>
 
       {/* Display messages */}
       <Box sx={{ mt: 2, mb: 2, height: "60vh", overflowY: "auto" }}>
