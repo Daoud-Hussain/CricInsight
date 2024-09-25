@@ -25,6 +25,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
         onClick={() => handleMenuClick("VideoInsight")}
         sx={{
           mx: 1,
+          mb:0.5,
           borderRadius: 2,
           backgroundColor:
             selectedComponent === "VideoInsight" ? "white" : "inherit",
@@ -45,13 +46,14 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
             }}
           />
         </ListItemIcon>
-        <ListItemText primary="Upload Videos" />
+        <ListItemText primary="Video Insights" />
       </ListItemButton>
 
       <ListItemButton
         onClick={() => handleMenuClick("Visualization")}
         sx={{
           mx: 1,
+          mb:0.5,
           borderRadius: 2,
           backgroundColor:
             selectedComponent === "Visualization" ? "white" : "inherit",
@@ -79,6 +81,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
         onClick={() => handleMenuClick("PlayingAreas")}
         sx={{
           mx: 1,
+          mb:0.5,
           borderRadius: 2,
           backgroundColor:
             selectedComponent === "PlayingAreas" ? "white" : "inherit",
@@ -106,6 +109,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
         onClick={() => handleMenuClick("PaymentGateway")}
         sx={{
           mx: 1,
+          mb:0.5,
           borderRadius: 2,
           backgroundColor:
             selectedComponent === "PaymentGateway" ? "white" : "inherit",
@@ -133,6 +137,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
         onClick={() => handleMenuClick("AIAssistant")}
         sx={{
           mx: 1,
+          mb:0.5,
           borderRadius: 2,
           backgroundColor:
             selectedComponent === "AIAssistant" ? "white" : "inherit",
@@ -160,6 +165,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
         onClick={() => handleMenuClick("Reviews")}
         sx={{
           mx: 1,
+          mb:0.5,
           borderRadius: 2,
           backgroundColor:
             selectedComponent === "Reviews" ? "white" : "inherit",
@@ -187,6 +193,7 @@ export const mainListItems = (handleMenuClick, selectedComponent) => {
         onClick={handleLogout}
         sx={{
           mx: 1,
+          mb:0.5,
           bottom: 0,
           position: 'fixed',
           backgroundColor: 'inherit',
