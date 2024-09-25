@@ -16,7 +16,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { mainListItems } from "./listItems";
+import { mainListItems } from "./NavListItems";
 import Visualization from "./Visualization";
 import VideoInsight from "./VideoInsight";
 import PaymentGateway from "./PaymentGateway";
