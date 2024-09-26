@@ -20,6 +20,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import CircularProgressWithLabel from "@mui/material/CircularProgress";
 import GoogleIcon from "/google-icon.svg";
 import FacebookIcon from "/facebook-icon.svg";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -52,26 +53,44 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = () => {
-    // Implement Google login functionality here
-  };
 
   const handleFacebookLogin = () => {
     // Implement Facebook login functionality here
   };
+  
+  const onSuccess = (response) => {
+    const googleToken = response.credential;
+
+    axios.post('http://localhost:3001/google-login', { token: googleToken })
+      .then((res) => {
+        const userEmail = res.data.email; 
+        
+        localStorage.setItem('userEmail', userEmail);
+        
+        toast.success('Google login successful!');
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+
+      })
+      .catch((error) => {
+        toast.error('Google login failed. Please try again.');
+      });
+  };
+
+  const onFailure = (error) => {
+    console.error('Google login failed:', error);
+    toast.error('Google login failed. Please try again.');
+  };
+
 
   return (
-    <div>
-      <ToastContainer />
-      <Grid
-        container
-        component="main"
-        sx={{
-          height: "109vh",
-          overflowY: "hidden",
-          fontFamily: "Poppins, sans-serif",
-        }}
-      >
+    <Grid container sx={{
+      backgroundColor:'purple',
+      height: "109vh",
+      overflow: 'hidden'
+    }}>
+      <ToastContainer sx />
         <Grid
           item
           xs={false}
@@ -84,6 +103,7 @@ const Login = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            height: '109vh'
           }}
         >
           <img src="./assets/logo.png" alt="Logo" />
@@ -92,12 +112,15 @@ const Login = () => {
         <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
           <Box
             sx={{
-              my: 8,
+              // my: 8,
               paddingTop: 8,
               mx: 12,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent:'center',
+              minHeight: '109vh'
+
             }}
           >
             <Typography
@@ -124,7 +147,7 @@ const Login = () => {
                   background:
                     "linear-gradient(120deg, #D52728, #33C0FF, #5733FF, #030947)",
                   borderRadius: "5px",
-                  marginLeft: '3%',
+                  marginLeft: "3%",
                 }}
               />
             </Typography>
@@ -132,7 +155,7 @@ const Login = () => {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 5}}
+              sx={{ mt: 5 }}
             >
               <TextField
                 required
@@ -224,7 +247,7 @@ const Login = () => {
                 {loading ? "Logging in" : "Login"}
               </Button>
 
-              <Divider sx={{px: '2%'}}>
+              <Divider sx={{ px: "2%" }}>
                 <Typography variant="body2" color="textSecondary">
                   or
                 </Typography>
@@ -235,32 +258,13 @@ const Login = () => {
                   display: "flex",
                   justifyContent: "center",
                   gap: 2,
-                  mt:2
+                  mt: 2,
                 }}
               >
-                <Button
-                  variant="outlined"
-                  startIcon={
-                    <img
-                      src={GoogleIcon}
-                      alt="Google logo"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  }
-                  onClick={handleGoogleLogin}
-                  sx={{
-                    textTransform: "none",
-                    color: "rgba(0, 0, 0)",
-                    backgroundColor: "#fff",
-                    borderColor: "rgba(0, 0, 0, 0.23)",
-                    "&:hover": {
-                      backgroundColor: "#f5f5f5",
-                      borderColor: "rgba(0, 0, 0, 0.23)",
-                    },
-                  }}
-                >
-                  Continue with Google
-                </Button>
+                <GoogleLogin
+                  onSuccess={onSuccess}
+                  onError={onFailure}
+                />
                 <Button
                   variant="outlined"
                   startIcon={
@@ -298,15 +302,17 @@ const Login = () => {
                     }}
                   >
                     Don't have an account?{" "}
-                    <span style={{ color: "#D52728", fontWeight: 'bold' }}>Sign Up</span>
+                    <span style={{ color: "#D52728", fontWeight: "bold" }}>
+                      Sign Up
+                    </span>
                   </Link>
                 </Grid>
               </Grid>
             </Box>
           </Box>
         </Grid>
-      </Grid>
-    </div>
+      
+    </Grid>
   );
 };
 
