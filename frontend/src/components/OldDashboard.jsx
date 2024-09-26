@@ -16,7 +16,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { mainListItems } from "./listItems";
+import { mainListItems } from "./NavListItems";
 import Visualization from "./Visualization";
 import VideoInsight from "./VideoInsight";
 import PaymentGateway from "./PaymentGateway";
@@ -237,7 +237,7 @@ export default function Dashboard() {
             {mainListItems(handleMenuClick, selectedComponent)}
           </List>
           <Divider />
-          <List>{secondaryListItems}</List>
+          {/* <List>{secondaryListItems}</List> */}
         </Drawer>
 
         <Box
@@ -269,3 +269,16 @@ export default function Dashboard() {
     </ThemeProvider>
   );
 }
+
+
+// {message.role === "user" ? (
+//   // For User messages, show the Edit icon to the left
+//   <Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
+//     <EditIcon sx={{ color: "#757575" }} />
+//   </Box>
+// ) : (
+//   // For Assistant messages, show the logo to the left
+//   <Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
+//     <img src="./logo.png" alt="Logo" height={40} />
+//   </Box>
+// )}
