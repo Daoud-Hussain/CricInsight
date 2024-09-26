@@ -7,7 +7,7 @@ import PaymentGateway from './PaymentGateway';
 import PlayingAreas from './PlayingAreas';
 import Profile from './Profile';
 import AIAssistant from './AIAssistant';
-import { mainListItems } from "./listItems";
+import { mainListItems } from "./NavListItems";
 import PersonIcon from "@mui/icons-material/Person";
 import ShareIcon from "@mui/icons-material/Share";
 import Reviews from "./Reviews";
