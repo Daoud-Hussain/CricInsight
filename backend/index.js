@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const FormDataModel = require('./models/FormData');
 const UserModel = require('./models/FormData'); 
+const { OAuth2Client } = require('google-auth-library');
 
 
 const app = express();
@@ -54,6 +55,39 @@ app.post('/login', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+
+// Google login
+const client = new OAuth2Client('84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com');
+app.post("/google-login", async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: "84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com", 
+    });
+
+    const { name, email } = ticket.getPayload();
+
+    let user = await FormDataModel.findOne({ email });
+    
+    if (!user) {
+      user = new FormDataModel({
+        email,
+        name,
+      });
+
+      await user.save();
+    }
+
+    res.status(200).json({ email });
+  } catch (error) {
+    console.error("Error during Google login:", error);
+    res.status(500).json({ message: "Google login failed" });
+  }
+});
+
+
 // Get user by email
 app.get('/user', (req, res) => {
   const { email } = req.query;
@@ -102,7 +136,6 @@ app.post('/api/shots', async (req, res) => {
   try {
     const { date, email, shots } = req.body;
 
-    // Basic validation
     if (!date || !email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -120,9 +153,8 @@ app.post('/api/shots', async (req, res) => {
             date: new Date(date),
             shots: shots.map(shot => ({
               name: shot.name,
-              percentage: shot.percentage, // Include percentage in the shots
+              percentage: shot.percentage, 
             })),
-            // Add more fields if needed
           },
         },
       },
