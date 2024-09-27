@@ -9,7 +9,7 @@ const ShotSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: false },
   shotsPlayed: [
     {
       date: { type: Date, required: true }, 
