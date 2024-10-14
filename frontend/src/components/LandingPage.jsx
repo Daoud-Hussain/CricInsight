@@ -13,7 +13,7 @@ import HomeSection from './HomeSection';
 import Experience from './Experience';
 import HowToUseSection from './HowToUse';
 import WhyCricInsight from './WhyCricInsight';
-import WhatWeOffer from './WhatWeOffer';
+import WhatWeOffer from './ServicesOffered';
 
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
