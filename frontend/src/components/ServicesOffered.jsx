@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Grid, Card, Typography, Box } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const services = [
   {
@@ -30,14 +30,17 @@ const MotionTypography = motion(Typography);
 const MotionImg = motion.img;
 
 const Services = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
   return (
-    <Box sx={{ textAlign: "center", mx: 7, px: 2 }}>
+    <Box ref={ref} sx={{ textAlign: "center", mx: 7, px: 2 }}>
       <MotionTypography
         variant="body"
         color="#030D40"
         sx={{fontWeight: 'bold'}}
         initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
       >
         Our Services
@@ -47,7 +50,7 @@ const Services = () => {
         fontWeight="bold"
         gutterBottom
         initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         What We Offer?
@@ -60,7 +63,7 @@ const Services = () => {
               <MotionCard
                 sx={{ p: 3, height: '100%', boxShadow: 'none', display: 'flex', flexDirection: 'column', background: '#F3F3F3', justifyContent: 'flex-start', alignItems: 'flex-start', textAlign: 'left' }}
                 initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={{ scale: 1.05 }}
               >
@@ -68,7 +71,7 @@ const Services = () => {
                   src={service.imgSrc}
                   style={{filter: "brightness(0) saturate(100%) invert(7%) sepia(82%) saturate(3872%) hue-rotate(236deg) brightness(93%) contrast(107%)"}}
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.5, delay: index * 0.2 + 0.2 }}
                 />
                 <Typography variant="h6" fontWeight="bold" gutterBottom marginTop={1}>
@@ -86,7 +89,7 @@ const Services = () => {
           <MotionCard
             sx={{ p: 2, height: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, backgroundColor: '#030D40' }}
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
           >
@@ -95,7 +98,7 @@ const Services = () => {
               alt="CricInsight Logo"
               style={{ width: "90%", height: "auto", margin: 8 }}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             />
           </MotionCard>
@@ -107,7 +110,7 @@ const Services = () => {
               <MotionCard
                 sx={{ p: 3, height: '100%', display: 'flex', boxShadow: 'none', flexDirection: 'column', background: '#F3F3F3', justifyContent: 'flex-start', alignItems: 'flex-start', textAlign: 'left' }}
                 initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
                 whileHover={{ scale: 1.05 }}
               >
@@ -116,7 +119,7 @@ const Services = () => {
                   sx={{mb:1}}
                   style={{filter: "brightness(0) saturate(100%) invert(7%) sepia(82%) saturate(3872%) hue-rotate(236deg) brightness(93%) contrast(107%)"}}
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.5, delay: index * 0.2 + 0.6 }}
                 />
                 <Typography variant="h6" fontWeight="bold" gutterBottom>
