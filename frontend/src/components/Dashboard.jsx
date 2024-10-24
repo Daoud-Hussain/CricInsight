@@ -11,6 +11,7 @@ import AIAssistant from "./AIAssistant";
 import Reviews from "./Reviews";
 import { mainListItems } from "./NavListItems";
 import axios from "axios";
+import NotFoundPage from "./PageNotFound";
 
 const drawerWidth = 240;
 
@@ -126,6 +127,7 @@ const Dashboard = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="ai-assistant" element={<AIAssistant />} />
           <Route path="reviews" element={<Reviews />} />
+          <Route path="*" element={<NotFoundPage />} />
           <Route 
             path="video-insights" 
             element={<VideoInsight onDone={() => handleMenuClick("Visualization")} />} 
