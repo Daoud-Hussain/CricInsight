@@ -6,6 +6,7 @@ import CustomButton from "./CustomButton";
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 const data = [
@@ -95,6 +96,11 @@ const Visualization = () => {
     );
   };
 
+  const reloadData = () => {
+    window.location.reload(); 
+  console.log("Data reloaded");
+};
+
   return (
     <Box
       sx={{
@@ -113,8 +119,8 @@ const Visualization = () => {
         Shots Visualization
       </Typography>
 
-      <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: "20px" }}>
-        <Grid item xs={12} md={8} sx={{ textAlign: "center" }}>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: "20px"}}>
+        <Grid item xs={12} md={7} sx={{ textAlign: "center" }}>
           <Grid container spacing={2} justifyContent="center">
             {data.map((shot) => (
               <Grid item key={shot.name}>
@@ -135,7 +141,7 @@ const Visualization = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={2} sx={{ textAlign: "center" }}>
+        <Grid item xs={12} md={3} sx={{ textAlign: "center"}}>
           <FormControl sx={{ minWidth: 220 }}>
             <InputLabel id="date-label">Date</InputLabel>
             <Select
@@ -171,12 +177,28 @@ const Visualization = () => {
 
 
         <Grid item xs={12} md={2}>
-          <Box display="flex" justifyContent="flex-end" width="100%">
+          <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
+            <RefreshIcon
+            onClick={reloadData}
+            sx={{
+              padding: "5px",
+              borderRadius: "50%",
+              width: 35,
+              height: 35,
+              cursor: "pointer",
+              color: '#030947',
+              "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.1)", 
+              },
+            }}
+            />
+
             <CustomButton
               title="Save"
               onClick={saveShotsData}
               IconComponent={FileDownloadOutlinedIcon}
             />
+            
           </Box>
         </Grid>
       </Grid>
