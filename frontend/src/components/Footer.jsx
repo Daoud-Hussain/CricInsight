@@ -1,17 +1,9 @@
 import React from 'react';
-import { 
-  Box, 
-  Container, 
-  Grid, 
-  Typography, 
-  Link, 
-  IconButton,
-  useTheme
-} from '@mui/material';
+import { Box, Container, Grid, Typography, Link, IconButton, useTheme } from '@mui/material';
 import { Facebook, Twitter, Instagram, Phone, Mail } from 'lucide-react';
 import { styled } from '@mui/material/styles';
+import { motion, useInView } from 'framer-motion';
 
-// Styled components
 const StyledFooter = styled(Box)(({ theme }) => ({
   backgroundColor: '#000000',
   color: '#ffffff',
@@ -22,8 +14,9 @@ const FooterLink = styled(Link)(({ theme }) => ({
   color: '#ffffff',
   textDecoration: 'none',
   '&:hover': {
-    color: theme.palette.primary.main,
-    textDecoration: 'underline',
+    // color: 'theme.palette.primary.main',
+    textDecoration: 'none',
+    cursor: 'pointer'
   },
 }));
 
@@ -44,6 +37,11 @@ const ContactItem = styled(Box)(({ theme }) => ({
 const Footer = () => {
   const theme = useTheme();
 
+  const footerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
+
   const quickLinks = [
     { text: 'Login', href: '/login' },
     { text: 'Dashboard', href: '/dashboard' },
@@ -54,106 +52,97 @@ const Footer = () => {
   ];
 
   return (
-    <StyledFooter component="footer">
+    <StyledFooter 
+      component={motion.footer} 
+      initial="hidden" 
+      whileInView="visible" 
+      viewport={{ once: true }} 
+      variants={footerVariants}
+    >
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           {/* Company Info */}
           <Grid item xs={12} md={4}>
-            <Box>
-              <img 
-                src="./assets/home-logo.png"
-                alt="CricInsight Logo"
-                style={{ width: 250 }}
-              />
-            </Box>
-            {/* <Typography 
-              variant="body2" 
-              sx={{ 
-                color: 'rgba(255, 255, 255, 0.7)',
-                lineHeight: 1.6 
-              }}
-            >
-              Contact us today to explore our services and take advantage of the great deals 
-              available from the leading solar and cable companies in the DC, Maryland, and 
-              Virginia area. Let us be your trusted partner in finding the best solutions for 
-              your energy and connectivity needs.
-            </Typography> */}
+            <motion.div variants={footerVariants}>
+              <Box>
+                <img 
+                  src="./assets/home-logo.png"
+                  alt="CricInsight Logo"
+                  style={{ width: 250 }}
+                />
+              </Box>
+            </motion.div>
           </Grid>
 
           {/* Quick Links */}
           <Grid item xs={12} md={4}>
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                mb: 2,
-                pt: 2,
-                fontWeight: 'bold'
-              }}
-            >
-              Quick Links
-            </Typography>
-            <Box 
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 1
-              }}
-            >
-              {quickLinks.map((link) => (
-                <FooterLink 
-                  key={link.text}
-                  href={link.href}
-                  variant="body2"
-                >
-                  {link.text}
-                </FooterLink>
-              ))}
-            </Box>
+            <motion.div variants={footerVariants}>
+              <Typography 
+                variant="h6" 
+                sx={{ mb: 2, pt: 2, fontWeight: 'bold' }}
+              >
+                Quick Links
+              </Typography>
+              <Box 
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1
+                }}
+              >
+                {quickLinks.map((link) => (
+                  <FooterLink 
+                    key={link.text}
+                    href={link.href}
+                    variant="body2"
+                  >
+                    {link.text}
+                  </FooterLink>
+                ))}
+              </Box>
+            </motion.div>
           </Grid>
 
           {/* Contact Info */}
           <Grid item xs={12} md={4}>
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                mb: 2,
-                pt:2,
-                fontWeight: 'bold'
-              }}
-            >
-              Contact
-            </Typography>
-            
-            <ContactItem sx={{pb:1}}>
-              <Phone size={20} />
-              <Typography variant="body2">
-              + 1800 145 276
+            <motion.div variants={footerVariants}>
+              <Typography 
+                variant="h6" 
+                sx={{ mb: 2, pt:2, fontWeight: 'bold' }}
+              >
+                Contact
               </Typography>
-            </ContactItem>
-            
-            <ContactItem sx={{pb:1}}>
-              <Mail size={20} />
-              <Typography variant="body2">
-                cricinsight@gmail.com
-              </Typography>
-            </ContactItem>
+              
+              <ContactItem sx={{pb:1}}>
+                <Phone size={20} />
+                <Typography variant="body2">
+                + 1800 145 276
+                </Typography>
+              </ContactItem>
+              
+              <ContactItem sx={{pb:1}}>
+                <Mail size={20} />
+                <Typography variant="body2">
+                  cricinsight@gmail.com
+                </Typography>
+              </ContactItem>
 
-            {/* Social Media */}
-            <Box sx={{ mt: 3 }}>
-              <SocialButton aria-label="Facebook">
-                <Facebook size={24} />
-              </SocialButton>
-              <SocialButton aria-label="Twitter">
-                <Twitter size={24} />
-              </SocialButton>
-              <SocialButton aria-label="Instagram">
-                <Instagram size={24} />
-              </SocialButton>
-            </Box>
+              {/* Social Media */}
+              <Box sx={{ mt: 3 }}>
+                <SocialButton aria-label="Facebook">
+                  <Facebook size={24} />
+                </SocialButton>
+                <SocialButton aria-label="Twitter">
+                  <Twitter size={24} />
+                </SocialButton>
+                <SocialButton aria-label="Instagram">
+                  <Instagram size={24} />
+                </SocialButton>
+              </Box>
+            </motion.div>
           </Grid>
         </Grid>
 
-        {/* Copyright */}
         <Typography 
           variant="body2" 
           align="center"
@@ -162,6 +151,8 @@ const Footer = () => {
             pt: 3,
             borderTop: '1px solid rgba(255, 255, 255, 0.1)'
           }}
+          component={motion.div}
+          variants={footerVariants}
         >
           Copyright © {new Date().getFullYear()} CricInsight
         </Typography>
