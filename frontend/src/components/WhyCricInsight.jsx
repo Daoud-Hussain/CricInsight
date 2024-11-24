@@ -25,7 +25,6 @@ export default function WhyCricInsight() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          minHeight: '50vh',
           backgroundColor: '#000',
           color: '#fff',
           padding: '2px',
@@ -34,7 +33,7 @@ export default function WhyCricInsight() {
       >
         <Grid container alignItems="center">
           <Grid item xs={12} md={7} sx={{ padding: '0 7%' }}>
-            <Box sx={{ textAlign: 'left', pr: { md: 4 } }}>
+            <Box sx={{ textAlign: 'left', pr: { md: 4 }, py: { xs: 6, sm: 6, md:0 } }}>
               <Typography variant="h4" component="h2" sx={{ fontWeight: 'bold', mb: 3 }}>
                 Why CricInsight?
               </Typography>
