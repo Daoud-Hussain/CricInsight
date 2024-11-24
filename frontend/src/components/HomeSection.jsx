@@ -39,7 +39,7 @@ function HomeSection({ imageSrc }) {
         padding: 2,
         backgroundColor: "#000000",
         paddingTop: "10%",
-        height: "110vh",
+        // height: "110vh",
         fontFamily: "Poppins, sans-serif",
       }}
     >
@@ -59,13 +59,18 @@ function HomeSection({ imageSrc }) {
             gutterBottom
             sx={{
               fontSize: {
-                xs: "1.5rem",
+                xs: "2rem",
                 sm: "60px",
               },
               paddingLeft: {
                 xs: 0,
-                md: 10,
-              },
+                md: 15,
+              }
+              ,marginTop: {
+                xs: 15,
+                md: 0,
+              }
+              ,
               fontWeight: 100,
               color: "white",
               margin: 0,
@@ -84,7 +89,7 @@ function HomeSection({ imageSrc }) {
               paddingTop: "10px",
               paddingLeft: {
                 xs: 0,
-                md: 10,
+                md: 15,
               },
             }}
           >
