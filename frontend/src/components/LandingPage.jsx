@@ -76,9 +76,9 @@ export default function LandingPage() {
       <HowToUseSection />
       <WhyCricInsight />
       <WhatWeOffer />
-      {/* <TestimonialSlider/>
+      <TestimonialSlider/>
       <ContactForm />
-      <Footer/> */}
+      <Footer/>
     </ThemeProvider>
   );
 }
