@@ -4,7 +4,6 @@ import { useSpring, animated } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
 
 const experiences = [
-  
   {
     image: '/bg2.png',
     heading: 'Shots Visualization',
@@ -13,7 +12,7 @@ const experiences = [
   {
     image: '/bg3.png',
     heading: 'Area Calculation',
-    text: 'Visualize shot distribution, analyzing fielding positions and percentages with precision',
+    text: 'Visualize shot distribution, analyzing fielding positions and percentages with precision.',
   },
   {
     image: '/bg4.png',
@@ -21,9 +20,9 @@ const experiences = [
     text: 'Identify flaws in your techniques and get improvement plans tailored for each shot.',
   },
   {
-    image: '/bg-3.png',
+    image: '/image.jpg',
     heading: 'AI Assistant',
-    text: 'Leverage our AI Assistant for instant analysis, intelligent responses and seamless interaction.',
+    text: 'Leverage our AI Assistant for instant analysis, intelligent responses, and seamless interaction.',
   },
 ];
 
@@ -43,81 +42,91 @@ export default function Experience() {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
         alignItems: 'center',
-        height: '100vh',
         textAlign: 'center',
         backgroundColor: '#fff',
-        padding: 2,
+        py: 6,
+        px: 2,
       }}
     >
-      <Box>
-        <Typography variant="h4" component="h4" sx={{ mb: 4, pl: 2, textAlign: 'left', fontWeight: 'bold' }}>
-          Our Expertise and Experience
-        </Typography>
-        <Grid container spacing={2} justifyContent="center">
-          {experiences.map((exp, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <animated.div ref={ref} style={cardAnimation}>
+      <Typography
+        variant="h4"
+        sx={{
+          mb: 4,
+          textAlign: 'center',
+          fontWeight: 'bold',
+          fontSize: { xs: '1.8rem', sm: '2rem', md: '2.5rem' },
+        }}
+      >
+        Our Expertise and Experience
+      </Typography>
+      <Grid container spacing={2} sx={{maxWidth: {sm:"96%" ,md: '90%'}}} justifyContent="center">
+        {experiences.map((exp, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <animated.div ref={ref} style={cardAnimation}>
+              <Box
+                sx={{
+                  backgroundImage: `url(${exp.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  height: 450,
+                  minWidth: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                  color: '#fff',
+                  borderRadius: 2,
+                  boxShadow: 3,
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&:hover': {
+                    boxShadow: 6,
+                  },
+                }}
+              >
                 <Box
                   sx={{
-                    backgroundImage: `url(${exp.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    height: 400,
-                    width: 270,
+                    background: 'rgba(0,0,0,0.6)',
+                    width: '100%',
+                    height: '100%',
+                    padding: 3,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
-                    color: '#fff',
-                     
                     borderRadius: 2,
-                    boxShadow: 3,
-                    '&:hover': {
-                      boxShadow: 6,
-                    },
-                  }}
-                >
-                  <Box
-                  sx={{
-                    background: 'rgba(0,0,0,0.5)',
-                    height: 400,
-                    width: 270,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                    color: '#fff',
-                   
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    '&:hover': {
-                      boxShadow: 6,
-                    },
                   }}
                 >
                   <Typography
                     variant="h6"
-                    component="h6"
-                    sx={{ textAlign: 'left', maxWidth: '65%', fontWeight: 'bold', fontSize: 24 , px: 3, pt: 3, pb: 1}}
+                    sx={{
+                      fontWeight: 'bold',
+                      fontSize: '1.6rem',   
+                      mb: 1,
+                      maxWidth: { sm: '100%', md: '50%' },
+                      textAlign: 'left'
+                    }}
                   >
                     {exp.heading}
                   </Typography>
                   <Typography
                     variant="body1"
-                    component="p"
-                    sx={{ fontSize: 16, textAlign: 'left', height: '40%', px:3, color: 'rgba(360,360,360,0.9)'                    }}
+                    sx={{
+                      fontSize: '1.1rem',
+                      textAlign: 'left',
+                      color: 'rgba(255,255,255,0.9)',
+                    }}
                   >
                     {exp.text}
                   </Typography>
-                  </Box>
                 </Box>
-              </animated.div>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+              </Box>
+            </animated.div>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 }
