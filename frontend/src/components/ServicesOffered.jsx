@@ -34,7 +34,7 @@ const Services = () => {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <Box ref={ref} sx={{ textAlign: "center", mx: 7, px: 2 }}>
+    <Box ref={ref} sx={{ textAlign: "center", mx: 2, px: 2, py: { xs: 6, sm: 6, md:0 } }}>
       <MotionTypography
         variant="body"
         color="#030D40"
@@ -87,7 +87,7 @@ const Services = () => {
 
         <Grid item xs={12} md={3} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <MotionCard
-            sx={{ p: 2, height: '80%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, backgroundColor: '#030D40' }}
+            sx={{ p: 2, height: {sm: "110%", md: "80%"}, my: {sm: 8, md: 4}, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, backgroundColor: '#030D40' }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5, delay: 0.4 }}
