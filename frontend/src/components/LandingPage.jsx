@@ -72,13 +72,13 @@ export default function LandingPage() {
       <CssBaseline />
       <AppAppBar />
       <HomeSection imageSrc="./assets/home-image.png" /> 
-      <Experience id="experience" />
+      {/* <Experience id="experience" />
       <HowToUseSection />
       <WhyCricInsight />
       <WhatWeOffer />
       <TestimonialSlider/>
       <ContactForm />
-      <Footer/>
+      <Footer/> */}
     </ThemeProvider>
   );
 }

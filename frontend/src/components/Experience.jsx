@@ -4,11 +4,7 @@ import { useSpring, animated } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
 
 const experiences = [
-  {
-    image: '/bg1.png',
-    heading: 'Videos Analysis',
-    text: 'Decode practice videos with precision, gaining deeper insights into player tactics and game dynamics.',
-  },
+  
   {
     image: '/bg2.png',
     heading: 'Shots Visualization',
@@ -23,6 +19,11 @@ const experiences = [
     image: '/bg4.png',
     heading: 'Adaptive Learning',
     text: 'Identify flaws in your techniques and get improvement plans tailored for each shot.',
+  },
+  {
+    image: '/bg-3.png',
+    heading: 'AI Assistant',
+    text: 'Leverage our AI Assistant for instant analysis, intelligent responses and seamless interaction.',
   },
 ];
 
@@ -99,7 +100,7 @@ export default function Experience() {
                   <Typography
                     variant="h6"
                     component="h6"
-                    sx={{ textAlign: 'left', maxWidth: '70%', fontWeight: 'bold', fontSize: 24 , px: 3, pt: 3, pb: 1}}
+                    sx={{ textAlign: 'left', maxWidth: '65%', fontWeight: 'bold', fontSize: 24 , px: 3, pt: 3, pb: 1}}
                   >
                     {exp.heading}
                   </Typography>
