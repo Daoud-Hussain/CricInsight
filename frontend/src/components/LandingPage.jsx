@@ -62,7 +62,7 @@ ToggleCustomTheme.propTypes = {
 };
 
 export default function LandingPage() {
-  const [showCustomTheme, setShowCustomTheme] = React.useState(false); 
+  const [showCustomTheme, setShowCustomTheme] = React.useState(false);
   const LPtheme = createTheme(getLPTheme('light'));
   const defaultTheme = createTheme({ palette: { mode: 'light' } });
 
@@ -71,14 +71,23 @@ export default function LandingPage() {
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
       <CssBaseline />
       <AppAppBar />
-      <HomeSection imageSrc="./assets/home-image.png" /> 
-      <Experience id="experience" />
-      <HowToUseSection />
+      <Box id="home">
+        <HomeSection imageSrc="./assets/home-image.png" />
+      </Box>
+      <Box id="experience">
+        <Experience />
+      </Box>
+      <Box id="howToUse">
+        <HowToUseSection />
+      </Box>
       <WhyCricInsight />
-      <WhatWeOffer />
-      <TestimonialSlider/>
-      <ContactForm />
-      <Footer/>
+      <Box id="services">
+        <WhatWeOffer />
+      </Box>
+      <Box id="contact">
+        <ContactForm />
+      </Box>
+      <Footer />
     </ThemeProvider>
   );
 }
