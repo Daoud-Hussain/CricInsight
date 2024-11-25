@@ -21,12 +21,11 @@ const logoStyle = {
 };
 
 
-
 const navMenus = [
-  { label: "About", sectionId: "experience" }, // Change this to match the Experience section
+  { label: "About", sectionId: "experience" },
+  { label: "How to Use", sectionId: "howToUse" },
   { label: "Services", sectionId: "services" },
-  { label: "Reviews", sectionId: "reviews" },
-  { label: "Contact", sectionId: "contact" },
+  { label: "Contact", sectionId: "contact" }
 ];
 
 function AppAppBar({ mode, toggleColorMode }) {
@@ -36,16 +35,36 @@ function AppAppBar({ mode, toggleColorMode }) {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+  // Add this function to handle logo click
+  const handleLogoClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+    setOpen(false);
+  };
+  const logoStyle = {
+    width: "auto",
+    height: "60px",
+    cursor: "pointer",
+    mx: 10,
+    transition: "transform 0.2s", // Optional: adds hover effect
+    "&:hover": {
+      transform: "scale(1.05)" // Optional: adds hover effect
+    }
+  };
+
 
   const scrollToSection = (sectionId) => {
     const sectionElement = document.getElementById(sectionId);
-    const offset = 128;
     if (sectionElement) {
-      const targetScroll = sectionElement.offsetTop - offset;
-      sectionElement.scrollIntoView({ behavior: "smooth" });
+      const headerOffset = 80;
+      const elementPosition = sectionElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
       window.scrollTo({
-        top: targetScroll,
-        behavior: "smooth",
+        top: offsetPosition,
+        behavior: "smooth"
       });
       setOpen(false);
     }
@@ -70,6 +89,7 @@ function AppAppBar({ mode, toggleColorMode }) {
               alignItems: "center",
               justifyContent: "space-between",
               flexShrink: 0,
+              flexDirection: "row",
               borderRadius: "999px",
               bgcolor: "transparent",
               color: "transparent",
@@ -83,9 +103,30 @@ function AppAppBar({ mode, toggleColorMode }) {
                   : "0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)",
             })}
           >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <img src="/logo.png" style={logoStyle} alt="Logo" />
+
+            <Box
+              onClick={() => scrollToSection("home")}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+                "&:hover img": {
+                  transform: "scale(1.05)",
+                },
+              }}
+            >
+              <img
+                src="/logo.png"
+                style={{
+                  ...logoStyle,
+                  marginRight: "16px", // Add spacing between the logo and nav links
+                  transition: "transform 0.2s ease-in-out",
+                }}
+                alt="Logo"
+              />
             </Box>
+
+            {/* Navigation links in the center */}
             <Box
               sx={{
                 display: { xs: "none", md: "flex" },
@@ -115,6 +156,8 @@ function AppAppBar({ mode, toggleColorMode }) {
                 </MenuItem>
               ))}
             </Box>
+
+            {/* Right-side Login Button */}
             <Box
               sx={{
                 display: { xs: "none", md: "flex" },
@@ -122,7 +165,7 @@ function AppAppBar({ mode, toggleColorMode }) {
                 alignItems: "center",
               }}
             >
-              <MenuItem onClick={() => navigate('/login')}>
+              <MenuItem onClick={() => navigate("/login")}>
                 <Typography
                   variant="body2"
                   sx={{
@@ -138,61 +181,8 @@ function AppAppBar({ mode, toggleColorMode }) {
                 </Typography>
               </MenuItem>
             </Box>
-            <Box sx={{ display: { sm: "", md: "none" } }}>
-              <Button
-                variant="text"
-                color="primary"
-                aria-label="menu"
-                onClick={toggleDrawer(true)}
-                sx={{ minWidth: "30px", p: "4px" }}
-              >
-                <MenuIcon />
-              </Button>
-              <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
-                <Box
-                  sx={{
-                    minWidth: "60dvw",
-                    p: 2,
-                    backgroundColor: "background.paper",
-                    flexGrow: 1,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "end",
-                      flexGrow: 1,
-                      backgroundColor: "black",
-                    }}
-                  ></Box>
-                  {navMenus.map((menu) => (
-                    <MenuItem
-                      key={menu.sectionId}
-                      onClick={() => scrollToSection(menu.sectionId)}
-                    >
-                      {menu.label}
-                    </MenuItem>
-                  ))}
-                  <Divider />
-                  <MenuItem onClick={() => navigate('/login')}>
-                    <Typography
-                      sx={{
-                        width: "100%",
-                        background: "#030947",
-                        alignSelf: "center",
-                        color: "white",
-                        px: 2,
-                        py: 1,
-                      }}
-                    >
-                      Login
-                    </Typography>
-                  </MenuItem>
-                </Box>
-              </Drawer>
-            </Box>
           </Toolbar>
+
         </Container>
       </AppBar>
     </div>
