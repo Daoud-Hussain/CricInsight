@@ -129,26 +129,40 @@ const Register = () => {
       <Grid
         container
         component="main"
-        sx={{ height: "109vh", fontFamily: "Poppins, sans-serif" }}
+        sx={{
+          minHeight: "110vh",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          justifyContent: 'center',
+          overflow: "hidden",
+          fontFamily: "Poppins, sans-serif"
+        }}
       >
-        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+        <Grid item
+          xs={12}
+          md={6}
+          component={Paper}
+          elevation={6}
+          square>
           <Box
             sx={{
-              my: 8,
-              paddingTop: 8,
-              mx: 10,
+
+              px: { xs: 3, sm: 6, md: 12 },
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
+              justifyContent: 'center',
+              minHeight: { xs: '80vh', sm: '100vh', md: '110vh' }
             }}
           >
             <Typography
               component="h1"
               sx={{
                 fontWeight: "bold",
-                fontSize: 64,
+                fontSize: "32px",
                 position: "relative",
-                alignSelf: "flex-start",
+                textAlign: "flex-start",
               }}
               variant="h5"
             >
@@ -172,7 +186,7 @@ const Register = () => {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 5 }}
+              sx={{ mt: 4 }}
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -326,7 +340,7 @@ const Register = () => {
               >
                 {loading ? "Signing Up" : "Sign Up"}
               </Button>
-              
+
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link
@@ -348,19 +362,26 @@ const Register = () => {
         </Grid>
         <Grid
           item
-          xs={false}
-          sm={4}
+          xs={12}
           md={6}
           sx={{
-            background: "linear-gradient(90deg, #1F1F1F, #12152E, #030947)",
+            background: "linear-gradient(90deg, #030947, #12152E, #1F1F1F)",
             backgroundSize: "cover",
             paddingTop: 8,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            minHeight: { sm: "50vh", md: "110vh" },
           }}
         >
-          <img src="./assets/logo.png" alt="Logo" />
+          <img
+            src="./assets/logo.png"
+            alt="Logo"
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+            }}
+          />
         </Grid>
       </Grid>
     </div>
