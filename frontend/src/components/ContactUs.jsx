@@ -139,7 +139,7 @@ const ContactForm = () => {
                     sx={{ 
                       mt: 3, 
                       mb: 2, 
-                      borderRadius: 2,
+                      borderRadius: 5,
                       bgcolor: '#030D40', 
                       '&:hover': { bgcolor: '#030D40' } 
                     }}
