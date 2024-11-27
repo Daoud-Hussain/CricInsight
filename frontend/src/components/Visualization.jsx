@@ -21,8 +21,10 @@ const data = [
 const Visualization = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [dates, setDates] = useState([]);
+  const [componentKey, setComponentKey] = useState(0);
+
   const [shotsData, setShotsData] = useState({
-    date: new Date().toISOString(), 
+    date: new Date().toISOString(),
     email: localStorage.getItem("userEmail"),
     shots: [],
   });
@@ -41,7 +43,7 @@ const Visualization = () => {
     };
 
     fetchDates();
-  }, []);
+  }, [componentKey]);
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -58,7 +60,7 @@ const Visualization = () => {
 
       const updatedShotsData = {
         ...shotsData,
-        date: new Date().toISOString(), 
+        date: new Date().toISOString(),
         shots: updatedShots,
       };
 
@@ -97,12 +99,13 @@ const Visualization = () => {
   };
 
   const reloadData = () => {
-    window.location.reload(); 
-  console.log("Data reloaded");
-};
+    setComponentKey(prevKey => prevKey + 1);
+    console.log("Data reloaded");
+  };
 
   return (
     <Box
+      key={componentKey}
       sx={{
         px: "20px",
         py: "35px",
@@ -119,7 +122,7 @@ const Visualization = () => {
         Shots Visualization
       </Typography>
 
-      <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: "20px"}}>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: "20px" }}>
         <Grid item xs={12} md={7} sx={{ textAlign: "center" }}>
           <Grid container spacing={2} justifyContent="center">
             {data.map((shot) => (
@@ -141,7 +144,7 @@ const Visualization = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={3} sx={{ textAlign: "center"}}>
+        <Grid item xs={12} md={3} sx={{ textAlign: "center" }}>
           <FormControl sx={{ minWidth: 220 }}>
             <InputLabel id="date-label">Date</InputLabel>
             <Select
@@ -155,14 +158,14 @@ const Visualization = () => {
               onChange={handleCategoryChange}
               label="Date"
             >
-              {dates.slice().reverse().map((item) => { 
+              {dates.slice().reverse().map((item) => {
                 const formattedDate = new Date(item.date).toLocaleString("en-US", {
-                  month: "short",  
-                  day: "2-digit",  
-                  year: "numeric", 
-                  hour: "2-digit", 
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
                   minute: "2-digit",
-                  hour12: true,    
+                  hour12: true,
                 });
 
                 return (
@@ -179,18 +182,18 @@ const Visualization = () => {
         <Grid item xs={12} md={2}>
           <Box display="flex" justifyContent="flex-end" width="100%" gap={2}>
             <RefreshIcon
-            onClick={reloadData}
-            sx={{
-              padding: "5px",
-              borderRadius: "50%",
-              width: 35,
-              height: 35,
-              cursor: "pointer",
-              color: '#030947',
-              "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.1)", 
-              },
-            }}
+              onClick={reloadData}
+              sx={{
+                padding: "5px",
+                borderRadius: "50%",
+                width: 35,
+                height: 35,
+                cursor: "pointer",
+                color: '#030947',
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.1)",
+                },
+              }}
             />
 
             <CustomButton
@@ -198,7 +201,7 @@ const Visualization = () => {
               onClick={saveShotsData}
               IconComponent={FileDownloadOutlinedIcon}
             />
-            
+
           </Box>
         </Grid>
       </Grid>
