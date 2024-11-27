@@ -1,6 +1,5 @@
 const cors = require('cors');
 const express = require('express');
-const mongoose = require('mongoose');
 const FormDataModel = require('./models/FormData');
 const UserModel = require('./models/FormData'); 
 const { OAuth2Client } = require('google-auth-library');
@@ -12,18 +11,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/cricinsight', {
+require('dotenv').config(); 
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
-  console.log("Connected to MongoDB");
+  console.log("Connected to MongoDB Atlas");
 }).catch(err => {
-  console.error("MongoDB connection error:", err);
+  console.error("MongoDB Atlas connection error:", err);
 });
 
 // Routes
-
 // Register user
 app.post('/register', (req, res) => {
   const { email, password, firstName, lastName } = req.body;
@@ -94,7 +94,6 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 
-// Endpoint to upload video
 // Endpoint to upload video
 app.post('/api/upload-video', async (req, res) => {
   const { email, videos } = req.body;

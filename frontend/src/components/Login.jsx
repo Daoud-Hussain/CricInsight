@@ -138,7 +138,7 @@ const Login = () => {
         <Box
           sx={{
             width: "100%",
-            maxWidth: "400px",
+            // maxWidth: "400px",
             mx: "auto",
             maxWidth: { sm: '90%', md: '90%' },
 
