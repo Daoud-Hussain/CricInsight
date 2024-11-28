@@ -19,7 +19,7 @@ export const mainListItems = (handleMenuClick) => {
   const handleLogout = () => {
     localStorage.removeItem('userEmail');
     navigate('/login');
-    window.location.reload(); 
+    window.location.reload();
   };
 
   const isSelected = (path) => {
@@ -33,6 +33,7 @@ export const mainListItems = (handleMenuClick) => {
         sx={{
           mx: 1,
           mb: 0.5,
+          fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
           px: 2,
           borderRadius: 2,
           backgroundColor: isSelected('video-insights') ? "white" : "inherit",
@@ -50,6 +51,7 @@ export const mainListItems = (handleMenuClick) => {
           <UploadFileIcon
             sx={{
               color: isSelected('video-insights') ? "#030947" : "white",
+
             }}
           />
         </ListItemIcon>

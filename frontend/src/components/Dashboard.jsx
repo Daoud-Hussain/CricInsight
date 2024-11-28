@@ -80,7 +80,9 @@ const Dashboard = () => {
           />
         </Box>
         <Divider />
-        <List component="nav" sx={{ flexGrow: 1 }}>
+        <List component="nav" sx={{
+          flexGrow: 1, fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        }}>
           {mainListItems(handleMenuClick, location.pathname.split('/').pop())}
         </List>
         <Divider />
@@ -98,7 +100,9 @@ const Dashboard = () => {
         elevation={0}
       >
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{
+            flexGrow: 1, fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+          }}>
             Welcome, {userName || "User"}!
           </Typography>
 
@@ -128,9 +132,9 @@ const Dashboard = () => {
           <Route path="ai-assistant" element={<AIAssistant />} />
           <Route path="reviews" element={<Reviews />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route 
-            path="video-insights" 
-            element={<VideoInsight onDone={() => handleMenuClick("Visualization")} />} 
+          <Route
+            path="video-insights"
+            element={<VideoInsight onDone={() => handleMenuClick("Visualization")} />}
           />
         </Routes>
       </Box>

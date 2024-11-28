@@ -55,7 +55,9 @@ const plans = [
 const PaymentGateway = () => {
   return (
     <Box sx={{ padding: 4, minHeight: '100vh' }}>
-      <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', px: 10, marginBottom: 3 }}>
+      <Typography variant="h4" align="center" sx={{
+        fontWeight: '600', px: 10, marginBottom: 3, fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      }}>
         Identify technique flaws and get tailored improvement plans.
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 4 }}>
@@ -98,18 +100,18 @@ const PaymentGateway = () => {
               </Typography>
               <Button variant="contained" sx={{ marginBottom: 2, backgroundColor: plan.highlighted ? '#FFFFFF' : '#030947', color: plan.highlighted ? '#030947' : '#FFFFFF' }}>
                 {plan.buttonText}
-                
+
               </Button>
 
               {/* <CenteredHr /> */}
               <hr />
               {plan.features.map((feature, i) => (
                 <Typography variant="body2" sx={{ marginBottom: 1 }} key={i}>
-  
+
                   {feature}
                 </Typography>
               ))}
-              
+
             </Paper>
           </Grid>
         ))}

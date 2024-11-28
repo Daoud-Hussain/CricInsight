@@ -110,14 +110,15 @@ const Visualization = () => {
         px: "20px",
         py: "35px",
         borderRadius: "8px",
-        fontFamily: "Poppins, sans-serif",
+        fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
       }}
     >
       <ToastContainer />
       <Typography
         variant="h5"
         align="center"
-        sx={{ marginBottom: "20px", fontWeight: "bold" }}
+        sx={{ marginBottom: "20px", fontWeight: "bold", fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        }}
       >
         Shots Visualization
       </Typography>

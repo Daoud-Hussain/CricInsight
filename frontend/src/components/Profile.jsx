@@ -149,7 +149,8 @@ const ProfileEdit = () => {
             justifyContent: 'flex-start',
           }}
         >
-          <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600">
+          <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600" sx={{            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+}}>
             Edit Profile
           </Typography>
           <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>

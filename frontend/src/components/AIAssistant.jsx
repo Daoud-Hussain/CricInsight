@@ -153,6 +153,7 @@ const AIAssistant = () => {
           mb: 1,
           display: "flex",
           justifyContent: "space-between",
+
         }}
       >
         <Box sx={{ pt: 4 }}>
@@ -163,6 +164,8 @@ const AIAssistant = () => {
               fontWeight: "600",
               letterSpacing: 1,
               color: "rgba(0,0,0,0.6)",
+              fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+
             }}
           >
             <span
@@ -174,12 +177,12 @@ const AIAssistant = () => {
               }}
             >
               Hello, <span> </span>
-              {userName || "User"}{" "}
+              {userName || "User"}{"! "}
             </span>
           </Typography>
           <Typography
-            variant="h4"
-            sx={{ color: "rgba(0, 0, 0, 0.6)", letterSpacing: 1.5 }}
+            variant="h5"
+            sx={{ color: "rgba(0, 0, 0, 0.6)", letterSpacing: 1.2 }}
           >
             How can I help you today?
           </Typography>
@@ -362,7 +365,7 @@ const AIAssistant = () => {
         )}
       </Box>
 
-      <Box sx={{ position: "fixed", bottom: 0, width: '64%', pb: 2 }}>
+      <Box sx={{ position: "fixed", textAlign: 'center',bottom: 0, width: '58%', pb: 2 }}>
         <TextField
           fullWidth
           multiline
