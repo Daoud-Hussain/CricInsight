@@ -18,9 +18,9 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
-  console.log("Connected to MongoDB Atlas");
+  console.log("Connected to MongoDB");
 }).catch(err => {
-  console.error("MongoDB Atlas connection error:", err);
+  console.error("MongoDB connection error:", err);
 });
 
 // Routes
@@ -32,13 +32,18 @@ app.post('/register', (req, res) => {
   FormDataModel.findOne({ email })
     .then(user => {
       if (user) {
-        return res.json("Already registered");
+        return res.status(400).json({ error: "Already registered" });
       } 
       return FormDataModel.create({ email, password, name });
     })
-    .then(newUser => res.json(newUser))
-    .catch(err => res.status(500).json(err));
+    .then(newUser => res.status(201).json(newUser))
+    .catch(err => {
+      console.error("Error during registration:", err); // Logs the error
+      res.status(500).json({ error: "Internal Server Error" });
+    });
 });
+
+
 
 // Login user
 app.post('/login', (req, res) => {
