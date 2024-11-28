@@ -21,10 +21,11 @@ const VideoSchema = new mongoose.Schema({
   videoNumber: { 
     type: Number, 
     required: false, 
-    default: 0,
-    unique: true, // Optional: if no two videos should have the same videoNumber
+    default: 0, 
+    // Remove unique constraint
   },
 });
+
 
 const ShotsPlayedSchema = new mongoose.Schema({
   date: { type: Date, required: true },
@@ -36,10 +37,10 @@ const UserSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: false },
-    videos: [VideoSchema],
+    videos: { type: [VideoSchema], default: [] }, // Default to an empty array
     shotsPlayed: [ShotsPlayedSchema],
   },
-  { timestamps: true } // Automatically adds `createdAt` and `updatedAt`
+  { timestamps: true }
 );
 
 const UserModel = mongoose.model('User', UserSchema);
