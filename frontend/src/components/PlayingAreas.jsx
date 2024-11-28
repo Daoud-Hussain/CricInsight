@@ -3,20 +3,20 @@ import { Box, Typography } from '@mui/material';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 const data = [
-  { value: 13 }, 
-  { value: 13},          
-  { value: 13 },       
-  { value: 13 },        
-  { value: 13},        
-  { value: 13},     
-  { value: 13 }, 
-  { value: 13 },    
+  { value: 13 },
+  { value: 13 },
+  { value: 13 },
+  { value: 13 },
+  { value: 13 },
+  { value: 13 },
+  { value: 13 },
+  { value: 13 },
 ];
 
 const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5; 
-  const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180)); 
-  const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180)); 
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
+  const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
 
   return (
     <text
@@ -42,6 +42,8 @@ const PlayingAreas = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+
         // height: '100vh',
         // position: 'relative',
       }}
@@ -54,10 +56,16 @@ const PlayingAreas = () => {
           mt: 4,
         }}
       >
-        <Typography variant="h5" sx={{fontWeight: 'bold', fontFamily: "Poppins, sans-serif", textAlign: 'center' }} color="textPrimary">
+        <Typography variant="h5" sx={{
+          fontWeight: '600', fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+          textAlign: 'center'
+        }} color="textPrimary">
           Off Side <br /> 56%
         </Typography>
-        <Typography variant="h5" color="textPrimary" sx={{fontWeight: 'bold', fontFamily: "Poppins, sans-serif", textAlign: 'center' }} align="right">
+        <Typography variant="h5" color="textPrimary" sx={{
+          fontWeight: '600', fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+          textAlign: 'center'
+        }} align="right">
           Leg Side <br /> 44%
         </Typography>
       </Box>
@@ -70,6 +78,9 @@ const PlayingAreas = () => {
           // cy="50%"
           // outerRadius={150}
           // innerRadius={70}
+          sx={{
+            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+          }}
           fill="#8884d8"
           dataKey="value"
           labelLine={false}
@@ -83,7 +94,9 @@ const PlayingAreas = () => {
       </PieChart>
 
       {/* Playing Areas Heading */}
-      <Typography variant="h6" sx={{ fontWeight: 'bold', fontFamily: "Poppins, sans-serif"}}>
+      <Typography variant="h6" sx={{
+        fontWeight: '600', fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      }}>
         Playing Areas
       </Typography>
     </Box>

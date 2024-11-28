@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, TextField, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button} from "@mui/material";
+import { Box, Typography, TextField, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { setProfileData, clearProfileData, } from "../../../backend/profileSlice";
@@ -66,7 +66,9 @@ const FeedbackForm = () => {
 
   return (
     <Box sx={{ p: 3, width: "90%", mx: "auto", mt: 3 }}>
-      <Typography variant="h4" sx={{ fontWeight: "bold", mb: 0.5 }}>
+      <Typography variant="h4" sx={{
+        fontWeight: "600", mb: 0.5, fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      }}>
         Reviews and Feedback
       </Typography>
       <Typography variant="subtitle1" gutterBottom sx={{ mb: 4 }}>
@@ -95,7 +97,8 @@ const FeedbackForm = () => {
 
         <Typography
           variant="subtitle1"
-          sx={{ fontWeight: "bold" }}
+          sx={{ fontWeight: "bold", fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+          }}
           gutterBottom
         >
           Overall satisfaction
