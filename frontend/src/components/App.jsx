@@ -5,6 +5,7 @@ import OldDashboard from './OldDashboard';
 import LandingPage from './LandingPage';
 import Dashboard from './Dashboard';
 import ForgotPassword from './ForgetPassword';
+import ResetPassword from "./ResetPassword";
 import NotFound from './PageNotFound';
 
 const PrivateRoute = ({ element }) => {
@@ -36,10 +37,13 @@ const App = () => {
             element={userEmail ? <Navigate to="/dashboard" /> : <OldDashboard />} 
           />
           <Route path="/dashboard/*" element={<PrivateRoute element={<Dashboard />} />} />
-          <Route 
+          {/* <Route 
             path="/forgot-password" 
             element={userEmail ? <Navigate to="/dashboard" /> : <ForgotPassword />} 
-          />
+          /> */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
           <Route path="404" element={<NotFound />} /> 
           <Route path="*" element={<Navigate to={userEmail ? "/dashboard" : "/404"} />} />
         </Routes>

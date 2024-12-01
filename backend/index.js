@@ -5,11 +5,25 @@ const UserModel = require('./models/FormData');
 const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require('nodemailer'); 
 const router = express.Router();
+const crypto = require('crypto');
+const User = require('./models/FormData'); // Adjust path as necessary
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+
+
+
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // Or your preferred email service
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
 
 require('dotenv').config(); 
 const mongoose = require('mongoose');
@@ -39,7 +53,7 @@ app.post('/register', (req, res) => {
     })
     .then(newUser => res.status(201).json(newUser))
     .catch(err => {
-      console.error("Error during registration:", err); // Logs the error
+      console.log("Error during registration:", err); // Logs the error
       res.status(500).json({ error: err });
     });
 });
@@ -63,42 +77,66 @@ app.post('/login', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.post('/forgot-password', async (req, res) => {
+app.post('/forgot-password', async (req, res) => {
+  console.log('Request body:', req.body);
   const { email } = req.body;
 
   try {
-    const user = await FormDataModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
+    console.log('User found:', user);
+
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found." });
+      return res.status(404).json({ message: 'No user found with this email' });
     }
 
-    const resetToken = generateResetToken(); 
-    user.resetToken = resetToken;
+    user.generatePasswordResetToken();
+    console.log('Generated token:', user.resetPasswordToken);
     await user.save();
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    const resetURL = `http://localhost:3000/reset-password/${user.resetPasswordToken}`;
+    console.log('Reset URL:', resetURL);
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Password Reset',
-      text: `You requested a password reset. Click the link below to reset your password:\n\nhttp://localhost:3000/reset-password/${resetToken}`,
-    };
-
+    const mailOptions = { /* email setup */ };
     await transporter.sendMail(mailOptions);
-    res.json({ success: true });
+    console.log('Email sent');
+
+    res.status(200).json({ message: 'Password reset link sent' });
   } catch (error) {
-    console.error("Error sending password reset email:", error);
-    res.status(500).json({ success: false, message: "An error occurred. Please try again." });
+    console.error('Error occurred:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
+
+// Reset Password Route
+app.post('/reset-password/:token', async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    // Find user with valid reset token
+    const user = await UserModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+
+    // Update password
+    user.password = newPassword; // Note: In production, hash the password
+    user.resetPasswordToken = null;
+    user.resetPasswordExpires = null;
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // Endpoint to upload video
 app.post('/api/upload-video', async (req, res) => {
