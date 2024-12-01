@@ -34,11 +34,11 @@ const Services = () => {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <Box ref={ref} sx={{ textAlign: "center", mx: 2, px: 2, py: { xs: 6, sm: 6, md:0 } }}>
+    <Box ref={ref} sx={{ textAlign: "center", mx: 2, px: 2, py: { xs: 6, sm: 6, md: 0 } }}>
       <MotionTypography
         variant="body"
         color="#030D40"
-        sx={{fontWeight: 'bold'}}
+        sx={{ fontWeight: 'bold' }}
         initial={{ opacity: 0, y: -20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
@@ -47,11 +47,14 @@ const Services = () => {
       </MotionTypography>
       <MotionTypography
         variant="h4"
-        fontWeight="bold"
+        fontWeight="600"
         gutterBottom
         initial={{ opacity: 0, y: -20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.5, delay: 0.2 }}
+        sx={{
+          fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+        }}
       >
         What We Offer?
       </MotionTypography>
@@ -69,12 +72,13 @@ const Services = () => {
               >
                 <MotionImg
                   src={service.imgSrc}
-                  style={{filter: "brightness(0) saturate(100%) invert(7%) sepia(82%) saturate(3872%) hue-rotate(236deg) brightness(93%) contrast(107%)"}}
+                  style={{ filter: "brightness(0) saturate(100%) invert(7%) sepia(82%) saturate(3872%) hue-rotate(236deg) brightness(93%) contrast(107%)" }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.5, delay: index * 0.2 + 0.2 }}
                 />
-                <Typography variant="h6" fontWeight="bold" gutterBottom marginTop={1}>
+                <Typography variant="h6" fontWeight="bold" gutterBottom marginTop={1} fontFamily='system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                >
                   {service.title}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
@@ -85,9 +89,9 @@ const Services = () => {
           ))}
         </Grid>
 
-        <Grid item xs={12} md={3} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <MotionCard
-            sx={{ p: 2, height: {sm: "110%", md: "80%"}, my: {sm: 8, md: 4}, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, backgroundColor: '#030D40' }}
+            sx={{ p: 2, height: { sm: "110%", md: "80%" }, my: { sm: 8, md: 4 }, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, backgroundColor: '#030D40' }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -116,13 +120,14 @@ const Services = () => {
               >
                 <MotionImg
                   src={service.imgSrc}
-                  sx={{mb:1}}
-                  style={{filter: "brightness(0) saturate(100%) invert(7%) sepia(82%) saturate(3872%) hue-rotate(236deg) brightness(93%) contrast(107%)"}}
+                  sx={{ mb: 1 }}
+                  style={{ filter: "brightness(0) saturate(100%) invert(7%) sepia(82%) saturate(3872%) hue-rotate(236deg) brightness(93%) contrast(107%)" }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.5, delay: index * 0.2 + 0.6 }}
                 />
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                <Typography variant="h6" fontWeight="bold" gutterBottom fontFamily='system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                >
                   {service.title}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">

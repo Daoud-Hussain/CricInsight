@@ -52,7 +52,6 @@ function HomeSection({ imageSrc }) {
         padding: 2,
         backgroundColor: "#000000",
         paddingTop: "10%",
-        fontFamily: "Poppins, sans-serif",
       }}
     >
       <Box
@@ -83,9 +82,10 @@ function HomeSection({ imageSrc }) {
                 md: 0,
               }
               ,
-              fontWeight: 100,
+              fontWeight: 300,
               color: "white",
               margin: 0,
+              fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
             }}
           >
               Take your game to the next level with <Box sx={{fontWeight: '600'}}>CricInsight. </Box> 

@@ -54,7 +54,7 @@ const ContactForm = () => {
       initial="hidden"
       variants={containerVariants}
     >
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', p: 3, textAlign: 'center' }}>
+      <Box sx={{ maxWidth: '1200px', mt:8, mx: 'auto', p: 3, textAlign: 'center' }}>
         <MotionTypography
           variant="body1"
           color="#030D40"
@@ -64,8 +64,9 @@ const ContactForm = () => {
           Contact Us
         </MotionTypography>
         <MotionTypography
-          variant="h3"
-          fontWeight="bold"
+          variant="h4"
+          fontWeight="600"
+          fontFamily= 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
           sx={{ textAlign: 'center' }}
           gutterBottom
           variants={itemVariants}
@@ -81,7 +82,8 @@ const ContactForm = () => {
             <Grid container spacing={4}>
               <Grid item xs={12} md={6}>
                 <motion.div variants={itemVariants}>
-                  <Typography variant="h5" fontWeight="bold" gutterBottom>
+                  <Typography variant="h5" fontWeight="600" marginBottom={0.5} fontFamily= 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                  >
                     Drop us a message
                   </Typography>
                 </motion.div>
@@ -114,7 +116,7 @@ const ContactForm = () => {
                     <Grid item xs={12}>
                       <MotionTextField
                         fullWidth
-                        placeholder="Work Email"
+                        placeholder="Email"
                         variant="outlined"
                         sx={{ bgcolor: '#fff' }}
                         variants={itemVariants}
@@ -156,7 +158,8 @@ const ContactForm = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                   <Phone color="#fff" size={35} style={{ marginRight: '12px', background: '#030D40', padding: 8, borderRadius: 50 }} />
                   <Box>
-                    <Typography variant="h6" fontWeight="bold">
+                    <Typography variant="h6" fontWeight="600" fontFamily= 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                    >
                       + 1800 145 276
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -167,7 +170,8 @@ const ContactForm = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Mail color="#fff" size={35} style={{ marginRight: '12px', background: '#030D40', padding: 8, borderRadius: 50 }}  />
                   <Box>
-                    <Typography variant="h6" fontWeight="bold">
+                    <Typography variant="h6" fontWeight="600" fontFamily= 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                    >
                       cricinsight@gmail.com
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
