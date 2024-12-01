@@ -57,6 +57,8 @@ export default function Experience() {
           textAlign: 'center',
           fontWeight: 'bold',
           fontSize: { xs: '1.8rem', sm: '2rem', md: '2.5rem' },
+          fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+
         }}
       >
         Our Expertise and Experience
@@ -102,11 +104,12 @@ export default function Experience() {
                   <Typography
                     variant="h6"
                     sx={{
-                      fontWeight: 'bold',
+                      fontWeight: '600',
                       fontSize: '1.6rem',   
                       mb: 1,
                       maxWidth: { sm: '100%', md: '50%' },
-                      textAlign: 'left'
+                      textAlign: 'left',
+                      fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
                     }}
                   >
                     {exp.heading}

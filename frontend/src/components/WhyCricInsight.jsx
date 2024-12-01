@@ -20,7 +20,7 @@ export default function WhyCricInsight() {
   const scrollToSection = (sectionId) => {
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
-      const headerOffset = 80; 
+      const headerOffset = 80;
       const elementPosition = sectionElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -47,8 +47,11 @@ export default function WhyCricInsight() {
       >
         <Grid container alignItems="center">
           <Grid item xs={12} md={7} sx={{ padding: '0 7%' }}>
-            <Box sx={{ textAlign: 'left', pr: { md: 4 }, py: { xs: 6, sm: 6, md:0 } }}>
-              <Typography variant="h4" component="h2" sx={{ fontWeight: 'bold', mb: 3 }}>
+            <Box sx={{ textAlign: 'left', pr: { md: 4 }, py: { xs: 6, sm: 6, md: 0 } }}>
+              <Typography variant="h4" component="h2" sx={{
+                fontWeight: '600', fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                , mb: 3
+              }}>
                 Why CricInsight?
               </Typography>
               <Typography variant="body1" sx={{ mb: 3 }}>
@@ -57,23 +60,23 @@ export default function WhyCricInsight() {
                 Its adaptive learning feature offers personalized feedback, making it a must-have for cricket enthusiasts seeking to improve their game.
               </Typography>
               <Box>
-              <Link href="/login">
-                <Button
-                  variant="contained"
-                  sx={{
-                    mr: 2,
-                    backgroundColor: '#fff',
-                    color: '#000',
-                    px: 3,
-                    borderRadius: '25px',
-                  }}
-                >
-                  Try now
-                </Button>
+                <Link href="/login">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      mr: 2,
+                      backgroundColor: '#fff',
+                      color: '#000',
+                      px: 3,
+                      borderRadius: '25px',
+                    }}
+                  >
+                    Try now
+                  </Button>
                 </Link>
                 <Button
                   variant="contained"
-                  onClick={() => scrollToSection("contact")} 
+                  onClick={() => scrollToSection("contact")}
                   sx={{
                     color: '#fff',
                     background: '#000',

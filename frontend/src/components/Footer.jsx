@@ -14,7 +14,6 @@ const FooterLink = styled(Link)(({ theme }) => ({
   color: "#ffffff",
   textDecoration: "none",
   "&:hover": {
-    // color: 'theme.palette.primary.main',
     textDecoration: "none",
     cursor: "pointer",
   },
@@ -23,7 +22,6 @@ const FooterLink = styled(Link)(({ theme }) => ({
 const SocialButton = styled(IconButton)(({ theme }) => ({
   color: "#ffffff",
   "&:hover": {
-    // color: theme.palette.primary.main,
   },
 }));
 
@@ -61,7 +59,6 @@ const Footer = () => {
     >
       <Container maxWidth="lg">
         <Grid container spacing={4}>
-          {/* Company Info */}
           <Grid
             item
             xs={12}
@@ -83,7 +80,6 @@ const Footer = () => {
             </motion.div>
           </Grid>
 
-          {/* Quick Links */}
           <Grid
             item
             xs={12}
@@ -97,7 +93,9 @@ const Footer = () => {
             <motion.div variants={footerVariants}>
               <Typography
                 variant="h6"
-                sx={{ mb: 2, pt: 2, fontWeight: "bold" }}
+                sx={{
+                  mb: 2, pt: 2, fontWeight: "600", fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                }}
               >
                 Quick Links
               </Typography>
@@ -117,7 +115,6 @@ const Footer = () => {
             </motion.div>
           </Grid>
 
-          {/* Contact Info */}
           <Grid
             item
             xs={12}
@@ -131,7 +128,9 @@ const Footer = () => {
             <motion.div variants={footerVariants}>
               <Typography
                 variant="h6"
-                sx={{ mb: 2, pt: 2, fontWeight: "bold" }}
+                sx={{
+                  mb: 2, pt: 2, fontWeight: "600", fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                }}
               >
                 Contact
               </Typography>

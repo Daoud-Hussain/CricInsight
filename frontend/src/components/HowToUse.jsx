@@ -38,8 +38,8 @@ function HowToUseSection() {
           <Typography
             variant="h3"
             sx={{
-              fontWeight: "bold",
-              fontFamily: "Poppins, sans-serif",
+              fontWeight: "600",
+              fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
               marginBottom: 2,
               animation: isVisible ? `${slideIn} 1s ease-out` : "none",
               opacity: isVisible ? 1 : 0,
@@ -136,8 +136,8 @@ function HowToUseSection() {
               <Typography
                 variant="h5"
                 sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Poppins, sans-serif",
+                  fontWeight: "600",
+                  fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
                   marginBottom: 1,
                 }}
               >
