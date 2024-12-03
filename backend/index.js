@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const router = express.Router();
 const crypto = require('crypto');
 const User = require('./models/FormData'); // Adjust path as necessary
+const bcrypt = require('bcrypt');
 
 
 const app = express();
@@ -40,41 +41,80 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Routes
 // Register user
-app.post('/register', (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
-  const name = `${firstName} ${lastName}`;
+app.post('/register', async (req, res) => {
+  try {
+    const { email, password, firstName, lastName } = req.body;
 
-  FormDataModel.findOne({ email })
-    .then(user => {
-      if (user) {
-        return res.status(400).json({ error: "Already registered" });
-      }
-      return FormDataModel.create({ email, password, name });
-    })
-    .then(newUser => res.status(201).json(newUser))
-    .catch(err => {
-      console.log("Error during registration:", err); // Logs the error
-      res.status(500).json({ error: err });
+    // Validate the required fields
+    if (!email || !password || !firstName || !lastName) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const name = `${firstName} ${lastName}`;
+    console.log("Request body:", req.body);
+
+    // Check if the user already exists
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      console.log("User already registered:", existingUser);
+      return res.status(400).json({ error: "User already registered" });
+    }
+
+    // Hash the password (using bcrypt for security)
+    const bcrypt = require('bcrypt');
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the new user
+    const newUser = new UserModel({
+      email,
+      password: hashedPassword, 
+      name,
     });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    console.log("User registered successfully:", newUser);
+    return res.status(201).json({ message: "User registered successfully", user: newUser });
+  } catch (error) {
+    console.error("Error during registration:", error);
+    res.status(500).json({ error: error });
+  }
 });
 
 
 // Login user
-app.post('/login', (req, res) => {
+
+app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  FormDataModel.findOne({ email })
-    .then(user => {
-      if (!user) {
-        return res.json("No records found!");
-      }
-      if (user.password === password) {
-        return res.json("Success");
-      }
-      res.json("Wrong password");
-    })
-    .catch(err => res.status(500).json(err));
+  try {
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    // Find user in the database (use the same model as registration)
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "No records found!" });
+    }
+
+    // Compare passwords
+    const bcrypt = require('bcrypt');
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Wrong password" });
+    }
+
+    // Successful login response
+    return res.status(200).json({ message: "Login successful", user });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
+
 
 app.post('/forgot-password', async (req, res) => {
   console.log('Request body:', req.body);
@@ -213,40 +253,70 @@ app.post("/google-login", async (req, res) => {
 
 
 // Get user by email
-app.get('/user', (req, res) => {
+app.get('/user', async (req, res) => {
   const { email } = req.query;
 
-  FormDataModel.findOne({ email })
-    .then(user => {
-      if (!user) {
-        return res.status(404).json("User not found");
-      }
-      res.json(user);
-    })
-    .catch(err => res.status(500).json(err));
+  try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Send user data without password or with a placeholder
+    res.status(200).json({
+      email: user.email,
+      name: user.name,
+      password: "********", // Placeholder
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-// Update user details
-app.post('/updateUser', (req, res) => {
+app.post('/updateUser', async (req, res) => {
   const { email, firstName, lastName, password } = req.body;
-  const name = `${firstName} ${lastName}`;
 
-  FormDataModel.findOneAndUpdate({ email }, { name, password }, { new: true })
-    .then(updatedUser => {
-      if (!updatedUser) {
-        return res.status(404).json("User not found");
-      }
-      res.json(updatedUser);
-    })
-    .catch(err => res.status(500).json(err));
+  try {
+    // Find the user
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Prepare updated data
+    const updates = { name: `${firstName} ${lastName}` };
+
+    // Update the password only if a new one is provided and it's not a placeholder
+    if (password && password !== "********") {
+      const bcrypt = require("bcrypt");
+      updates.password = await bcrypt.hash(password, 10);
+    }
+
+    // Update user in the database
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { email },
+      updates,
+      { new: true } // Return the updated document
+    );
+
+    res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Server error" });
+  }
 });
+
+
+
 
 // Delete user by email
 app.delete('/deleteUser', (req, res) => {
   const { email } = req.query;
 
   FormDataModel.findOneAndDelete({ email })
-    .then(deletedUser => {
+    .then(deletedUser => {//     default: null, // Default can be null if unset
+
       if (!deletedUser) {
         return res.status(404).json("User not found");
       }

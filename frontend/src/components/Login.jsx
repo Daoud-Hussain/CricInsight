@@ -37,20 +37,21 @@ const Login = () => {
       .post("http://localhost:3001/login", { email, password })
       .then((result) => {
         setLoading(false);
-        if (result.data === "Success") {
+        if (result.data.message === "Login successful") { // Match the backend response
           toast.success("Login successfully!", {});
           localStorage.setItem("userEmail", email);
           setTimeout(() => {
             navigate("/dashboard");
           }, 2000);
         } else {
-          toast.error("Incorrect credentials! Please try again.");
+          toast.error(result.data.error || "Incorrect credentials! Please try again.");
         }
       })
       .catch((err) => {
         setLoading(false);
         toast.error("An error occurred. Please try again.");
       });
+
   };
 
 
@@ -183,7 +184,7 @@ const Login = () => {
               autoComplete="email"
               onChange={(event) => setEmail(event.target.value)}
               sx={{
-                mb: 2, mt: 4 ,
+                mb: 2, mt: 4,
                 "& label.Mui-focused": {
                   color: "#030947",
                 },
@@ -222,22 +223,23 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
-              sx={{ mb: 2,
+              sx={{
+                mb: 2,
                 "& label.Mui-focused": {
-              color: "#030947",
-            },
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "#c4c4c4",
-              },
-              "&:hover fieldset": {
-                borderColor: "#030947",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#030947",
-              },
-            },
-               }}
+                  color: "#030947",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#c4c4c4",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#030947",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#030947",
+                  },
+                },
+              }}
             />
 
             <Grid container justifyContent="flex-end">

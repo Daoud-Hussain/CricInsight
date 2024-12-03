@@ -7,22 +7,22 @@ const ShotSchema = new mongoose.Schema({
   date: { type: Date, required: true, default: Date.now },
 });
 
-const VideoSchema = new mongoose.Schema({
-  url: { 
-    type: String, 
-    validate: {
-      validator: function(v) {
-        return /^(https?:\/\/[^\s]+)$/.test(v); // Valid URL regex
-      },
-      message: props => `${props.value} is not a valid URL!`
-    },
-  },
-  videoNumber: { 
-    type: Number, 
-    default: null, // Default can be null if unset
-  },
-  uploadedAt: { type: Date, required: true, default: Date.now },
-});
+// const VideoSchema = new mongoose.Schema({
+//   url: { 
+//     type: String, 
+//     validate: {
+//       validator: function(v) {
+//         return /^(https?:\/\/[^\s]+)$/.test(v); // Valid URL regex
+//       },
+//       message: props => `${props.value} is not a valid URL!`
+//     },
+//   },
+//   videoNumber: { 
+//     type: Number, 
+//     default: null, // Default can be null if unset
+//   },
+//   uploadedAt: { type: Date, required: true, default: Date.now },
+// });
 
 
 const ShotsPlayedSchema = new mongoose.Schema({
@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema(
       type: Date, 
       default: null 
     },
-    videos: { type: [VideoSchema], default: [] },
+    // videos: { type: [VideoSchema], default: [] },
     shotsPlayed: [ShotsPlayedSchema],
   },
   { timestamps: true }
