@@ -33,22 +33,23 @@ const ProfileEdit = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userEmail = localStorage.getItem('userEmail');
+    const userEmail = localStorage.getItem("userEmail");
     if (userEmail) {
       axios
         .get(`http://localhost:3001/user?email=${userEmail}`)
         .then((response) => {
           const { email, name, password } = response.data;
-          const [firstName, lastName] = name.split(' ');
+          const [firstName, lastName] = name.split(" ");
           const fetchedData = { firstName, lastName, email, password };
-          setInitialProfileData(fetchedData); 
+          setInitialProfileData(fetchedData);
           dispatch(setProfileData(fetchedData));
         })
         .catch((error) => {
-          console.error('Error fetching user data', error);
+          console.error("Error fetching user data", error);
         });
     }
   }, [dispatch]);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -93,21 +94,28 @@ const ProfileEdit = () => {
       return;
     }
 
+    const updatedData = { ...profileData };
+
+    // Remove the password field if it hasn't been modified
+    if (profileData.password === "********") {
+      delete updatedData.password;
+    }
+  
     axios
-      .post('http://localhost:3001/updateUser', profileData)
+      .post("http://localhost:3001/updateUser", updatedData)
       .then((response) => {
-        console.log('Profile updated successfully:', response.data);
-        toast.success('Profile updated successfully!', {});
-        setInitialProfileData(profileData); 
+        console.log("Profile updated successfully:", response.data);
+        toast.success("Profile updated successfully!");
+        setInitialProfileData(profileData); // Update the initial data state
       })
       .catch((error) => {
-        console.error('Error updating profile:', error);
-        toast.error('Error updating profile:');
+        console.error("Error updating profile:", error);
+        toast.error("Error updating profile");
       });
   };
 
   const handleCancel = () => {
-    dispatch(setProfileData(initialProfileData)); 
+    dispatch(setProfileData(initialProfileData));
   };
 
   const handleDelete = () => {
@@ -149,8 +157,9 @@ const ProfileEdit = () => {
             justifyContent: 'flex-start',
           }}
         >
-          <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600" sx={{            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-}}>
+          <Typography component="h1" variant="h5" alignSelf="flex-start" fontWeight="600" sx={{
+            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+          }}>
             Edit Profile
           </Typography>
           <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
