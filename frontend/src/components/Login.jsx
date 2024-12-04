@@ -37,7 +37,7 @@ const Login = () => {
       .post("http://localhost:3001/login", { email, password })
       .then((result) => {
         setLoading(false);
-        if (result.data.message === "Login successful") { // Match the backend response
+        if (result.data.message === "Login successful") { 
           toast.success("Login successfully!", {});
           localStorage.setItem("userEmail", email);
           setTimeout(() => {

@@ -15,15 +15,16 @@ app.use(express.json());
 app.use(cors());
 
 
-
-
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Or your preferred email service
+
+
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
   }
+
 });
 
 require('dotenv').config();
@@ -67,7 +68,7 @@ app.post('/register', async (req, res) => {
     // Create the new user
     const newUser = new UserModel({
       email,
-      password: hashedPassword, 
+      password: hashedPassword,
       name,
     });
 
@@ -84,7 +85,6 @@ app.post('/register', async (req, res) => {
 
 
 // Login user
-
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -128,6 +128,7 @@ app.post('/forgot-password', async (req, res) => {
       return res.status(404).json({ message: 'No user found with this email' });
     }
 
+    // Generate the reset password token
     user.generatePasswordResetToken();
     console.log('Generated token:', user.resetPasswordToken);
     await user.save();
@@ -135,10 +136,16 @@ app.post('/forgot-password', async (req, res) => {
     const resetURL = `http://localhost:3000/reset-password/${user.resetPasswordToken}`;
     console.log('Reset URL:', resetURL);
 
-    const mailOptions = { /* email setup */ };
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent');
+    const mailOptions = {
+      from: 'your-email@gmail.com', // From address
+      to: user.email,  // Recipient address (user's email)
+      subject: 'Password Reset Request',
+      text: `Click the link to reset your password: ${resetURL}`, // Text body of the email
+    };
 
+    // Send email with password reset link
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully');
     res.status(200).json({ message: 'Password reset link sent' });
   } catch (error) {
     console.error('Error occurred:', error);
