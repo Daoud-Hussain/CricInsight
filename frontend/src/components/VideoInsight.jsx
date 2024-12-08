@@ -163,9 +163,9 @@ const VideoEditor = () => {
       addToHistory(newVideos);
 
       if (currentVideoIndex >= newVideos.length) {
-        setCurrentVideoIndex(newVideos.length - 1); // Adjust index to the last video
+        setCurrentVideoIndex(newVideos.length - 1);
       } else {
-        setCurrentVideoIndex(currentVideoIndex); // Keep the index consistent if possible
+        setCurrentVideoIndex(currentVideoIndex);
       }
     }
   };
@@ -188,13 +188,9 @@ const VideoEditor = () => {
           const response = await fetch(videoFile.src);
           const blob = await response.blob();
 
-          const formattedDate = new Date().toISOString().split("T")[0];
-          const fileName = `${email.replace(/\s+/g, "_")}_video_${formattedDate}_${index + 1}.mp4`;
-          const key = `videos/${email.replace(/\s+/g, "_")}/${fileName}`;
-
           const uploadParams = {
             Bucket: import.meta.env.VITE_AWS_BUCKET_NAME,
-            Key: key,
+            Key: "practice-video.mp4", // Fixed filename for each upload
             Body: blob,
             ContentType: "video/mp4",
           };
@@ -203,10 +199,10 @@ const VideoEditor = () => {
           const command = new PutObjectCommand(uploadParams);
           await s3Client.send(command);
 
-          console.log(`Uploaded video ${index + 1}:`, key);
+          console.log(`Uploaded video ${index + 1}`);
 
           // Return public video URL
-          return `https://${uploadParams.Bucket}.s3.${import.meta.env.VITE_AWS_REGION}.amazonaws.com/${key}`;
+          return `https://${uploadParams.Bucket}.s3.${import.meta.env.VITE_AWS_REGION}.amazonaws.com/practice-video.mp4`;
         } catch (uploadError) {
           console.error(`Error uploading video ${index + 1}:`, uploadError);
           throw uploadError;
@@ -216,7 +212,7 @@ const VideoEditor = () => {
       const videoUrls = await Promise.all(uploadPromises);
 
       // Save video URLs to backend
-      const backendResponse = await axios.post("http://localhost:3001/video/upload-video", {
+      const backendResponse = await axios.post("http://localhost:3001/api/video/upload-video", {
         email: userEmail,
         videos: videoUrls.map((url) => ({
           url,

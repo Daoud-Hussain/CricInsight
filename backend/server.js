@@ -1,16 +1,46 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const passport = require('passport');
+const session = require('express-session');
+
 
 // Environment variables
 dotenv.config();
 
-// Initialize app
 const app = express();
-app.use(express.json());
-app.use(cors());
 
+// Middleware
+app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true
+}));
+
+// Session middleware (required for passport)
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Serialize and deserialize user for session management
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await UserModel.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
 // Connect to MongoDB
 require('./config/database');
 
@@ -25,6 +55,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/video', videoRoutes);
 app.use('/api/feedback', feedbackRoutes);
+
+app.use(passport.initialize());
+
 
 // Start server
 const PORT = 3001;

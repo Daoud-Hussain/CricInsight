@@ -56,13 +56,14 @@ const Login = () => {
 
 
   const handleFacebookLogin = () => {
-    // Implement Facebook login functionality here
+    // Redirect to Facebook login endpoint
+    window.location.href = 'http://localhost:3001/api/auth/facebook';
   };
 
   const onSuccess = (response) => {
     const googleToken = response.credential;
 
-    axios.post('http://localhost:3001/api/google-login', { token: googleToken }) // Updated endpoint
+    axios.post('http://localhost:3001/api/auth/google-login', { token: googleToken }) // Updated endpoint
       .then((res) => {
         const userEmail = res.data.email;
         localStorage.setItem('userEmail', userEmail);
@@ -352,7 +353,7 @@ const Login = () => {
                   },
                 }}
               >
-                Continue with Facebook
+                Sign in with Facebook
               </Button>
             </Box>
 
