@@ -1,6 +1,12 @@
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/User');
+const { OAuth2Client } = require('google-auth-library');
 const { transporter } = require('../config');
+const passport = require('passport');
+const dotenv = require('dotenv');
+
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 
 // Register user
 exports.registerUser = async (req, res) => {
@@ -110,13 +116,15 @@ exports.resetPassword = async (req, res) => {
 };
 
 // Google login
+const client = new OAuth2Client('84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com');
+
 exports.googleLogin = async (req, res) => {
   const { token } = req.body;
 
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: "YOUR_GOOGLE_CLIENT_ID",
+      audience: "84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com",
     });
 
     const { name, email } = ticket.getPayload();
@@ -133,3 +141,35 @@ exports.googleLogin = async (req, res) => {
     res.status(500).json({ message: "Google login failed" });
   }
 };
+
+
+
+// Facebook Login Strategy Configuration
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "http://localhost:3001/api/auth/facebook/callback",
+  profileFields: ['id', 'displayName', 'emails']
+},
+async (accessToken, refreshToken, profile, done) => {
+  try {
+    let user = await UserModel.findOne({ 
+      facebookId: profile.id 
+    });
+
+    if (!user) {
+      user = new UserModel({
+        facebookId: profile.id,
+        name: profile.displayName,
+        email: profile.emails && profile.emails[0] ? profile.emails[0].value : null
+      });
+
+      await user.save();
+    }
+
+    return done(null, user);
+  } catch (error) {
+    return done(error, false);
+  }
+}
+));
