@@ -114,7 +114,7 @@ const PlayingAreas = () => {
     'Point', 
     'Third man', 
     'Fine Leg',
-    'Square Leg'
+    'Square Leg (12%)'
   ];
 
   return (
@@ -204,6 +204,7 @@ const PlayingAreas = () => {
           </React.Fragment>
         );
       })}
+
       
       {/* Pitch/Wicket Representation */}
       <Box 

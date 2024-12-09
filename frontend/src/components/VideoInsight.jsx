@@ -20,8 +20,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
+
 const s3Client = new S3Client({
   region: import.meta.env.VITE_AWS_REGION,
   credentials: {
@@ -75,6 +76,17 @@ const VideoEditor = () => {
       setIsVideoProcessing(false);
     }
   };
+
+  async function runModelOnEC2() {
+    try {
+      const response = await axios.post('http://localhost:3001/execute-model');
+      console.log('runn')
+      toast.success('Video Analysis Executed');
+    } catch (error) {
+      console.error('Error executing model:', error);
+      toast.error('Failed to execute model on EC2');
+    }
+  }
 
 
   const onDrop = (acceptedFiles) => {
@@ -173,11 +185,14 @@ const VideoEditor = () => {
 
   const navigate = useNavigate()
 
+  const [loadingMessage, setLoadingMessage] = useState("Uploading video...");
+
   const handleDoneClick = async () => {
     try {
       setLoading(true);
       setBlurred(true);
       setUploading(true);
+      setLoadingMessage("Uploading video...");
 
       // Fetch user details based on email
       const email = localStorage.getItem('userEmail');
@@ -223,33 +238,34 @@ const VideoEditor = () => {
       // Check if backend response is successful
       if (backendResponse.status === 200 || backendResponse.status === 201) {
         setUploadSuccess(true);
-        setLoading(false);
-        setBlurred(false);
         toast.success("Video uploaded successfully!");
+
+        setLoadingMessage("Processing video...");
+        await runModelOnEC2();
 
         setTimeout(() => {
           navigate("/dashboard/visualization");
         }, 2000);
       } else {
-        // Even if backend returns non-200 status, treat it as a partial success
         toast.warn("Videos uploaded to S3, but there might be an issue with backend recording.");
+        setLoadingMessage("Processing video...");
+        await runModelOnEC2();
+
         setTimeout(() => {
           navigate("/dashboard/visualization");
         }, 5000);
       }
     } catch (err) {
       console.error("Potential upload issue:", err);
-
-      // Check if S3 upload might have succeeded despite backend error
       if (err.response && err.response.status === 500) {
-        // Specifically handle 500 error
         toast.success("Videos uploaded successfully! Backend might be experiencing temporary issues.");
+        setLoadingMessage("Processing video...");
+        await runModelOnEC2();
 
         setTimeout(() => {
           navigate("/dashboard/visualization");
         }, 5000);
       } else {
-        // For other types of errors
         toast.error("An unexpected error occurred during upload.");
       }
     } finally {
@@ -258,6 +274,7 @@ const VideoEditor = () => {
       setBlurred(false);
     }
   };
+
 
 
   useEffect(() => {
@@ -479,10 +496,11 @@ const VideoEditor = () => {
             width={100}
           />
           <Typography variant="h6" align="center">
-            Uploading video...
+            {loadingMessage}
           </Typography>
         </Box>
       )}
+
 
       <input
         type="file"
