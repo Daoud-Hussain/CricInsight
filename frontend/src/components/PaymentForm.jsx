@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -228,7 +227,7 @@ const PaymentForm = () => {
             width: 60,
             height: 60,
             objectFit: "contain",
-            mr: 2, // space between logo and text
+            mr: 2,
           }}
         />
         <Box>
