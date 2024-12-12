@@ -79,7 +79,7 @@ const VideoEditor = () => {
 
   async function runModelOnEC2() {
     try {
-      const response = await axios.post('http://localhost:3001/execute-model');
+      const response = await axios.post('http://localhost:3001/api/model/execute');
       console.log('runn')
       toast.success('Video Processed successfully ');
     } catch (error) {
@@ -205,7 +205,7 @@ const VideoEditor = () => {
 
           const uploadParams = {
             Bucket: import.meta.env.VITE_AWS_BUCKET_NAME,
-            Key: "practice-video.mp4", // Fixed filename for each upload
+            Key: "practice-video.mp4", 
             Body: blob,
             ContentType: "video/mp4",
           };
