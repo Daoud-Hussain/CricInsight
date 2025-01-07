@@ -1,6 +1,10 @@
 # CricInsight (Be Your Own Coach)
 
+![CRICKINSIGHTS BANNER-1](https://github.com/user-attachments/assets/aa5e2f38-04d3-485f-9f3f-3183adf5b3eb)
+
+
 CricInsight is an innovative web application designed to revolutionize cricket coaching. With advanced AI and computer vision, it helps players analyze their practice sessions, detect and classify shots, identify flaws, and provides actionable insights for improvement. CricInsight acts as your personal coach to elevate your game.
+
 
 ## 🏏 Problem Statement
 
