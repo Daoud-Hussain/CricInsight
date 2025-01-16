@@ -54,8 +54,8 @@ jobs:
           docker pull daoudhussaindev/frontend:latest
           docker pull daoudhussaindev/backend:latest
 
-      - name: Run Services
-        run: |
-          docker-compose -f ./docker-compose.yml up -d
-        working-directory: ./
+      # - name: Run Services
+      #   run: |
+      #     docker-compose -f ./docker-compose.yml up -d
+      #   working-directory: ./
 
