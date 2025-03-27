@@ -60,8 +60,17 @@ app.use('/api/feedback', feedbackRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/model', modelRoutes); 
 
+
+// ✅ Health check route
+app.get('/', (req, res) => {
+  res.send('CricInsight Backend is running');
+});
+
+
+
 // Start server
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server listening on http://127.0.0.1:${PORT}`);
 });
+
