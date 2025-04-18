@@ -11,6 +11,7 @@ import {
   Paper 
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
+import {  Zoom } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassword = () => {
@@ -67,7 +68,9 @@ const ResetPassword = () => {
           padding: 4 
         }}
       >
-        <ToastContainer />
+       <ToastContainer
+          transition={Zoom}
+        />
         <Typography component="h1" variant="h5">
           Reset Password
         </Typography>

@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import { Card, CardContent, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import {  Zoom } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 const CheckoutForm = ({ amount, data }) => {
   const stripe = useStripe();
@@ -102,7 +103,9 @@ const CheckoutForm = ({ amount, data }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Box mb={3}>
-        <ToastContainer />
+       <ToastContainer
+        transition={Zoom}
+      />
 
         <FormControl fullWidth variant="outlined">
           <InputLabel htmlFor="cardHolderName">Card Holder Name</InputLabel>

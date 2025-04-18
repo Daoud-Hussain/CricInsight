@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import loaderAnimation from "./Loader.json";
 import Lottie from "react-lottie";
+import {  Zoom } from 'react-toastify';
 
 const Visualization = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -185,7 +186,9 @@ const Visualization = () => {
         fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
       }}
     >
-      <ToastContainer />
+     <ToastContainer
+        transition={Zoom}
+      />
       {loading && (
         <Box
           sx={{

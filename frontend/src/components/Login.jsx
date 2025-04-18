@@ -21,6 +21,9 @@ import CircularProgressWithLabel from "@mui/material/CircularProgress";
 import GoogleIcon from "/google-icon.svg";
 import FacebookIcon from "/facebook-icon.svg";
 import { GoogleLogin } from "@react-oauth/google";
+import {  Zoom } from 'react-toastify';
+
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -62,18 +65,51 @@ const Login = () => {
 
   const onSuccess = (response) => {
     const googleToken = response.credential;
-
-    axios.post('https://cricinsight-backend.vercel.app/api/auth/google-login', { token: googleToken }) // Updated endpoint
+    
+    const loadingToastId = toast.info('Processing Google login...', {
+      position: "top-right",  
+      autoClose: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      theme: "colored", 
+      className: "toast-message" 
+    });
+  
+    axios.post('https://cricinsight-backend.vercel.app/api/auth/google-login', { token: googleToken })
       .then((res) => {
         const userEmail = res.data.email;
         localStorage.setItem('userEmail', userEmail);
-        toast.success('Google login successful!');
+        
+        // Update to success toast in top-right
+        toast.update(loadingToastId, {
+          render: 'Google login successful!',
+          type: 'success',
+          isLoading: false,
+          position: "top-right",  // Consistent position
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          theme: "colored",  // Match existing style
+          className: "toast-success"  // Your success class
+        });
+        
         setTimeout(() => {
-          navigate("/dashboard");  // Ensure '/dashboard' is correct route
+          navigate("/dashboard");
         }, 2000);
       })
       .catch((error) => {
-        toast.error('Google login failed. Please try again.');
+        // Update to error toast in top-right
+        toast.update(loadingToastId, {
+          render: 'Google login failed. Please try again.',
+          type: 'error',
+          isLoading: false,
+          position: "top-right",  // Consistent position
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          theme: "colored",  // Match existing style
+          className: "toast-error"  // Your error class
+        });
       });
   };
 
@@ -91,7 +127,10 @@ const Login = () => {
         overflow: "hidden",
       }}
     >
-      <ToastContainer />
+      <ToastContainer
+        transition={Zoom} 
+      />
+      
       {/* Left Section */}
       <Grid
         item

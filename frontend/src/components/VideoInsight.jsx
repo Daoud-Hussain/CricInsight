@@ -19,6 +19,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {  Zoom } from 'react-toastify';
 
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
@@ -375,7 +376,9 @@ const VideoEditor = () => {
       height="100%"
       sx={{ padding: 3 }}
     >
-      <ToastContainer />
+     <ToastContainer
+    transition={Zoom}
+  />
       <Box
         display="flex"
         flexDirection="column"

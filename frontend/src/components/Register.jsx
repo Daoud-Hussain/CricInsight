@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { ToastContainer, toast } from "react-toastify";
+import {  Zoom } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import validator from "validator";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -125,7 +126,9 @@ const Register = () => {
 
   return (
     <div>
-      <ToastContainer />
+     <ToastContainer
+    transition={Zoom}
+  />
       <Grid
         container
         component="main"

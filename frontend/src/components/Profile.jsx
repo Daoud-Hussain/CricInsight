@@ -3,6 +3,7 @@ import { TextField, Button, Grid, Typography, Container, Box, Dialog, DialogActi
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import {  Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -163,7 +164,9 @@ const ProfileEdit = () => {
             Edit Profile
           </Typography>
           <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
-            <ToastContainer />
+           <ToastContainer
+            transition={Zoom}
+          />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField

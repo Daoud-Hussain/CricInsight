@@ -5,6 +5,8 @@ import axios from "axios";
 import { setProfileData } from "../../profileSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {  Zoom } from 'react-toastify';
+
 
 const FeedbackForm = () => {
   const dispatch = useDispatch();
@@ -465,6 +467,7 @@ const FeedbackForm = () => {
       </form>
 
       <ToastContainer
+        transition={Zoom}
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}

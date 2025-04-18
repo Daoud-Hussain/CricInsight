@@ -51,7 +51,7 @@ const ForgetPassword = () => {
           padding: 4 
         }}
       >
-        <ToastContainer />
+       
         <Typography component="h1" variant="h5">
           Forget Password
         </Typography>
