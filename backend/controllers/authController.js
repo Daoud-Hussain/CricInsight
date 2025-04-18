@@ -116,7 +116,7 @@ exports.resetPassword = async (req, res) => {
 };
 
 // Google login
-const client = new OAuth2Client('84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 exports.googleLogin = async (req, res) => {
   const { token } = req.body;
@@ -124,7 +124,7 @@ exports.googleLogin = async (req, res) => {
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: "84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com",
+      audience: process.env.GOOGLE_CLIENT_ID,
     });
 
     const { name, email } = ticket.getPayload();

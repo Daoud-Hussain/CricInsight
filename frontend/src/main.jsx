@@ -6,9 +6,12 @@ import { Provider } from "react-redux";
 import store from "./components/store";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+// Get client ID from environment variable
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 ReactDOM.render(
   <Provider store={store}>
-    <GoogleOAuthProvider clientId="84137165849-n5rpca9u1cfmerfb7um368peoc94doq5.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={googleClientId}>
       <App />
     </GoogleOAuthProvider>
   </Provider>,
