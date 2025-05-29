@@ -4,8 +4,9 @@ import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import Lottie from 'react-lottie';
 import loaderAnimation from './Loader.json';
-import { toast } from 'react-toastify';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Zoom } from 'react-toastify';
 const PlayingAreas = () => {
   const [sectors, setSectors] = useState([
     'B',
@@ -68,6 +69,7 @@ const PlayingAreas = () => {
         }
       } catch (error) {
         console.error('Error fetching area percentages:', error);
+        toast.error("Please upload data first!");
       } finally {
         setLoading(false);
       }
@@ -104,6 +106,7 @@ const PlayingAreas = () => {
           overflow: 'hidden',
         }}
       >
+        <ToastContainer transition={Zoom} />
         {loading ? (
           <Box
             position="absolute"
