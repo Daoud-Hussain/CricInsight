@@ -24,14 +24,16 @@ Cricket players, especially amateurs, lack access to expert coaching and insight
 
 | Component         | Technology                                   |
 |-------------------|---------------------------------------------|
-| **Frontend**      | React, Material-UI            |
+| **Frontend**      | React, Material-UI                           |
 | **Backend**       | Node.js, Express.js                         |
-| **Database**      | MongoDB (for data storage), DynamoDB (for model outputs)       |
-| **Payment Gateway**      | Stripe    |
-| **DevOps**        | Docker, Github Actions, AWS (Elastic Beanstalk)    |
+| **Database**      | MongoDB (for data storage), DynamoDB (for model outputs) |
+| **Payment Gateway**| Stripe                                     |
+| **Computer Vision / ML** | MediaPipe, OpenCV, TensorFlow (LSTM)         |
+| **DevOps**        | Docker, GitHub Actions, AWS (Elastic Beanstalk) |
 | **Cloud Services**| - **AWS EC2:** Hosts AI/ML models           |
 |                   | - **AWS S3:** Stores user-uploaded videos   |
 |                   | - **AWS Lambda:** Triggers model execution  |
+
 
 
 ## 📸 Screenshots
